@@ -1,0 +1,17 @@
+{
+  "name": "examinate-service",
+  "version": "1.0.0",
+  "description": "Servicio de node.js para la implementacion de examenes en linea",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "javascript",
+    "mongo",
+    "examinate"
+  ],
+  "author": "Jesus Antonio Garcia Zurita",
+  "license": "ISC"
+}
