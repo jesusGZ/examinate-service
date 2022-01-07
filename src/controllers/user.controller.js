@@ -1,6 +1,7 @@
 const { SECURITY } = require('../core/config');
 const bcrypt = require('../utils/bcrypt');
 const USER_SERVICE = require('../services/user.service');
+const logger = require('../utils/logger');
 
 module.exports = class UsuarioProcess {
 	crearUsuario(data) {
@@ -21,7 +22,7 @@ module.exports = class UsuarioProcess {
 
 				resolve({ status: 'success', data: result, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
-				console.error(error);
+				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor');
 			}
 		});
@@ -37,8 +38,8 @@ module.exports = class UsuarioProcess {
 
 				resolve({ status: 'success', data: datos_usuario, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
-				console.error(error);
-				reject('Error internodel servidor');
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error interno del servidor');
 			}
 		});
 	}
@@ -58,8 +59,8 @@ module.exports = class UsuarioProcess {
 
 				resolve({ status: 'success', data: users, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
-				console.error(error);
-				reject('Error internodel servidor');
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error interno del servidor');
 			}
 		});
 	}
@@ -90,7 +91,7 @@ module.exports = class UsuarioProcess {
 
 				resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
 			} catch (error) {
-				console.error(error);
+				logger.error(`${error.status} - ${error.message}`);
 				reject('Error interno del servidor');
 			}
 		});
@@ -112,7 +113,7 @@ module.exports = class UsuarioProcess {
 
 				resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
 			} catch (error) {
-				console.error(error);
+				logger.error(`${error.status} - ${error.message}`);
 				reject('Error interno del servidor');
 			}
 		});
