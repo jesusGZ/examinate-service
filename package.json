@@ -13,5 +13,12 @@
     "examinate"
   ],
   "author": "Jesus Antonio Garcia Zurita",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "mongoose": "^6.1.5",
+    "morgan": "^1.10.0"
+  }
 }
