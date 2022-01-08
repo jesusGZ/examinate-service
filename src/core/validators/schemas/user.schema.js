@@ -2,20 +2,20 @@ const validaciones = require('../validations');
 
 const { Joi } = validaciones;
 
-const usuario = Joi.object().keys({
+const user = Joi.object().keys({
 	password: validaciones.password.required(),
 	user: validaciones.username.required(),
-	nombre: validaciones.nombre.required(),
+	name: validaciones.nombre.required(),
 	email: validaciones.email.required(),
-	activo: validaciones.activo,
+	active: validaciones.activo,
 });
 
-const usuario_up = Joi.object().keys({
+const user_up = Joi.object().keys({
 	password: validaciones.password.required(),
-	nombre: validaciones.nombre.required(),
+	name: validaciones.nombre.required(),
 	user: validaciones.username.required(),
 	email: validaciones.email.required(),
-	activo: validaciones.activo,
+	active: validaciones.activo,
 });
 
 const id = Joi.object().keys({
@@ -26,7 +26,7 @@ const autenticarPeticion = Joi.object().keys({
 	token: validaciones.jwt.required(),
 });
 
-const cambiarPassword = Joi.object().keys({
+const reset_password = Joi.object().keys({
 	password: validaciones.password.required(),
 	user: validaciones.username.required(),
 	secret: validaciones.secret.required(),
@@ -34,8 +34,8 @@ const cambiarPassword = Joi.object().keys({
 
 module.exports = {
 	autenticarPeticion,
-	cambiarPassword,
-	usuario_up,
-	usuario,
+	reset_password,
+	user_up,
+	user,
 	id,
 };

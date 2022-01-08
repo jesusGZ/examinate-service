@@ -4,16 +4,16 @@ const USER_SERVICE = require('../services/user.service');
 const logger = require('../utils/logger');
 
 module.exports = class UsuarioProcess {
-	crearUsuario(data) {
+	createUser(data) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const user_service = new USER_SERVICE();
 
-				const datos_user = await user_service.getUser(data.user);
-				if (datos_user) return reject('El usuario ya esta registrado');
+				const data_user = await user_service.getUser(data.user);
+				if (data_user) return reject('El usuario ya esta registrado');
 
-				const datos_email = await user_service.getEmail(data.email);
-				if (datos_email) return reject('El email ya esta registrado');
+				const data_email = await user_service.getEmail(data.email);
+				if (data_email) return reject('El email ya esta registrado');
 
 				const password_encriptado = await bcrypt.hash(data.password);
 				data.password = password_encriptado;
@@ -97,19 +97,19 @@ module.exports = class UsuarioProcess {
 		});
 	}
 
-	cambiarPassword(data) {
+	resetPassword(data) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				if (data.secret !== SECURITY.SECRET_KEY) return reject('No esta autorizado para realizar esta acción');
 
 				const user_service = new USER_SERVICE();
 
-				const datos_usuario = await user_service.getUser(data.user);
-				if (!datos_usuario) return reject('No se encontraron datos de usuario');
+				const data_user = await user_service.getUser(data.user);
+				if (!data_user) return reject('No se encontraron datos de usuario');
 
 				const passwordNueva = await bcrypt.hash(data.password);
 
-				await user_service.updateUserPassword(datos_usuario, passwordNueva);
+				await user_service.updateUserPassword(data_user, passwordNueva);
 
 				resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
 			} catch (error) {
