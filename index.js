@@ -2,13 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const compression = require('compression');
 const swaggerUi = require('swagger-ui-express');
+
 const swaggerDoc = require('./Docs/swagger');
 const error = require('./src/core/middlewares/error');
 const verbos_http = require('./src/core/middlewares/verbos_http');
 const { SERVICE } = require('./src/core/config/index');
 const DB = require('./src/core/db/connection');
 
-const fs = require('fs');
 const https = require('https');
 const http = require('http');
 const app = express();
