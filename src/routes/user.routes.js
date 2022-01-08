@@ -18,7 +18,7 @@ module.exports = (app) => {
 	app.get('/user', validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
 		try {
 			const { id } = req.headers;
-			const result = await user_controller.obtenerUsuario(id);
+			const result = await user_controller.getUser(id);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -27,7 +27,7 @@ module.exports = (app) => {
 
 	app.get('/users', async (req, res, next) => {
 		try {
-			const result = await user_controller.obtenerUsuarios();
+			const result = await user_controller.getUsers();
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -38,7 +38,7 @@ module.exports = (app) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 			const { id } = req.headers;
-			const result = await user_controller.actualizarUsuario({ id, name, email, user, password, active });
+			const result = await user_controller.updateUser({ id, name, email, user, password, active });
 			res.send(result);
 		} catch (err) {
 			next(err);

@@ -2,9 +2,9 @@ const userModel = require('../models/user.model');
 
 module.exports = class userService {
 	async insertUser(data) {
-		const nuevo_usuario = await new userModel(data);
-		await nuevo_usuario.save();
-		return nuevo_usuario;
+		const new_user = await new userModel(data);
+		await new_user.save();
+		return new_user;
 	}
 
 	async updateUser(data) {

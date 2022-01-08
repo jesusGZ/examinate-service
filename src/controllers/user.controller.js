@@ -15,8 +15,8 @@ module.exports = class UsuarioProcess {
 				const data_email = await user_service.getEmail(data.email);
 				if (data_email) return reject('El email ya esta registrado');
 
-				const password_encriptado = await bcrypt.hash(data.password);
-				data.password = password_encriptado;
+				const encrypted_password = await bcrypt.hash(data.password);
+				data.password = encrypted_password;
 
 				const result = await user_service.insertUser(data);
 
@@ -28,15 +28,15 @@ module.exports = class UsuarioProcess {
 		});
 	}
 
-	obtenerUsuario(id) {
+	getUser(id) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const user_service = new USER_SERVICE();
 
-				const datos_usuario = await user_service.getUserById(id);
-				if (!datos_usuario) return reject('No se encontraron datos de usuario');
+				const data_user = await user_service.getUserById(id);
+				if (!data_user) return reject('No se encontraron datos de usuario');
 
-				resolve({ status: 'success', data: datos_usuario, message: 'Petición realizada exitosamente.' });
+				resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error interno del servidor');
@@ -44,13 +44,13 @@ module.exports = class UsuarioProcess {
 		});
 	}
 
-	obtenerUsuarios() {
+	getUsers() {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const user_service = new USER_SERVICE();
-				const datos_usuarios = await user_service.getAllUsers();
+				const data_users = await user_service.getAllUsers();
 
-				const users = datos_usuarios.map((item) => {
+				const users = data_users.map((item) => {
 					item = item.toObject();
 					delete item.password;
 					delete item.__v;
@@ -65,26 +65,26 @@ module.exports = class UsuarioProcess {
 		});
 	}
 
-	actualizarUsuario(data) {
+	updateUser(data) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const user_service = new USER_SERVICE();
 
-				const datos_usuario = await user_service.getUserById(data.id);
-				if (!datos_usuario) return reject('No se encontraron datos de usuario');
+				const verify_user = await user_service.getUserById(data.id);
+				if (!verify_user) return reject('No se encontraron datos de usuario');
 
 				const data_user = await user_service.getUserDistincId(data.user, data.id);
 				if (data_user) return reject('El nombre de usuario ya esta registrado');
 
-				const datos_email = await user_service.getEmailDistincId(data.email, data.id);
-				if (datos_email) return reject('El email ya esta registrado');
+				const data_email = await user_service.getEmailDistincId(data.email, data.id);
+				if (data_email) return reject('El email ya esta registrado');
 
 				if (data.password == undefined) {
 					const data_password = await user_service.getPasswordById(data.id);
 					data.password = data_password.password;
 				} else {
-					const password_encriptado = await bcrypt.hash(data.password);
-					data.password = password_encriptado;
+					const encrypted_password = await bcrypt.hash(data.password);
+					data.password = encrypted_password;
 				}
 
 				await user_service.updateUser(data);
@@ -107,9 +107,9 @@ module.exports = class UsuarioProcess {
 				const data_user = await user_service.getUser(data.user);
 				if (!data_user) return reject('No se encontraron datos de usuario');
 
-				const passwordNueva = await bcrypt.hash(data.password);
+				const new_password = await bcrypt.hash(data.password);
 
-				await user_service.updateUserPassword(data_user, passwordNueva);
+				await user_service.updateUserPassword(data_user, new_password);
 
 				resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
 			} catch (error) {
