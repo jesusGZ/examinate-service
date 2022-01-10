@@ -32,10 +32,16 @@ const reset_password = Joi.object().keys({
 	secret: validaciones.secret.required(),
 });
 
+const login = Joi.object().keys({
+	password: validaciones.password.required(),
+	user: validaciones.username.required(),
+});
+
 module.exports = {
 	auth_request,
 	reset_password,
 	user_up,
 	user,
+	login,
 	id,
 };

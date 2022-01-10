@@ -106,4 +106,10 @@ module.exports = class userService {
 		if (data) data = data.toObject();
 		return data;
 	}
+
+	async getPasswordByUser(user) {
+		let data = await userModel.findOne({ user: user }, 'password');
+		if (data) data = data.toObject();
+		return data;
+	}
 };

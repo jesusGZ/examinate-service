@@ -1,8 +1,9 @@
+const jwt = require('jsonwebtoken');
+
 const { SECURITY } = require('../core/config');
 const bcrypt = require('../utils/bcrypt');
 const USER_SERVICE = require('../services/user.service');
 const logger = require('../utils/logger');
-
 module.exports = class UsuarioProcess {
 	createUser(data) {
 		return new Promise(async (resolve, reject) => {
@@ -112,6 +113,35 @@ module.exports = class UsuarioProcess {
 				await user_service.updateUserPassword(data_user, new_password);
 
 				resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error interno del servidor');
+			}
+		});
+	}
+
+	login(data) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const user_service = new USER_SERVICE();
+
+				const user_password = await user_service.getPasswordByUser(data.user);
+				if (!user_password) return reject('Credenciales Incorrectas');
+
+				const password = await bcrypt.compare(data.password, user_password);
+
+				const data_user = await user_service.getCredentials(data.user, password);
+				if (!data_user) return reject('Credenciales Incorrectas');
+
+				const access_token = await jwt.sign({
+					sub: data_user._id,
+					password: data_user.password,
+				});
+
+				delete data_user.password;
+				data_user.access_token = access_token;
+
+				resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error interno del servidor');
