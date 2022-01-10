@@ -6,7 +6,7 @@ const authJWT = require('../utils/auth');
 const user_controller = new USER_CONTROLLER();
 
 module.exports = (app) => {
-	app.post('/user', validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
+	app.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 			const result = await user_controller.createUser({ name, email, user, password, active });
@@ -16,7 +16,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('/user', validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
+	app.get('/user', authJWT, validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
 		try {
 			const { id } = req.headers;
 			const result = await user_controller.getUser(id);
@@ -35,7 +35,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.put('/user', validateRequestMiddleware(user_schema.user_up, 'body'), validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
+	app.put('/user', authJWT, validateRequestMiddleware(user_schema.user_up, 'body'), validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 			const { id } = req.headers;

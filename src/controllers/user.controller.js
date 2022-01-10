@@ -55,6 +55,7 @@ module.exports = class UsuarioProcess {
 					item = item.toObject();
 					delete item.password;
 					delete item.__v;
+					delete item.active;
 					return item;
 				});
 
