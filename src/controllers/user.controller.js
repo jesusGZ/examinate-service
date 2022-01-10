@@ -128,17 +128,20 @@ module.exports = class UsuarioProcess {
 				const user_password = await user_service.getPasswordByUser(data.user);
 				if (!user_password) return reject('Credenciales Incorrectas');
 
-				const password = await bcrypt.compare(data.password, user_password);
+				const password = await bcrypt.compare(data.password, user_password.password);
+				if (!password) return reject('Credenciales Incorrectas');
 
-				const data_user = await user_service.getCredentials(data.user, password);
+				const data_user = await user_service.getUserById(user_password._id);
 				if (!data_user) return reject('Credenciales Incorrectas');
 
-				const access_token = await jwt.sign({
-					sub: data_user._id,
-					password: data_user.password,
-				});
+				const payload = { payload: data_user._id.toString() };
+				const options = { expiresIn: SECURITY.JWT_EXPIRATION_USER };
+				const private_key = SECURITY.JWT_KEY + data_user.password;
+				const access_token = await jwt.sign(payload, private_key, options);
 
 				delete data_user.password;
+				delete data_user.__v;
+				delete data_user.active;
 				data_user.access_token = access_token;
 
 				resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });

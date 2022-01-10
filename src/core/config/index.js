@@ -13,8 +13,8 @@ module.exports = {
 		MONGO_DB_NAME: process.env.MONGO_DB_NAME,
 	},
 	SECURITY: {
-		JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
-		KEY: process.env.KEY,
+		SECRET_KEY: process.env.SECRET_KEY,
+		JWT_KEY: process.env.JWT_KEY,
 		JWT_EXPIRATION_USER: process.env.JWT_EXPIRATION_USER,
 	},
 };
