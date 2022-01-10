@@ -63,7 +63,7 @@ module.exports = class userService {
 	}
 
 	async getAllUsers() {
-		let data = await userModel.find();
+		const data = userModel.find();
 		return data;
 	}
 

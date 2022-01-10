@@ -9,10 +9,10 @@ module.exports = function verbosHttp(req, res, next) {
 	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
 
 	if (req.method) {
-		let methodValido = undefined;
-		methodValido = VERBOS.find((metodo) => metodo == req.method);
+		let valid_method = undefined;
+		valid_method = VERBOS.find((method) => method == req.method);
 
-		if (methodValido == undefined) {
+		if (valid_method == undefined) {
 			const error = {
 				response: { status: 'error', data: 'Metodo de peticion no valido' },
 				status: 405,

@@ -13,37 +13,19 @@ const password = Joi.string().trim().removeSpaces().min(5).max(16).hasSQLWords()
 const email = Joi.string().trim().removeSpaces().max(36).hasSQLWords().hasInvalidChars().email();
 const username = Joi.string().trim().removeSpaces().max(16).hasSQLWords().hasInvalidChars();
 const secret = Joi.string().trim().removeSpaces().max(16).hasSQLWords().hasInvalidChars();
-const organizacion = Joi.string().trim().min(5).max(25).hasSQLWords().hasInvalidChars();
-const especialidad = Joi.string().trim().min(5).max(30).hasSQLWords().hasInvalidChars();
-const institucion = Joi.string().trim().min(5).max(25).hasSQLWords().hasInvalidChars();
 const jwt = Joi.string().trim().removeSpaces().hasSQLWords().hasInvalidChars().jwt();
-const telefono_movil = Joi.string().trim().removeSpaces().length(10).isNotNumber();
-const titulo = Joi.string().trim().min(5).max(45).hasSQLWords().hasInvalidChars();
-const telefono_fijo = Joi.string().trim().removeSpaces().length(7).isNotNumber();
-const direccion = Joi.string().trim().max(50).hasSQLWords().hasInvalidChars();
-const nombre = Joi.string().trim().max(30).hasSQLWords().hasInvalidChars();
+const name = Joi.string().trim().max(30).hasSQLWords().hasInvalidChars();
 const link = Joi.string().trim().removeSpaces().uri().regex(regexUri);
-const cv_uri = Joi.string().trim().removeSpaces().uri();
 const fecha = Joi.date().format('YYYY-MM-DD');
-const activo = Joi.boolean();
+const active = Joi.boolean();
 const id = Joi.objectId();
-const periodo = Joi.date().format('YYYY-MM'); // Corregir validacion
 
 module.exports = {
-	telefono_movil,
-	telefono_fijo,
-	especialidad,
-	organizacion,
-	institucion,
-	direccion,
 	username,
 	password,
-	periodo,
-	titulo,
-	nombre,
+	name,
 	secret,
-	activo,
-	cv_uri,
+	active,
 	fecha,
 	email,
 	link,

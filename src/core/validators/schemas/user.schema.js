@@ -5,24 +5,24 @@ const { Joi } = validaciones;
 const user = Joi.object().keys({
 	password: validaciones.password.required(),
 	user: validaciones.username.required(),
-	name: validaciones.nombre.required(),
+	name: validaciones.name.required(),
 	email: validaciones.email.required(),
-	active: validaciones.activo,
+	active: validaciones.active,
 });
 
 const user_up = Joi.object().keys({
 	password: validaciones.password.required(),
-	name: validaciones.nombre.required(),
+	name: validaciones.name.required(),
 	user: validaciones.username.required(),
 	email: validaciones.email.required(),
-	active: validaciones.activo,
+	active: validaciones.active,
 });
 
 const id = Joi.object().keys({
 	id: validaciones.id.required(),
 });
 
-const autenticarPeticion = Joi.object().keys({
+const auth_request = Joi.object().keys({
 	token: validaciones.jwt.required(),
 });
 
@@ -33,7 +33,7 @@ const reset_password = Joi.object().keys({
 });
 
 module.exports = {
-	autenticarPeticion,
+	auth_request,
 	reset_password,
 	user_up,
 	user,

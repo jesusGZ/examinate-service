@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const ExaminerSchema = new Schema({
+const examiner_schema = new Schema({
 	user_id: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
 	exams: [
 		{
@@ -17,7 +17,7 @@ const ExaminerSchema = new Schema({
 					candidateName: String,
 					candidatePassword: String,
 					hasAppeared: Boolean,
-					Marks: Number,
+					marks: Number,
 					responses: [
 						{
 							questionId: String,
@@ -55,4 +55,4 @@ const ExaminerSchema = new Schema({
 	],
 });
 
-module.exports = mongoose.model('Examiner', ExaminerSchema);
+module.exports = mongoose.model('Examiner', examiner_schema);
