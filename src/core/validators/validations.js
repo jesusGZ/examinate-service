@@ -12,6 +12,7 @@ const Joi = baseJoi.extend(JoiDate).extend(customValidationsSanitizers.string);
 const password = Joi.string().trim().removeSpaces().min(5).max(16).hasSQLWords().hasInvalidChars();
 const email = Joi.string().trim().removeSpaces().max(36).hasSQLWords().hasInvalidChars().email();
 const username = Joi.string().trim().removeSpaces().max(16).hasSQLWords().hasInvalidChars();
+const examname = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 const secret = Joi.string().trim().removeSpaces().max(16).hasSQLWords().hasInvalidChars();
 const jwt = Joi.string().trim().removeSpaces().hasSQLWords().hasInvalidChars().jwt();
 const name = Joi.string().trim().max(30).hasSQLWords().hasInvalidChars();
@@ -22,6 +23,7 @@ const id = Joi.objectId();
 
 module.exports = {
 	username,
+	examname,
 	password,
 	name,
 	secret,
