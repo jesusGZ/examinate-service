@@ -21,4 +21,9 @@ module.exports = class ExamService {
 		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $addToSet: { exams: compiledObjectExam } });
 		return data;
 	}
+
+	async deleteExam(username, examId) {
+		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $pull: { exams: { _id: examId } } });
+		return data;
+	}
 };

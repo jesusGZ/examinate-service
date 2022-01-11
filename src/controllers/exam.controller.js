@@ -172,4 +172,22 @@ module.exports = class ExamProcess {
 			}
 		});
 	}
+
+	async deleteExam(data) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const exam_service = new EXAM_SERVICE();
+
+				await exam_service.deleteExam(data.username, data.examId);
+
+				const foundElement = await exam_service.getFoundElements(data.username);
+				if (!foundElement) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: foundElement, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
 };

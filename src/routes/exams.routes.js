@@ -66,4 +66,23 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
+
+	// --------- DELETE ----------
+
+	// request format to delete a class:
+	// req = {
+	//      examId: String
+	// }
+
+	app.delete('/exam', authJWT, validateRequestMiddleware(exam_schema.id, 'body'), async (req, res, next) => {
+		try {
+			const username = req.payload.username;
+			const examId = req.body.examId;
+
+			const result = await exam_controller.deleteExam({ username, examId });
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
 };
