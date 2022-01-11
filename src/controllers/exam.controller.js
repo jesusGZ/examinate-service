@@ -140,4 +140,36 @@ module.exports = class ExamProcess {
 				console.log(err.statusCode);
 			});
 	}
+
+	async getInfo(username) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const exam_service = new EXAM_SERVICE();
+
+				const foundElement = await exam_service.getFoundElements(username);
+				if (!foundElement) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: foundElement, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
+
+	async getExams(username) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const exam_service = new EXAM_SERVICE();
+
+				const foundElement = await exam_service.getFoundElements(username);
+				if (!foundElement) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: foundElement.exams, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
 };
