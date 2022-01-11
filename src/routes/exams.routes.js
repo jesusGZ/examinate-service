@@ -1,12 +1,7 @@
-const moment = require('moment');
-const mailjet = require('node-mailjet').connect(process.env.MAILJET_API_KEY, process.env.MAILJET_API_SECRET);
-
 const exam_schema = require('../core/validators/schemas/exam.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
 const EXAM_CONTROLLER = require('../controllers/exam.controller');
 const authJWT = require('../utils/auth');
-
-var ObjectId = require('mongodb').ObjectId;
 
 const exam_controller = new EXAM_CONTROLLER();
 

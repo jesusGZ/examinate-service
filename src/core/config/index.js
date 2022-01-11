@@ -17,4 +17,8 @@ module.exports = {
 		JWT_KEY: process.env.JWT_KEY,
 		JWT_EXPIRATION_USER: process.env.JWT_EXPIRATION_USER,
 	},
+	EMAIL: {
+		MAILJET_API_KEY: process.env.MAILJET_API_KEY,
+		MAILJET_API_SECRET: process.env.MAILJET_API_SECRET,
+	},
 };

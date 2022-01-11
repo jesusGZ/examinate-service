@@ -1,6 +1,9 @@
-const { SECURITY } = require('../core/config');
+const { EMAIL } = require('../core/config');
 const EXAM_SERVICE = require('../services/exam.service');
 const logger = require('../utils/logger');
+
+const moment = require('moment');
+const mailjet = require('node-mailjet').connect(EMAIL.MAILJET_API_KEY, EMAIL.MAILJET_API_SECRET);
 
 module.exports = class ExamProcess {
 	createExam(data) {
