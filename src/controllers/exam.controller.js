@@ -11,67 +11,67 @@ module.exports = class ExamProcess {
 			try {
 				const exam_service = new EXAM_SERVICE();
 
-				const foundElement = await exam_service.getFoundElement(data.username, data.classId);
-				if (!foundElement) return reject('No se encontro informacion');
+				const found_element = await exam_service.getFoundElement(data.username, data.classId);
+				if (!found_element) return reject('No se encontro informacion');
 
 				// checking if the exam with the same name already exists
-				if (foundElement.exams.find((e) => e.examName === data.examName) !== undefined) {
+				if (found_element.exams.find((e) => e.examName === data.examName) !== undefined) {
 					return reject('El nombre del examen ya existe.');
 				}
 
-				const classIndx = foundElement.classes.findIndex((e) => {
+				const class_indx = found_element.classes.findIndex((e) => {
 					return e._id.toString() === data.classId;
 				});
 
-				var compiledTotalMarks = 0;
+				var compiled_total_marks = 0;
 
-				const questionBankIndx = foundElement.questionBanks.findIndex((e) => {
+				const question_bank_indx = found_element.questionBanks.findIndex((e) => {
 					return e._id.toString() === data.questionBankId;
 				});
 
-				foundElement.questionBanks[questionBankIndx].questions.forEach((element) => {
-					compiledTotalMarks += element.marks;
+				found_element.questionBanks[question_bank_indx].questions.forEach((element) => {
+					compiled_total_marks += element.marks;
 				});
 
-				var compiledCandidates = [];
+				var compiled_candidates = [];
 
-				foundElement.classes[classIndx].candidates.forEach((element) => {
-					const randomPassword = (Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)).slice(0, 8);
+				found_element.classes[class_indx].candidates.forEach((element) => {
+					const random_password = (Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)).slice(0, 8);
 
-					compiledCandidates.push({
+					compiled_candidates.push({
 						candidateId: element.candidateId,
 						candidateName: element.candidateName,
-						candidatePassword: randomPassword,
+						candidatePassword: random_password,
 						hasAppeared: false,
 						Marks: 0,
 					});
 				});
 
-				var compiledObjectExam = {
+				var compiled_object_exam = {
 					examName: data.examName,
 					startDateTime: data.startDateTime,
 					endDateTime: data.endDateTime,
-					totalMarks: compiledTotalMarks,
+					totalMarks: compiled_total_marks,
 					questionBankId: data.questionBankId,
-					candidates: compiledCandidates,
+					candidates: compiled_candidates,
 				};
 
-				await exam_service.updateExam(data.username, compiledObjectExam);
+				await exam_service.updateExam(data.username, compiled_object_exam);
 
-				const foundElements = await exam_service.getFoundElements(data.username);
+				const found_elements = await exam_service.getFoundElements(data.username);
 
-				if (foundElements === null) {
+				if (found_elements === null) {
 					return reject('No existe ningún usuario para la clase.');
 				} else {
 					//Sending emails to all the compiled candidates
 
-					const candidateList = JSON.parse(JSON.stringify(foundElements.classes[classIndx].candidates));
+					const candidate_list = JSON.parse(JSON.stringify(found_elements.classes[class_indx].candidates));
 
-					await this.sendEmails(compiledObjectExam, foundElements, candidateList);
+					await this.sendEmails(compiled_object_exam, found_elements, candidate_list);
 
 					//----end of sending mail ----
 
-					resolve({ status: 'success', data: foundElements.exams, message: 'Petición realizada exitosamente.' });
+					resolve({ status: 'success', data: found_elements.exams, message: 'Petición realizada exitosamente.' });
 				}
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
@@ -80,21 +80,21 @@ module.exports = class ExamProcess {
 		});
 	}
 
-	sendEmails(compiledObjectExam, foundElement, candidateList) {
-		// console.log(compiledObjectExam);
+	sendEmails(compiled_object_exam, found_elements, candidate_list) {
+		// console.log(compiled_object_exam);
 		// console.log(foundElement);
-		// console.log(candidateList);
+		// console.log(candidate_list);
 
-		// compiledObjectExam.candidates.map((candidate) => {
+		// compiled_object_exam.candidates.map((candidate) => {
 		//     console.log(
-		//         candidateList.find((c) => c.candidateId === candidate.candidateId)
+		//         candidate_list.find((c) => c.candidateId === candidate.candidateId)
 		//     );
 
 		//     console.log();
 		// });
 
 		const request = mailjet.post('send', { version: 'v3.1' }).request({
-			Messages: compiledObjectExam.candidates.map((candidate) => {
+			Messages: compiled_object_exam.candidates.map((candidate) => {
 				return {
 					From: {
 						Email: `	
@@ -103,7 +103,7 @@ module.exports = class ExamProcess {
 					},
 					To: [
 						{
-							Email: `${candidateList.find((c) => c.candidateId === candidate.candidateId).candidateEmail}`,
+							Email: `${candidate_list.find((c) => c.candidateId === candidate.candidateId).candidateEmail}`,
 							Name: `${candidate.candidateName}`,
 						},
 					],
@@ -114,14 +114,14 @@ module.exports = class ExamProcess {
                         <h1>Credenciales de inicio de sesión y detalles para el examen</h1>
                         <table>
                             <tbody>
-                                <tr><td>Examen</td><td>${compiledObjectExam.examName}</td></tr>
-                                <tr><td>Hora de inicio</td><td>${moment(compiledObjectExam.startDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
-                                <tr><td>Hora de finalización</td><td>${moment(compiledObjectExam.endDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
+                                <tr><td>Examen</td><td>${compiled_object_exam.examName}</td></tr>
+                                <tr><td>Hora de inicio</td><td>${moment(compiled_object_exam.startDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
+                                <tr><td>Hora de finalización</td><td>${moment(compiled_object_exam.endDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
                             </tbody>
                         </table>
                         <table>
                             <tbody>
-                                <tr><td>enlace del examen</td><td><a href='https://midominio.com/examlive/${foundElement._id}/${foundElement.exams.find((e) => e.examName === compiledObjectExam.examName)._id}'>Link</a></td></tr>
+                                <tr><td>enlace del examen</td><td><a href='https://midominio.com/examlive/${found_elements._id}/${found_elements.exams.find((e) => e.examName === compiled_object_exam.examName)._id}'>Link</a></td></tr>
                                 <tr><td>Tú id: </td><td>${candidate.candidateId}</td></tr>
                                 <tr><td>Tú contraseña: </td><td>${candidate.candidatePassword}</td></tr>
                             </tbody>
@@ -146,10 +146,10 @@ module.exports = class ExamProcess {
 			try {
 				const exam_service = new EXAM_SERVICE();
 
-				const foundElement = await exam_service.getFoundElements(username);
-				if (!foundElement) return reject('No se encontro informacion');
+				const found_element = await exam_service.getFoundElements(username);
+				if (!found_element) return reject('No se encontro informacion');
 
-				resolve({ status: 'success', data: foundElement, message: 'Petición realizada exitosamente.' });
+				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor');
@@ -162,10 +162,10 @@ module.exports = class ExamProcess {
 			try {
 				const exam_service = new EXAM_SERVICE();
 
-				const foundElement = await exam_service.getFoundElements(username);
-				if (!foundElement) return reject('No se encontro informacion');
+				const found_element = await exam_service.getFoundElements(username);
+				if (!found_element) return reject('No se encontro informacion');
 
-				resolve({ status: 'success', data: foundElement.exams, message: 'Petición realizada exitosamente.' });
+				resolve({ status: 'success', data: found_element.exams, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor');
@@ -180,10 +180,10 @@ module.exports = class ExamProcess {
 
 				await exam_service.deleteExam(data.username, data.examId);
 
-				const foundElement = await exam_service.getFoundElements(data.username);
-				if (!foundElement) return reject('No se encontro informacion');
+				const found_element = await exam_service.getFoundElements(data.username);
+				if (!found_element) return reject('No se encontro informacion');
 
-				resolve({ status: 'success', data: foundElement, message: 'Petición realizada exitosamente.' });
+				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor');
