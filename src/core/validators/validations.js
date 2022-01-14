@@ -20,12 +20,14 @@ const link = Joi.string().trim().removeSpaces().uri().regex(regexUri);
 const fecha = Joi.date().format('YYYY-MM-DD');
 const active = Joi.boolean();
 const id = Joi.objectId();
+const classes = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 
 module.exports = {
 	username,
 	examname,
 	password,
 	name,
+	classes,
 	secret,
 	active,
 	fecha,

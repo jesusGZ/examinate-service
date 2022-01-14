@@ -8,7 +8,7 @@ module.exports = class ClassProcess {
 			try {
 				const class_service = new CLASS_SERVICE();
 
-				await class_service.updateClass(data.username, data.class_name);
+				await class_service.insertClass(data.username, data.class_name);
 
 				const found_element = await class_service.getFoundElements(data.username);
 				if (!found_element) return reject('No se encontro informacion');
@@ -30,6 +30,24 @@ module.exports = class ClassProcess {
 				if (!found_element) return reject('No se encontro informacion');
 
 				resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
+
+	updateClass(data) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const class_service = new CLASS_SERVICE();
+
+				await class_service.updateClass(data.username, data.updatedClass);
+
+				const found_element = await class_service.getFoundElements(data.username);
+				if (!found_element) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor');

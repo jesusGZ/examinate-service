@@ -17,7 +17,7 @@ module.exports = (app) => {
 	//      }
 	// }
 
-	app.post('/class', authJWT, validateRequestMiddleware(class_schema.class, 'body'), async (req, res, next) => {
+	app.post('/class', authJWT, validateRequestMiddleware(class_schema.classes, 'body'), async (req, res, next) => {
 		try {
 			const class_name = req.body.class;
 			const username = req.payload.username;
@@ -39,6 +39,41 @@ module.exports = (app) => {
 			const username = req.payload.username;
 
 			const result = await class_controller.getClass(username);
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
+
+	// --------- UPDATE ----------
+
+	// request format to update a class details:
+	// req = {
+	//      updatedClass: {
+	//          _id: String
+	//          className: String,
+	//          candidates: [
+	//              {
+	//                  _id: String,
+	//                  candidateId: String,
+	//                  candidateName: String,
+	//                  candidateEmail: String
+	//              },
+	//              {
+	//                  candidateId: String,
+	//                  candidateName: String,
+	//                  candidateExam: String
+	//              },
+	//          ]
+	//      }
+	// }
+
+	app.put('/class', authJWT, validateRequestMiddleware(class_schema.classes_up, 'body'), async (req, res, next) => {
+		try {
+			const updatedClass = req.body.updatedClass;
+			const username = req.payload.username;
+
+			const result = await class_controller.updateClass({ username, updatedClass });
 			res.send(result);
 		} catch (error) {
 			next(error);

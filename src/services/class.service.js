@@ -6,8 +6,13 @@ module.exports = class ClassService {
 		return data;
 	}
 
-	async updateClass(username, class_name) {
+	async insertClass(username, class_name) {
 		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $addToSet: { classes: class_name } });
+		return data;
+	}
+
+	async updateClass(username, updatedClass) {
+		const data = await examinaterModel.findOneAndUpdate({ username: username, 'classes._id': updatedClass._id }, { $set: { 'classes.$': updatedClass } });
 		return data;
 	}
 };
