@@ -28,4 +28,20 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
+
+	// --------- READ ----------
+
+	// request format to get list of all classes:
+	// only valid jwt
+
+	app.get('/class', authJWT, async (req, res, next) => {
+		try {
+			const username = req.payload.username;
+
+			const result = await class_controller.getClass(username);
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
 };

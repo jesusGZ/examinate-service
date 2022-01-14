@@ -20,4 +20,20 @@ module.exports = class ClassProcess {
 			}
 		});
 	}
+
+	getClass(username) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const class_service = new CLASS_SERVICE();
+
+				const found_element = await class_service.getFoundElements(username);
+				if (!found_element) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
 };
