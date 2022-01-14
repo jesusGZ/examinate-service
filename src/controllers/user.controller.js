@@ -112,6 +112,7 @@ module.exports = class UsuarioProcess {
 				const new_password = await bcrypt.hash(data.password);
 
 				await user_service.updateUserPassword(data_user, new_password);
+				logger.info(`${data_user._id} reset password`);
 
 				resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
 			} catch (error) {
