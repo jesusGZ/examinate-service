@@ -6,12 +6,14 @@ const authJWT = require('../utils/auth');
 const question_bank_controller = new QUESTION_BANK_CONTROLLER();
 
 module.exports = (app) => {
-	// request format to add a questionBank in the list of all questionBanks:
-	// req = {
-	//      questionBank: {
-	//          questionBankName: String,
-	//      }
-	// }
+	/* 
+    request format to add a questionBank in the list of all questionBanks:
+	 req = {
+	      questionBank: {
+	          questionBankName: String,
+	      }
+	 } 
+     */
 
 	app.post('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank, 'body'), async (req, res, next) => {
 		try {
