@@ -21,8 +21,10 @@ const fecha = Joi.date().format('YYYY-MM-DD');
 const active = Joi.boolean();
 const id = Joi.objectId();
 const classes = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const questionBank = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 
 module.exports = {
+	questionBank,
 	username,
 	examname,
 	password,
