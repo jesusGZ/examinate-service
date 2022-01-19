@@ -79,4 +79,23 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
+
+	// --------- DELETE ----------
+
+	// request format to delete a class:
+	// req = {
+	//      classId: Object ID (_Id)
+	// }
+
+	app.delete('/class', authJWT, validateRequestMiddleware(class_schema.classes_del, 'body'), async (req, res, next) => {
+		try {
+			const classId = req.body.classId;
+			const username = req.payload.username;
+
+			const result = await class_controller.deleteClass({ username, classId });
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
 };

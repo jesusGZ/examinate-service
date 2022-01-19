@@ -15,4 +15,9 @@ module.exports = class ClassService {
 		const data = await examinaterModel.findOneAndUpdate({ username: username, 'classes._id': updatedClass._id }, { $set: { 'classes.$': updatedClass } });
 		return data;
 	}
+
+	async deleteClass(username, classId) {
+		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $pull: { classes: { _id: classId } } });
+		return data;
+	}
 };

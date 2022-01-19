@@ -11,4 +11,8 @@ const classes_up = Joi.object().keys({
 	updatedClass: validaciones.id.required(),
 });
 
-module.exports = { classes, classes_up };
+const classes_del = Joi.object().keys({
+	classId: validaciones.id.required(),
+});
+
+module.exports = { classes, classes_up, classes_del };

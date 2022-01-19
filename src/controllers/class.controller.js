@@ -54,4 +54,22 @@ module.exports = class ClassProcess {
 			}
 		});
 	}
+
+	deleteClass(data) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const class_service = new CLASS_SERVICE();
+
+				await class_service.deleteClass(data.username, data.classId);
+
+				const found_element = await class_service.getFoundElements(data.username);
+				if (!found_element) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
 };
