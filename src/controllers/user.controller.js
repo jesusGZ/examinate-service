@@ -4,7 +4,8 @@ const { SECURITY } = require('../core/config');
 const bcrypt = require('../utils/bcrypt');
 const USER_SERVICE = require('../services/user.service');
 const logger = require('../utils/logger');
-module.exports = class UsuarioProcess {
+
+module.exports = class UserProcess {
 	createUser(data) {
 		return new Promise(async (resolve, reject) => {
 			try {

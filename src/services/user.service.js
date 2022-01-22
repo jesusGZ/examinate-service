@@ -1,6 +1,6 @@
 const userModel = require('../models/user.model');
 
-module.exports = class userService {
+module.exports = class UserService {
 	async insertUser(data) {
 		const new_user = await new userModel(data);
 		await new_user.save();
@@ -10,7 +10,6 @@ module.exports = class userService {
 	async updateUser(data) {
 		const id = data.id;
 		delete data.id;
-
 		const result = await userModel.updateOne({ _id: id }, data);
 		return result;
 	}
