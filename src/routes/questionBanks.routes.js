@@ -80,4 +80,25 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
+
+	/*  
+	--------- DELETE ----------
+
+	 request format to delete a class:
+	 req = {
+	      questionBankId: Object ID (_Id)
+	 } 
+	 */
+
+	app.delete('/questionBank', authJWT, async (req, res, next) => {
+		try {
+			const questionBankId = req.body.questionBankId;
+			const username = req.payload.username;
+
+			const result = await question_bank_controller.deleteQuestionBank({ username, questionBankId });
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
 };
