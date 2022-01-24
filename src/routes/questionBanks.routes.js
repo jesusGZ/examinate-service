@@ -27,16 +27,54 @@ module.exports = (app) => {
 		}
 	});
 
-	// --------- READ ----------
+	/*  
+	--------- READ ----------
 
-	// request format to get list of all questionBanks:
-	// only a valid jwt
+	 request format to get list of all questionBanks:
+	 only a valid jwt 
+	 */
 
 	app.get('/questionBank', authJWT, async (req, res, next) => {
 		try {
 			const username = req.payload.username;
 
 			const result = await question_bank_controller.getQuestionBank(username);
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
+
+	/* 
+	 --------- UPDATE ----------
+
+	 request format to update a class details:
+	 req = {
+	     updatedQuestionBank: {
+	          _id: String,
+	          questionBankName: String,
+	          questions: [
+	                {
+	                   marks: Number,
+	                   value: String,
+	                     options: [
+	                         {
+	                            value: String,
+	                         },
+	                     ],
+	                     correctOptionValue: String,
+	                },
+	           ],
+	      },
+	 } 
+	 */
+
+	app.put('/questionBank', authJWT, async (req, res, next) => {
+		try {
+			const updatedQuestionBank = req.body.updatedQuestionBank;
+			const username = req.payload.username;
+
+			const result = await question_bank_controller.updateQuestionBank({ username, updatedQuestionBank });
 			res.send(result);
 		} catch (error) {
 			next(error);

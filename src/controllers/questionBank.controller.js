@@ -35,4 +35,22 @@ module.exports = class QuestionBankProcess {
 			}
 		});
 	}
+
+	updateQuestionBank(data) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const question_bank_service = new QUESTION_BANK_SERVICE();
+
+				await question_bank_service.updateQuestionBank(data.username, data.updatedQuestionBank);
+
+				const found_element = await question_bank_service.getFoundElements(data.username);
+				if (!found_element) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
 };

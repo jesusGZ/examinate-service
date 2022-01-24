@@ -10,4 +10,9 @@ module.exports = class QuestionBankService {
 		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $addToSet: { questionBanks: question_bank } });
 		return data;
 	}
+
+	async updateQuestionBank(username, updatedQuestionBank) {
+		const data = await examinaterModel.findOneAndUpdate({ username: username, 'questionBanks._id': updatedQuestionBank._id }, { $set: { 'questionBanks.$': updatedQuestionBank } });
+		return data;
+	}
 };
