@@ -26,4 +26,20 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
+
+	// --------- READ ----------
+
+	// request format to get list of all questionBanks:
+	// only a valid jwt
+
+	app.get('/questionBank', authJWT, async (req, res, next) => {
+		try {
+			const username = req.payload.username;
+
+			const result = await question_bank_controller.getQuestionBank(username);
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
 };

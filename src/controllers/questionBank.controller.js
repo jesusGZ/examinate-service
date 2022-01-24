@@ -12,7 +12,23 @@ module.exports = class QuestionBankProcess {
 				const found_element = await question_bank_service.getFoundElements(data.username);
 				if (!found_element) return reject('No se encontro informacion');
 
-				resolve({ status: 'success', data: foundElement.questionBanks, message: 'Petición realizada exitosamente.' });
+				resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
+			} catch (error) {
+				logger.error(`${error.status} - ${error.message}`);
+				reject('Error internodel servidor');
+			}
+		});
+	}
+
+	getQuestionBank(data) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const question_bank_service = new QUESTION_BANK_SERVICE();
+
+				const found_element = await question_bank_service.getFoundElements(data.username);
+				if (!found_element) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor');
