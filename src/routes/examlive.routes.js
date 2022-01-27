@@ -25,4 +25,30 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
+
+	/* 
+	req = {
+	     examinerId: String,
+	     examId: String,
+	     candidateId: String,
+	     candidatePassword: String,
+
+	     responses: [
+	         {
+	             questionId: String,
+	             optionId: String,
+	         },
+	     ]
+	 } 
+	 */
+
+	app.post('/examlive/result', async (req, res, next) => {
+		try {
+			const { examinerId, examId, candidateId, candidatePassword, responses } = req.body;
+			const result = await exam_live_controller.getResultsExam({ examinerId, examId, candidateId, candidatePassword, responses });
+			res.send(result);
+		} catch (error) {
+			next(error);
+		}
+	});
 };
