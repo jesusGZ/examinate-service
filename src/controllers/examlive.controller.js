@@ -1,11 +1,8 @@
-const { EMAIL } = require('../core/config');
 const EXAM_LIVE_SERVICE = require('../services/examlive.service');
 const logger = require('../utils/logger');
 
 const moment = require('moment');
-const mailjet = require('node-mailjet').connect(EMAIL.MAILJET_API_KEY, EMAIL.MAILJET_API_SECRET);
-
-module.exports = class ExamProcess {
+module.exports = class ExamLiveProcess {
 	getExamLive(data) {
 		return new Promise(async (resolve, reject) => {
 			try {
