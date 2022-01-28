@@ -25,7 +25,7 @@ module.exports = class UserProcess {
 				resolve({ status: 'success', data: result, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}

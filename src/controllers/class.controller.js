@@ -15,7 +15,7 @@ module.exports = class ClassProcess {
 				resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
@@ -31,7 +31,7 @@ module.exports = class ClassProcess {
 				resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
@@ -49,7 +49,7 @@ module.exports = class ClassProcess {
 				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
@@ -67,7 +67,7 @@ module.exports = class ClassProcess {
 				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}

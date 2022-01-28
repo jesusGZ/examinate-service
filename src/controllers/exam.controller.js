@@ -75,7 +75,7 @@ module.exports = class ExamProcess {
 				}
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
@@ -152,7 +152,7 @@ module.exports = class ExamProcess {
 				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
@@ -168,7 +168,7 @@ module.exports = class ExamProcess {
 				resolve({ status: 'success', data: found_element.exams, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
@@ -186,7 +186,7 @@ module.exports = class ExamProcess {
 				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}

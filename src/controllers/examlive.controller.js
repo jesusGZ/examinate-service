@@ -42,7 +42,7 @@ module.exports = class ExamLiveProcess {
 				if (!found_exam_status) return reject('ExamId inválido');
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
@@ -109,7 +109,7 @@ module.exports = class ExamLiveProcess {
 				}
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
-				reject('Error internodel servidor');
+				reject('Error internodel servidor.');
 			}
 		});
 	}
