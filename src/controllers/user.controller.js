@@ -9,6 +9,7 @@ module.exports = class UserProcess {
 	createUser(data) {
 		return new Promise(async (resolve, reject) => {
 			try {
+				console.log(data);
 				const user_service = new USER_SERVICE();
 
 				const data_user = await user_service.getUser(data.user);
@@ -57,6 +58,9 @@ module.exports = class UserProcess {
 					delete item.password;
 					delete item.__v;
 					delete item.active;
+					delete item.exams;
+					delete item.classes;
+					delete item.questionBanks;
 					return item;
 				});
 
@@ -137,7 +141,8 @@ module.exports = class UserProcess {
 				const data_user = await user_service.getUserById(user_password._id);
 				if (!data_user) return reject('Credenciales Incorrectas');
 
-				const payload = { payload: data_user._id.toString() };
+				//const payload = { payload: data_user._id.toString() };
+				const payload = { payload: { id: data_user._id.toString(), user: data_user.user } };
 				const options = { expiresIn: SECURITY.JWT_EXPIRATION_USER };
 				const private_key = SECURITY.JWT_KEY + data_user.password;
 				const access_token = await jwt.sign(payload, private_key, options);
@@ -145,6 +150,9 @@ module.exports = class UserProcess {
 				delete data_user.password;
 				delete data_user.__v;
 				delete data_user.active;
+				delete data_user.exams;
+				delete data_user.classes;
+				delete data_user.questionBanks;
 				data_user.access_token = access_token;
 
 				resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
