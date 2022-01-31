@@ -23,7 +23,14 @@ module.exports = class UserProcess {
 
 				const result = await user_service.insertUser(data);
 
-				resolve({ status: 'success', data: result, message: 'Petición realizada exitosamente.' });
+				const item = result.toObject();
+				delete item.password;
+				delete item.__v;
+				delete item.exams;
+				delete item.classes;
+				delete item.questionBanks;
+
+				resolve({ status: 'success', data: item, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor.');
