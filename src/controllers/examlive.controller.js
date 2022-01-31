@@ -29,7 +29,7 @@ module.exports = class ExamLiveProcess {
 
 						const question_bank = found_examiner.questionBanks.find((queBank) => String(queBank._id) === found_exam.questionBankId);
 
-						if (moment().isBetween(found_exam.startDateTime, found_exam.endDateTime) || devOption) {
+						if (moment().isBetween(found_exam.startDateTime, found_exam.endDateTime)) {
 							if (question_bank === undefined) return reject('Banco de preguntas indefinido.');
 
 							return resolve({ status: 'success', data: { questionBank: question_bank, startDateTime: found_exam.startDateTime, endDateTime: found_exam.endDateTime }, message: 'Petición realizada exitosamente.' });
@@ -64,7 +64,7 @@ module.exports = class ExamLiveProcess {
 
 				if (candidate_index < 0) return reject('Credenciales no válidas para acceder al examen.');
 
-				if (moment().isBetween(examiner.exams[exam_index].startDateTime, examiner.exams[exam_index].endDateTime) || devOption) {
+				if (moment().isBetween(examiner.exams[exam_index].startDateTime, examiner.exams[exam_index].endDateTime)) {
 					// verify if user has taken the exam
 					if (!examiner.exams[exam_index].candidates[candidate_index].hasAppeared) {
 						// set reposes
