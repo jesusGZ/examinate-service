@@ -46,6 +46,8 @@ module.exports = class UserProcess {
 				const data_user = await user_service.getUserById(id);
 				if (!data_user) return reject('No se encontraron datos de usuario');
 
+				delete data_user.password;
+
 				resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
@@ -155,11 +157,6 @@ module.exports = class UserProcess {
 				const access_token = await jwt.sign(payload, private_key, options);
 
 				delete data_user.password;
-				delete data_user.__v;
-				delete data_user.active;
-				delete data_user.exams;
-				delete data_user.classes;
-				delete data_user.questionBanks;
 				data_user.access_token = access_token;
 
 				resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });

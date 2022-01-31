@@ -38,7 +38,7 @@ module.exports = class UserService {
 	}
 
 	async getUserById(id) {
-		let data = await examinaterModel.findOne({ _id: id });
+		let data = await examinaterModel.findOne({ _id: id }, { exams: 0, classes: 0, questionBanks: 0, __v: 0 });
 		if (data) data = data.toObject();
 		return data;
 	}
