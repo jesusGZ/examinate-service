@@ -6,6 +6,10 @@ const getValidationErrorMessage = (param) => {
 
 	console.log(error);
 	switch (error) {
+		case 'boolean.base':
+			message = `El campo ${parameter} debe ser un boleano`;
+			break;
+
 		case 'string.base':
 			message = `El campo ${parameter} debe ser un string`;
 			break;
