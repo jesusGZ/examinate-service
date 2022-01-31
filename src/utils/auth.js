@@ -6,11 +6,13 @@ const USER_SERVICE = require('../services/user.service');
 async function authenticateJWToken(req, res, next) {
 	const user_service = new USER_SERVICE();
 
-	const access_header = req.headers.authorization;
-	const token = access_header && access_header.split(' ')[1];
-	if (token === null) return res.json({ status: 'error', message: 'No token' });
+	const token = req.headers.token;
+	/* const access_header = req.headers.token;
+	const token = access_header && access_header.split(' ')[1]; */
 
-	const decoded = jwt.decode(token, { complete: false });
+	if (token === null || token === undefined) return res.json({ status: 'error', message: 'Token de acceso indefinido.' });
+
+	const decoded = await jwt.decode(token, { complete: false });
 
 	const data_key = await user_service.getPasswordById(decoded.payload);
 
