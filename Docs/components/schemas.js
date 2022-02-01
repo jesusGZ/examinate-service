@@ -32,5 +32,55 @@ module.exports = {
 				questionBankName: { type: 'string', example: 'Test3' },
 			},
 		},
+		updateQuestionBank: {
+			type: 'object',
+			properties: {
+				id: { type: 'string', example: '61f9453121ad261a6c61614b' },
+				questionBankName: { type: 'string', example: 'Test2' },
+				questions: {
+					type: 'object',
+					example: [
+						{
+							marks: '1',
+							value: 'example of a question 1',
+							options: [
+								{
+									value: 'option 1',
+								},
+								{
+									value: 'option 2',
+								},
+								{
+									value: 'option 3',
+								},
+								{
+									value: 'option 4',
+								},
+							],
+							correctOptionValue: 'option 3',
+						},
+						{
+							marks: '2',
+							value: 'example of a question 2',
+							options: [
+								{
+									value: 'option 1',
+								},
+								{
+									value: 'option 2',
+								},
+								{
+									value: 'option 3',
+								},
+								{
+									value: 'option 4',
+								},
+							],
+							correctOptionValue: 'option 4',
+						},
+					],
+				},
+			},
+		},
 	},
 };

@@ -2,7 +2,7 @@ const examinaterModel = require('../models/examinater.model');
 
 module.exports = class QuestionBankService {
 	async getFoundElements(user) {
-		const data = await examinaterModel.findOne({ user: user });
+		const data = await examinaterModel.findOne({ user: user }, { exams: 0, classes: 0, password: 0 });
 		return data;
 	}
 

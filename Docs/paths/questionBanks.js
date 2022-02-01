@@ -163,5 +163,130 @@ module.exports = {
 				},
 			],
 		},
+		put: {
+			tags: ['questionBank'],
+			summary: 'Actualizar banco de preguntas',
+			description: 'Actualizar un banco de preguntas mediante su id',
+			operationId: 'updateQuestionBank',
+			requestBody: {
+				content: {
+					'application/json': {
+						schema: {
+							$ref: '#/components/schemas/updateQuestionBank',
+						},
+						examples: {
+							User: {
+								$ref: '#/components/examples/updateQuestionBank',
+							},
+						},
+					},
+				},
+			},
+			responses: {
+				200: {
+					description: 'Petición realizada  exitosamente',
+					content: {
+						'application/json': {
+							example: {
+								status: 'success',
+								data: {
+									_id: '61f854214c90e061b2d3c927',
+									name: 'Antonio Romero Zurita',
+									email: 'tony@gmail.com',
+									user: 'tony',
+									active: true,
+									questionBanks: [
+										{
+											questionBankName: 'Test',
+											_id: '61f944ac21ad261a6c616146',
+											questions: [],
+										},
+										{
+											questionBankName: 'Test2',
+											questions: [
+												{
+													marks: 1,
+													value: 'example of a question 1',
+													options: [
+														{
+															value: 'option 1',
+															_id: '61f9a998272e7aa8053e81ad',
+														},
+														{
+															value: 'option 2',
+															_id: '61f9a998272e7aa8053e81ae',
+														},
+														{
+															value: 'option 3',
+															_id: '61f9a998272e7aa8053e81af',
+														},
+														{
+															value: 'option 4',
+															_id: '61f9a998272e7aa8053e81b0',
+														},
+													],
+													correctOptionValue: 'option 3',
+													_id: '61f9a998272e7aa8053e81ac',
+												},
+												{
+													marks: 2,
+													value: 'example of a question 2',
+													options: [
+														{
+															value: 'option 1',
+															_id: '61f9a998272e7aa8053e81b2',
+														},
+														{
+															value: 'option 2',
+															_id: '61f9a998272e7aa8053e81b3',
+														},
+														{
+															value: 'option 3',
+															_id: '61f9a998272e7aa8053e81b4',
+														},
+														{
+															value: 'option 4',
+															_id: '61f9a998272e7aa8053e81b5',
+														},
+													],
+													correctOptionValue: 'option 4',
+													_id: '61f9a998272e7aa8053e81b1',
+												},
+											],
+											_id: '61f9453121ad261a6c61614b',
+										},
+										{
+											questionBankName: 'Test3',
+											_id: '61f9a2d01253a9f603f56a6e',
+											questions: [],
+										},
+										{
+											questionBankName: 'Test4',
+											_id: '61f9a4a571920887e8693b20',
+											questions: [],
+										},
+									],
+								},
+								message: 'Petición realizada exitosamente.',
+							},
+						},
+					},
+				},
+				400: {
+					$ref: '#/components/responses/400',
+				},
+				401: {
+					$ref: '#/components/responses/401',
+				},
+				500: {
+					$ref: '#/components/responses/500',
+				},
+			},
+			security: [
+				{
+					token: [],
+				},
+			],
+		},
 	},
 };
