@@ -14,7 +14,7 @@ async function authenticateJWToken(req, res, next) {
 
 	const decoded = await jwt.decode(token, { complete: false });
 
-	const data_key = await user_service.getPasswordById(decoded.payload.id);
+	const data_key = await user_service.getPasswordById(decoded.id);
 
 	jwt.verify(token, SECURITY.JWT_KEY + data_key.password, (err, payload) => {
 		if (err) {

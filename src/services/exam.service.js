@@ -7,23 +7,23 @@ module.exports = class ExamService {
 		return new_user;
 	}
 
-	async getFoundElement(username, classId) {
-		const data = await examinaterModel.findOne({ username: username, 'classes._id': classId });
+	async getFoundElement(user, classId) {
+		const data = await examinaterModel.findOne({ user: user, 'classes._id': classId });
 		return data;
 	}
 
-	async getFoundElements(username) {
-		const data = await examinaterModel.findOne({ username: username });
+	async getFoundElements(user) {
+		const data = await examinaterModel.findOne({ user: user });
 		return data;
 	}
 
-	async updateExam(username, compiledObjectExam) {
-		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $addToSet: { exams: compiledObjectExam } });
+	async updateExam(user, compiledObjectExam) {
+		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { exams: compiledObjectExam } });
 		return data;
 	}
 
-	async deleteExam(username, examId) {
-		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $pull: { exams: { _id: examId } } });
+	async deleteExam(user, examId) {
+		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $pull: { exams: { _id: examId } } });
 		return data;
 	}
 };

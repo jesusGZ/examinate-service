@@ -3,7 +3,7 @@ const validaciones = require('../validations');
 const { Joi } = validaciones;
 
 const questionBank = Joi.object().keys({
-	class: validaciones.classes.required(),
+	questionBankName: validaciones.questionBankName.required(),
 });
 
 module.exports = { questionBank };

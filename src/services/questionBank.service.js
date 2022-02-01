@@ -1,23 +1,29 @@
 const examinaterModel = require('../models/examinater.model');
 
 module.exports = class QuestionBankService {
-	async getFoundElements(username) {
-		const data = await examinaterModel.findOne({ username: username });
+	async getFoundElements(user) {
+		const data = await examinaterModel.findOne({ user: user });
 		return data;
 	}
 
-	async insertQuestionBank(username, question_bank) {
-		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $addToSet: { questionBanks: question_bank } });
+	async insertQuestionBank(user, questionBankName) {
+		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { questionBanks: questionBankName } });
 		return data;
 	}
 
-	async updateQuestionBank(username, updatedQuestionBank) {
-		const data = await examinaterModel.findOneAndUpdate({ username: username, 'questionBanks._id': updatedQuestionBank._id }, { $set: { 'questionBanks.$': updatedQuestionBank } });
+	async updateQuestionBank(user, updatedQuestionBank) {
+		const data = await examinaterModel.findOneAndUpdate({ user: user, 'questionBanks._id': updatedQuestionBank._id }, { $set: { 'questionBanks.$': updatedQuestionBank } });
 		return data;
 	}
 
-	async deleteQuestionBank(username, questionBankId) {
-		const data = await examinaterModel.findOneAndUpdate({ username: username }, { $pull: { questionBanks: { _id: questionBankId } } });
+	async deleteQuestionBank(user, questionBankId) {
+		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $pull: { questionBanks: { _id: questionBankId } } });
+		return data;
+	}
+
+	async getQuestionBankNameByUser(user, questionBankName) {
+		let data = await examinaterModel.findOne({ user: user, 'questionBanks.questionBankName': questionBankName });
+		if (data) data = data.toObject();
 		return data;
 	}
 };
