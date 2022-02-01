@@ -223,4 +223,56 @@ module.exports = {
 			],
 		},
 	},
+	'/user/login': {
+		post: {
+			tags: ['user'],
+			summary: 'Inicio de sesion',
+			description: 'Inicio de sesion de un usuario del sistema.',
+			operationId: 'loginUser',
+			requestBody: {
+				content: {
+					'application/json': {
+						schema: {
+							$ref: '#/components/schemas/loginUser',
+						},
+						examples: {
+							User: {
+								$ref: '#/components/examples/loginUser',
+							},
+						},
+					},
+				},
+			},
+			responses: {
+				200: {
+					description: 'Petición realizada  exitosamente',
+					content: {
+						'application/json': {
+							example: {
+								status: 'success',
+								data: {
+									_id: '61f854214c90e061b2d3c927',
+									name: 'Antonio Romero Zurita',
+									email: 'tony@gmail.com',
+									user: 'tony',
+									active: true,
+									access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjg1NDIxNGM5MGUwNjFiMmQzYzkyNyIsInVzZXIiOiJ0b255IiwiaWF0IjoxNjQzNzQ5NTIzLCJleHAiOjE2NDM3NTMxMjN9.Ij4pY_kSqBpsfrQ6SxV8UlDKBTGNPnpjA9Fk_yF5TkA',
+								},
+								message: 'Petición realizada exitosamente.',
+							},
+						},
+					},
+				},
+				400: {
+					$ref: '#/components/responses/400',
+				},
+				401: {
+					$ref: '#/components/responses/401',
+				},
+				500: {
+					$ref: '#/components/responses/500',
+				},
+			},
+		},
+	},
 };

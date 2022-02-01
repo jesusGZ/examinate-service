@@ -18,5 +18,9 @@ module.exports = {
 				active: { type: 'boolean', example: 'true', description: 'El estado del usuario' },
 			},
 		},
+		loginUser: {
+			user: { type: 'string', example: 'exampleUser', description: 'El nick del usuario a registrar' },
+			password: { type: 'string', example: 'secret', description: 'La contraseña del usuario a registrar' },
+		},
 	},
 };

@@ -19,5 +19,12 @@ module.exports = {
 				active: 'true',
 			},
 		},
+		loginUser: {
+			summary: 'User',
+			value: {
+				user: 'exampleUser',
+				password: 'secret',
+			},
+		},
 	},
 };
