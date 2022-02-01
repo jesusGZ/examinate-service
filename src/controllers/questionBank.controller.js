@@ -23,12 +23,12 @@ module.exports = class QuestionBankProcess {
 		});
 	}
 
-	getQuestionBank(data) {
+	getQuestionBank(user) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const question_bank_service = new QUESTION_BANK_SERVICE();
 
-				const found_element = await question_bank_service.getFoundElements(data.user);
+				const found_element = await question_bank_service.getFoundElements(user);
 				if (!found_element) return reject('No se encontro informacion');
 
 				resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });

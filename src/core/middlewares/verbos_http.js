@@ -1,4 +1,4 @@
-const VERBOS = ['GET', 'POST', 'PUT', 'OPTIONS'];
+const VERBOS = ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'];
 
 module.exports = function verbosHttp(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');

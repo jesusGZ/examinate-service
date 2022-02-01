@@ -9,10 +9,8 @@ module.exports = (app) => {
 	/* 
     request format to add a questionBank in the list of all questionBanks:
 	 req = {
-	      questionBank: {
-	          questionBankName: String,
-	      }
-	 } 
+	        	questionBankName: String,
+	 		} 
      */
 
 	app.post('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank, 'body'), async (req, res, next) => {
@@ -71,7 +69,7 @@ module.exports = (app) => {
 
 	app.put('/questionBank', authJWT, async (req, res, next) => {
 		try {
-			const updatedQuestionBank = req.body.updatedQuestionBank;
+			const { _id, questionBankName, questions } = req.body;
 			const user = req.payload.user;
 
 			const result = await question_bank_controller.updateQuestionBank({ user, updatedQuestionBank });
