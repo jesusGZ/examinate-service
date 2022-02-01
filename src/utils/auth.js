@@ -14,6 +14,8 @@ async function authenticateJWToken(req, res, next) {
 
 	const decoded = await jwt.decode(token, { complete: false });
 
+	if (!decoded) return res.json({ status: 'error', message: 'Invalid token.' });
+
 	const data_key = await user_service.getPasswordById(decoded.id);
 
 	jwt.verify(token, SECURITY.JWT_KEY + data_key.password, (err, payload) => {
