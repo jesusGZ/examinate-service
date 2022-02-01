@@ -26,4 +26,10 @@ module.exports = class QuestionBankService {
 		if (data) data = data.toObject();
 		return data;
 	}
+
+	async getQuestionBankByUserAndId(user, questionBankId) {
+		let data = await examinaterModel.findOne({ user: user, 'questionBanks._id': questionBankId });
+		if (data) data = data.toObject();
+		return data;
+	}
 };
