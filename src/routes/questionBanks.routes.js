@@ -74,17 +74,6 @@ module.exports = (app) => {
 			const { id, questionBankName, questions } = req.body;
 			const user = req.payload.user;
 
-			// Cambiar la forma de validar questions
-			/* if (questions == undefined || questions == null || questions == '' || questions.length != 4) throw 'Error de petición.';
-
-			if (questions.marks == undefined || questions.marks == null || questions.marks == '') throw 'Error de petición.';
-
-			if (questions.value == undefined || questions.value == null || questions.value == '') throw 'Error de petición.';
-
-			if (questions.correctOptionValue == undefined || questions.correctOptionValue == null || questions.correctOptionValue == '') throw 'Error de petición.';
-
-			if (questions.options == undefined || questions.options == null || questions.options == '') throw 'Error de petición.'; */
-
 			const result = await question_bank_controller.updateQuestionBank({ user, id, questionBankName, questions });
 			res.send(result);
 		} catch (error) {
