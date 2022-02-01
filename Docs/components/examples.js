@@ -26,5 +26,11 @@ module.exports = {
 				password: 'secret',
 			},
 		},
+		registerQuestionBank: {
+			summary: 'questionBank',
+			value: {
+				questionBankName: 'Test3',
+			},
+		},
 	},
 };
