@@ -22,12 +22,18 @@ const active = Joi.boolean();
 const id = Joi.objectId();
 const classes = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 const questionBankName = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const marks = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const correctOptionValue = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const value = Joi.string().trim().max(100).hasSQLWords().hasInvalidChars();
 
 module.exports = {
 	questionBankName,
+	correctOptionValue,
 	username,
 	examname,
 	password,
+	marks,
+	value,
 	name,
 	classes,
 	secret,
