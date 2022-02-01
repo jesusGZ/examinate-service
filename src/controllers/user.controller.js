@@ -9,7 +9,6 @@ module.exports = class UserProcess {
 	createUser(data) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				console.log(data);
 				const user_service = new USER_SERVICE();
 
 				const data_user = await user_service.getUser(data.user);
