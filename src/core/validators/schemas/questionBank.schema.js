@@ -6,4 +6,8 @@ const questionBank = Joi.object().keys({
 	questionBankName: validaciones.questionBankName.required(),
 });
 
-module.exports = { questionBank };
+const questionBank_del = Joi.object().keys({
+	questionBankId: validaciones.id.required(),
+});
+
+module.exports = { questionBank, questionBank_del };

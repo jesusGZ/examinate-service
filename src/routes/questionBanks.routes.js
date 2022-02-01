@@ -88,7 +88,7 @@ module.exports = (app) => {
 	 } 
 	 */
 
-	app.delete('/questionBank', authJWT, async (req, res, next) => {
+	app.delete('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank_del, 'body'), async (req, res, next) => {
 		try {
 			const questionBankId = req.body.questionBankId;
 			const user = req.payload.user;
