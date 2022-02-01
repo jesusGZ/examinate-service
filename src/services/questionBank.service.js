@@ -7,7 +7,7 @@ module.exports = class QuestionBankService {
 	}
 
 	async insertQuestionBank(user, questionBankName) {
-		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { questionBanks: questionBankName } });
+		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { questionBanks: { questionBankName: questionBankName } } });
 		return data;
 	}
 

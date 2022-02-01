@@ -7,9 +7,12 @@ module.exports = class QuestionBankProcess {
 			try {
 				const question_bank_service = new QUESTION_BANK_SERVICE();
 
-				await question_bank_service.insertQuestionBank(data.username, data.question_bank);
+				let question_bank_data = await question_bank_service.getQuestionBankNameByUser(data.user, data.questionBankName);
+				if (question_bank_data) return reject('El banco de preguntas ya se encuentra registrado.');
 
-				const found_element = await question_bank_service.getFoundElements(data.username);
+				await question_bank_service.insertQuestionBank(data.user, data.questionBankName);
+
+				const found_element = await question_bank_service.getFoundElements(data.user);
 				if (!found_element) return reject('No se encontro informacion');
 
 				resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
@@ -25,7 +28,7 @@ module.exports = class QuestionBankProcess {
 			try {
 				const question_bank_service = new QUESTION_BANK_SERVICE();
 
-				const found_element = await question_bank_service.getFoundElements(data.username);
+				const found_element = await question_bank_service.getFoundElements(data.user);
 				if (!found_element) return reject('No se encontro informacion');
 
 				resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
@@ -41,9 +44,9 @@ module.exports = class QuestionBankProcess {
 			try {
 				const question_bank_service = new QUESTION_BANK_SERVICE();
 
-				await question_bank_service.updateQuestionBank(data.username, data.updatedQuestionBank);
+				await question_bank_service.updateQuestionBank(data.user, data.updatedQuestionBank);
 
-				const found_element = await question_bank_service.getFoundElements(data.username);
+				const found_element = await question_bank_service.getFoundElements(data.user);
 				if (!found_element) return reject('No se encontro informacion');
 
 				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
@@ -59,9 +62,9 @@ module.exports = class QuestionBankProcess {
 			try {
 				const question_bank_service = new QUESTION_BANK_SERVICE();
 
-				await question_bank_service.deleteQuestionBank(data.username, data.questionBankId);
+				await question_bank_service.deleteQuestionBank(data.user, data.questionBankId);
 
-				const found_element = await question_bank_service.getFoundElements(data.username);
+				const found_element = await question_bank_service.getFoundElements(data.user);
 				if (!found_element) return reject('No se encontro informacion');
 
 				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });

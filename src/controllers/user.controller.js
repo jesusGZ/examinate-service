@@ -151,7 +151,7 @@ module.exports = class UserProcess {
 				if (!data_user) return reject('Credenciales Incorrectas');
 
 				//const payload = { payload: data_user._id.toString() };
-				const payload = { payload: { id: data_user._id.toString(), user: data_user.user } };
+				const payload = { id: data_user._id.toString(), user: data_user.user };
 				const options = { expiresIn: SECURITY.JWT_EXPIRATION_USER };
 				const private_key = SECURITY.JWT_KEY + data_user.password;
 				const access_token = await jwt.sign(payload, private_key, options);

@@ -17,10 +17,10 @@ module.exports = (app) => {
 
 	app.post('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank, 'body'), async (req, res, next) => {
 		try {
-			const question_bank = req.body.questionBank;
-			const username = req.payload.username;
+			const questionBankName = req.body.questionBankName;
+			const user = req.payload.user;
 
-			const result = await question_bank_controller.createQuestionBank({ username, question_bank });
+			const result = await question_bank_controller.createQuestionBank({ user, questionBankName });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -36,9 +36,9 @@ module.exports = (app) => {
 
 	app.get('/questionBank', authJWT, async (req, res, next) => {
 		try {
-			const username = req.payload.username;
+			const user = req.payload.user;
 
-			const result = await question_bank_controller.getQuestionBank(username);
+			const result = await question_bank_controller.getQuestionBank(user);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -72,9 +72,9 @@ module.exports = (app) => {
 	app.put('/questionBank', authJWT, async (req, res, next) => {
 		try {
 			const updatedQuestionBank = req.body.updatedQuestionBank;
-			const username = req.payload.username;
+			const user = req.payload.user;
 
-			const result = await question_bank_controller.updateQuestionBank({ username, updatedQuestionBank });
+			const result = await question_bank_controller.updateQuestionBank({ user, updatedQuestionBank });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -93,9 +93,9 @@ module.exports = (app) => {
 	app.delete('/questionBank', authJWT, async (req, res, next) => {
 		try {
 			const questionBankId = req.body.questionBankId;
-			const username = req.payload.username;
+			const user = req.payload.user;
 
-			const result = await question_bank_controller.deleteQuestionBank({ username, questionBankId });
+			const result = await question_bank_controller.deleteQuestionBank({ user, questionBankId });
 			res.send(result);
 		} catch (error) {
 			next(error);
