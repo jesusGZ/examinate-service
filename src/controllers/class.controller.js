@@ -46,12 +46,15 @@ module.exports = class ClassProcess {
 				const class_data = await class_service.getClassById(data.user, data.id);
 				if (!class_data) return reject('No se encontro informacion');
 
-				const verify_class_name = await class_service.getClassesDistincId(data.user, data.className, data.id);
+				const verify_class_name = await class_service.getClasses(data.user, data.className);
+				if (verify_class_name) {
+					verify_class_name.classes.map((item) => {
+						if (item.className == data.className && item._id != data.id) return reject('El nombre de la clase ya se encuentra registrado.');
+						return item;
+					});
+				}
 
-				console.log(verify_class_name);
-				if (verify_class_name) return reject('La clase ya se encuentra registrada');
-
-				await class_service.updateClass(data.user, data.updatedClass);
+				await class_service.updateClass(data.user, data.id, data.className, data.candidates);
 
 				const found_element = await class_service.getFoundElements(data.user);
 				if (!found_element) return reject('No se encontro informacion');

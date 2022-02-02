@@ -16,18 +16,37 @@ module.exports = class ClassService {
 		return data;
 	}
 
-	async getClassesDistincId(user, className, id) {
-		const data = await examinaterModel.findOne({ user: user, classes: [{ className: className, _id: { $ne: id } }] }, { classes: 1 });
+	/* async getClassesDistincId(user, className, id) {
+		//const data = await examinaterModel.findOne({ user: user, 'classes.className': className, 'classes._id': id }, { classes: 1 });
+		const data = await examinaterModel.aggregate([
+			{
+				$unwind: '$classes',
+			},
+			{
+				$match: {
+					user: user,
+					'classes.className': className,
+					'classes._id': { $ne: id },
+				},
+			},
+			{
+				$project: {
+					'classes.className': 1,
+				},
+			},
+		]);
+
 		return data;
-	}
+	} */
 
 	async insertClass(user, class_name) {
 		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { classes: { className: class_name } } });
 		return data;
 	}
 
-	async updateClass(user, updatedClass) {
-		const data = await examinaterModel.findOneAndUpdate({ user: user, 'classes._id': updatedClass._id }, { $set: { 'classes.$': updatedClass } });
+	async updateClass(user, id, className, candidates) {
+		const updatedClass = { _id: id, className: className, candidates: candidates };
+		const data = await examinaterModel.findOneAndUpdate({ user: user, 'classes._id': id }, { $set: { 'classes.$': updatedClass } });
 		return data;
 	}
 
