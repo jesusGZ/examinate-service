@@ -6,6 +6,11 @@ module.exports = class ClassService {
 		return data;
 	}
 
+	async getClassById(user, classId) {
+		const data = await examinaterModel.findOne({ user: user, 'classes._id': classId }, { classes: 1 });
+		return data;
+	}
+
 	async getClasses(user, class_name) {
 		const data = await examinaterModel.findOne({ user: user, 'classes.className': class_name }, { classes: 1 });
 		return data;

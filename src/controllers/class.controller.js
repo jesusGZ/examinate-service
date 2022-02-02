@@ -61,12 +61,15 @@ module.exports = class ClassProcess {
 			try {
 				const class_service = new CLASS_SERVICE();
 
+				const class_data = await class_service.getClassById(data.user, data.classId);
+				if (!class_data) return reject('No se encontro informacion');
+
 				await class_service.deleteClass(data.user, data.classId);
 
 				const found_element = await class_service.getFoundElements(data.user);
 				if (!found_element) return reject('No se encontro informacion');
 
-				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
+				resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor.');
