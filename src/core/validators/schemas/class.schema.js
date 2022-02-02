@@ -7,8 +7,19 @@ const classes = Joi.object().keys({
 });
 
 const classes_up = Joi.object().keys({
+	id: validaciones.id.required(),
 	className: validaciones.classes.required(),
-	updatedClass: validaciones.id.required(),
+	candidates: Joi.array()
+		.items(
+			Joi.object().keys({
+				//candidateId: validaciones.marks.required(),
+				candidateName: validaciones.candidateName.required(),
+				candidateEmail: validaciones.candidateEmail.required(),
+				candidateExam: validaciones.candidateExam.required(),
+			})
+		)
+		.min(1)
+		.required(),
 });
 
 const classes_del = Joi.object().keys({

@@ -56,11 +56,7 @@ module.exports = (app) => {
 	                  _id: String,
 	                  candidateId: String,
 	                  candidateName: String,
-	                  candidateEmail: String
-	              },
-	              {
-	                  candidateId: String,
-	                  candidateName: String,
+	                  candidateEmail: String,
 	                  candidateExam: String
 	              },
 	          ]
@@ -69,10 +65,10 @@ module.exports = (app) => {
 	 */
 	app.put('/class', authJWT, validateRequestMiddleware(class_schema.classes_up, 'body'), async (req, res, next) => {
 		try {
-			const updatedClass = req.body.updatedClass;
+			const { id, className, candidates } = req.body;
 			const user = req.payload.user;
 
-			const result = await class_controller.updateClass({ user, updatedClass });
+			const result = await class_controller.updateClass({ user, id, className, candidates });
 			res.send(result);
 		} catch (error) {
 			next(error);
