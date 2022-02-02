@@ -6,13 +6,6 @@ const authJWT = require('../utils/auth');
 const question_bank_controller = new QUESTION_BANK_CONTROLLER();
 
 module.exports = (app) => {
-	/* 
-    request format to add a questionBank in the list of all questionBanks:
-	 req = {
-	        	questionBankName: String,
-	 		} 
-     */
-
 	app.post('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank, 'body'), async (req, res, next) => {
 		try {
 			const questionBankName = req.body.questionBankName;
@@ -25,13 +18,6 @@ module.exports = (app) => {
 		}
 	});
 
-	/*  
-	--------- READ ----------
-
-	 request format to get list of all questionBanks:
-	 only a valid jwt 
-	 */
-
 	app.get('/questionBank', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
@@ -42,32 +28,6 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
-
-	/* 
-	 --------- UPDATE ----------
-
-	 request format to update a class details:
-	 req = {
-		"id": Object ID (_Id),
-		"questionBankName": "Test2",
-		"questions": [
-			{
-				"marks": "Number",
-				"value": "String",
-				"options": [{
-						"value": "String"
-					},{
-						"value": "String"
-					},{
-						"value": "String"
-					},{
-						"value": "String"
-					}],
-				"correctOptionValue": "String"
-			}
-		]
-	} 
-	 */
 
 	app.put('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank_up, 'body'), async (req, res, next) => {
 		try {
@@ -80,15 +40,6 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
-
-	/*  
-	--------- DELETE ----------
-
-	 request format to delete a class:
-	 req = {
-	      questionBankId: Object ID (_Id)
-	 } 
-	 */
 
 	app.delete('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank_del, 'body'), async (req, res, next) => {
 		try {
