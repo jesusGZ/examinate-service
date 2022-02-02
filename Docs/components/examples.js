@@ -2,35 +2,19 @@ module.exports = {
 	examples: {
 		registerUser: {
 			summary: 'User',
-			value: {
-				name: 'Jesus Antonio Garcia Zurita',
-				email: 'example@gmail.com',
-				user: 'exampleUser',
-				password: 'secret',
-			},
+			value: { name: 'Jesus Antonio Garcia Zurita', email: 'example@gmail.com', user: 'exampleUser', password: 'secret' },
 		},
 		updateUser: {
 			summary: 'User',
-			value: {
-				name: 'Jesus Antonio Garcia Zurita',
-				email: 'example@gmail.com',
-				user: 'exampleUser',
-				password: 'secret',
-				active: 'true',
-			},
+			value: { name: 'Jesus Antonio Garcia Zurita', email: 'example@gmail.com', user: 'exampleUser', password: 'secret', active: 'true' },
 		},
 		loginUser: {
 			summary: 'User',
-			value: {
-				user: 'exampleUser',
-				password: 'secret',
-			},
+			value: { user: 'exampleUser', password: 'secret' },
 		},
 		registerQuestionBank: {
 			summary: 'questionBank',
-			value: {
-				questionBankName: 'Test3',
-			},
+			value: { questionBankName: 'Test3' },
 		},
 		updateQuestionBank: {
 			summary: 'questionBank',
@@ -80,4 +64,5 @@ module.exports = {
 			},
 		},
 	},
+	deleteQuestionBank: { summary: 'questionBank', value: { questionBankId: '61f9a4a571920887e8693b20' } },
 };
