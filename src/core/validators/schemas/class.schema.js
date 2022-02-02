@@ -3,11 +3,11 @@ const validaciones = require('../validations');
 const { Joi } = validaciones;
 
 const classes = Joi.object().keys({
-	class: validaciones.classes.required(),
+	className: validaciones.classes.required(),
 });
 
 const classes_up = Joi.object().keys({
-	class: validaciones.classes.required(),
+	className: validaciones.classes.required(),
 	updatedClass: validaciones.id.required(),
 });
 

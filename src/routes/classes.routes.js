@@ -17,10 +17,10 @@ module.exports = (app) => {
 	 */
 	app.post('/class', authJWT, validateRequestMiddleware(class_schema.classes, 'body'), async (req, res, next) => {
 		try {
-			const class_name = req.body.class;
-			const username = req.payload.username;
+			const class_name = req.body.className;
+			const user = req.payload.user;
 
-			const result = await class_controller.createClass({ username, class_name });
+			const result = await class_controller.createClass({ user, class_name });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -35,9 +35,9 @@ module.exports = (app) => {
 
 	app.get('/class', authJWT, async (req, res, next) => {
 		try {
-			const username = req.payload.username;
+			const user = req.payload.user;
 
-			const result = await class_controller.getClass(username);
+			const result = await class_controller.getClass(user);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -70,9 +70,9 @@ module.exports = (app) => {
 	app.put('/class', authJWT, validateRequestMiddleware(class_schema.classes_up, 'body'), async (req, res, next) => {
 		try {
 			const updatedClass = req.body.updatedClass;
-			const username = req.payload.username;
+			const user = req.payload.user;
 
-			const result = await class_controller.updateClass({ username, updatedClass });
+			const result = await class_controller.updateClass({ user, updatedClass });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -90,9 +90,9 @@ module.exports = (app) => {
 	app.delete('/class', authJWT, validateRequestMiddleware(class_schema.classes_del, 'body'), async (req, res, next) => {
 		try {
 			const classId = req.body.classId;
-			const username = req.payload.username;
+			const user = req.payload.user;
 
-			const result = await class_controller.deleteClass({ username, classId });
+			const result = await class_controller.deleteClass({ user, classId });
 			res.send(result);
 		} catch (error) {
 			next(error);

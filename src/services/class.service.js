@@ -2,12 +2,17 @@ const examinaterModel = require('../models/examinater.model');
 
 module.exports = class ClassService {
 	async getFoundElements(user) {
-		const data = await examinaterModel.findOne({ user: user });
+		const data = await examinaterModel.findOne({ user: user }, { classes: 1 });
+		return data;
+	}
+
+	async getClasses(user, class_name) {
+		const data = await examinaterModel.findOne({ user: user, 'classes.className': class_name }, { classes: 1 });
 		return data;
 	}
 
 	async insertClass(user, class_name) {
-		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { classes: class_name } });
+		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { classes: { className: class_name } } });
 		return data;
 	}
 
