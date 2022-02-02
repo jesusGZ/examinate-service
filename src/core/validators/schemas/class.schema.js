@@ -15,7 +15,6 @@ const classes_up = Joi.object().keys({
 				//candidateId: validaciones.marks.required(),
 				candidateName: validaciones.candidateName.required(),
 				candidateEmail: validaciones.candidateEmail.required(),
-				candidateExam: validaciones.candidateExam.required(),
 			})
 		)
 		.min(1)

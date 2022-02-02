@@ -57,7 +57,6 @@ module.exports = (app) => {
 	                  candidateId: String,
 	                  candidateName: String,
 	                  candidateEmail: String,
-	                  candidateExam: String
 	              },
 	          ]
 	      }

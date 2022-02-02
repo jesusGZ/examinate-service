@@ -16,6 +16,11 @@ module.exports = class ClassService {
 		return data;
 	}
 
+	async getClassesDistincId(user, className, id) {
+		const data = await examinaterModel.findOne({ user: user, classes: [{ className: className, _id: { $ne: id } }] }, { classes: 1 });
+		return data;
+	}
+
 	async insertClass(user, class_name) {
 		const data = await examinaterModel.findOneAndUpdate({ user: user }, { $addToSet: { classes: { className: class_name } } });
 		return data;

@@ -11,6 +11,7 @@ const examiner_schema = new Schema({
 	active: { type: Boolean, default: true, required: false },
 	exams: [
 		{
+			id: Schema.Types.ObjectId,
 			examName: String,
 			startDateTime: Date,
 			endDateTime: Date,
@@ -35,6 +36,7 @@ const examiner_schema = new Schema({
 	],
 	classes: [
 		{
+			id: Schema.Types.ObjectId,
 			className: String,
 			candidates: [
 				{
@@ -47,6 +49,7 @@ const examiner_schema = new Schema({
 	],
 	questionBanks: [
 		{
+			id: Schema.Types.ObjectId,
 			questionBankName: String,
 			questions: [
 				{
