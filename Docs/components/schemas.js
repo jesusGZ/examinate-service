@@ -94,5 +94,24 @@ module.exports = {
 				className: { type: 'string', example: 'TestClass4' },
 			},
 		},
+		updateClass: {
+			type: 'object',
+			properties: {
+				id: { type: 'string', example: '61fae6045ef20bf29ba2ea99' },
+				className: { type: 'string', example: 'TestClass' },
+				candidates: [
+					{
+						candidateName: { type: 'string', example: 'Antonio Zurita' },
+						candidateEmail: { type: 'string', example: 'candidate@gmail.com' },
+					},
+				],
+			},
+		},
+		deleteClasses: {
+			type: 'object',
+			properties: {
+				classId: { type: 'string', example: '61fbe2e9466e9779ee9d0ac5' },
+			},
+		},
 	},
 };

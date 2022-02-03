@@ -65,5 +65,19 @@ module.exports = {
 		},
 		deleteQuestionBank: { summary: 'questionBank', value: { questionBankId: '61f9a4a571920887e8693b20' } },
 		registerClass: { summary: 'classes', value: { className: 'TestClass4' } },
+		updateClass: {
+			summary: 'classes',
+			value: {
+				id: '61fae6045ef20bf29ba2ea99',
+				className: 'TestClass',
+				candidates: [
+					{
+						candidateName: 'Antonio Zurita',
+						candidateEmail: 'candidate@gmail.com',
+					},
+				],
+			},
+		},
+		deleteClasses: { summary: 'classes', value: { classId: '61fbe2e9466e9779ee9d0ac5' } },
 	},
 };

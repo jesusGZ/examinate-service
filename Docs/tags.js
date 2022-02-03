@@ -17,7 +17,7 @@ module.exports = {
 			description: 'Documentación para el uso de las APIs en módulo de examenes',
 		},
 		{
-			name: 'questionBanks',
+			name: 'questionBank',
 			description: 'Documentación para el uso de las APIs en módulo banco de preguntas',
 		},
 	],
