@@ -63,7 +63,7 @@ module.exports = {
 			tags: ['questionBank'],
 			summary: 'Listar los bancos de preguntas',
 			description: 'Muestra un listado de los bancos de preguntas pertenecientes al usuario logueado',
-			operationId: 'registerQuestionBank',
+			operationId: 'getQuestionBank',
 			responses: {
 				200: {
 					description: 'Petición realizada  exitosamente',

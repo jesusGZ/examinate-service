@@ -82,11 +82,17 @@ module.exports = {
 				},
 			},
 		},
-	},
-	deleteQuestionBank: {
-		type: 'object',
-		properties: {
-			questionBankId: { type: 'string', example: '61f9a4a571920887e8693b20' },
+		deleteQuestionBank: {
+			type: 'object',
+			properties: {
+				questionBankId: { type: 'string', example: '61f9a4a571920887e8693b20' },
+			},
+		},
+		registerClass: {
+			type: 'object',
+			properties: {
+				className: { type: 'string', example: 'TestClass4' },
+			},
 		},
 	},
 };

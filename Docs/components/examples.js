@@ -63,6 +63,7 @@ module.exports = {
 				],
 			},
 		},
+		deleteQuestionBank: { summary: 'questionBank', value: { questionBankId: '61f9a4a571920887e8693b20' } },
+		registerClass: { summary: 'classes', value: { className: 'TestClass4' } },
 	},
-	deleteQuestionBank: { summary: 'questionBank', value: { questionBankId: '61f9a4a571920887e8693b20' } },
 };
