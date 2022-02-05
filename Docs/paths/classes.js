@@ -199,8 +199,8 @@ module.exports = {
 		},
 		delete: {
 			tags: ['classes'],
-			summary: 'Eliminar un banco de preguntas',
-			description: 'Permite eliminar un banco de preguntas perteneciente al usuario logueado',
+			summary: 'Eliminar una clase',
+			description: 'Permite eliminar una clase perteneciente al usuario logueado',
 			operationId: 'deleteClasses',
 			requestBody: {
 				content: {
