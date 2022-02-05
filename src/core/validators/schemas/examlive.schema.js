@@ -3,17 +3,17 @@ const validaciones = require('../validations');
 const { Joi } = validaciones;
 
 const examLive = Joi.object().keys({
+	candidatePassword: validaciones.password.required(),
+	candidateId: validaciones.id.required(),
 	examinerId: validaciones.id.required(),
 	examId: validaciones.id.required(),
-	candidateId: validaciones.id.required(),
-	candidatePassword: validaciones.password.required(),
 });
 
 const examLiveResults = Joi.object().keys({
+	candidatePassword: validaciones.password.required(),
+	candidateId: validaciones.id.required(),
 	examinerId: validaciones.id.required(),
 	examId: validaciones.id.required(),
-	candidateId: validaciones.id.required(),
-	candidatePassword: validaciones.password.required(),
 	responses: Joi.array()
 		.items(
 			Joi.object().keys({

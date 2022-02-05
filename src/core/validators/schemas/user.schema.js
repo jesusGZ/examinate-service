@@ -2,28 +2,26 @@ const validaciones = require('../validations');
 
 const { Joi } = validaciones;
 
+const login = Joi.object().keys({ password: validaciones.password.required(), user: validaciones.username.required() });
+
+const auth_request = Joi.object().keys({ token: validaciones.jwt.required() });
+
+const id = Joi.object().keys({ id: validaciones.id.required() });
+
 const user = Joi.object().keys({
 	password: validaciones.password.required(),
 	user: validaciones.username.required(),
-	name: validaciones.name.required(),
 	email: validaciones.email.required(),
+	name: validaciones.name.required(),
 	active: validaciones.active,
 });
 
 const user_up = Joi.object().keys({
 	password: validaciones.password.required(),
-	name: validaciones.name.required(),
 	user: validaciones.username.required(),
 	email: validaciones.email.required(),
+	name: validaciones.name.required(),
 	active: validaciones.active,
-});
-
-const id = Joi.object().keys({
-	id: validaciones.id.required(),
-});
-
-const auth_request = Joi.object().keys({
-	token: validaciones.jwt.required(),
 });
 
 const reset_password = Joi.object().keys({
@@ -32,16 +30,4 @@ const reset_password = Joi.object().keys({
 	secret: validaciones.secret.required(),
 });
 
-const login = Joi.object().keys({
-	password: validaciones.password.required(),
-	user: validaciones.username.required(),
-});
-
-module.exports = {
-	auth_request,
-	reset_password,
-	user_up,
-	user,
-	login,
-	id,
-};
+module.exports = { reset_password, auth_request, user_up, user, login, id };
