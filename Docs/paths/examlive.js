@@ -99,11 +99,6 @@ module.exports = {
 					$ref: '#/components/responses/500',
 				},
 			},
-			security: [
-				{
-					token: [],
-				},
-			],
 		},
 	},
 	'/examlive/result': {},
