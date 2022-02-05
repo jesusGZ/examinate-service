@@ -6,19 +6,6 @@ const authJWT = require('../utils/auth');
 const exam_controller = new EXAM_CONTROLLER();
 
 module.exports = (app) => {
-	/* 
-	--------- CREATE ----------
-	request format to add a exam in the list of all exams:
-	req.body = {
-	    newExam: {
-	        examName: String,
-	        startDateTime: Date,
-	        endDateTime: Date,
-	        questionBankId: String,
-	        classId: String,
-	    }
-	} 
-	*/
 	app.post('/exam', authJWT, validateRequestMiddleware(exam_schema.exam, 'body'), async (req, res, next) => {
 		try {
 			const { examName, startDateTime, endDateTime, questionBankId, classId } = req.body;
@@ -64,14 +51,6 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
-
-	/*  
-	--------- DELETE ----------
-	 request format to delete a class:
-	 req = {
-	      examId: String
-	 } 
-	 */
 
 	app.delete('/exam', authJWT, validateRequestMiddleware(exam_schema.examId, 'body'), async (req, res, next) => {
 		try {

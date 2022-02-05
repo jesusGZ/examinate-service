@@ -83,5 +83,74 @@ module.exports = {
 				},
 			],
 		},
+		delete: {
+			tags: ['exams'],
+			summary: 'Eliminar un examen',
+			description: 'Permite eliminar un examen perteneciente al usuario logueado',
+			operationId: 'deleteExam',
+			requestBody: {
+				content: {
+					'application/json': {
+						schema: {
+							$ref: '#/components/schemas/deleteExam',
+						},
+						examples: {
+							User: {
+								$ref: '#/components/examples/deleteExam',
+							},
+						},
+					},
+				},
+			},
+			responses: {
+				200: {
+					description: 'Petición realizada  exitosamente',
+					content: {
+						'application/json': {
+							example: {
+								status: 'success',
+								data: {
+									_id: '61fae59d4864d9e8fcd134ac',
+									exams: [
+										{
+											examName: 'testExam',
+											startDateTime: '2022-01-05T06:00:00.000Z',
+											endDateTime: '2022-01-05T06:00:00.000Z',
+											totalMarks: 3,
+											questionBankId: '61fae5b65ef20bf29ba2e9e9',
+											candidates: [
+												{
+													candidateName: 'Antonio Zurita',
+													candidatePassword: 'dqdvp9cs',
+													hasAppeared: false,
+													_id: '61fe8a16c9832932773997d7',
+													responses: [],
+												},
+											],
+											_id: '61fe8a16c9832932773997d6',
+										},
+									],
+								},
+								message: 'Petición realizada exitosamente.',
+							},
+						},
+					},
+				},
+				400: {
+					$ref: '#/components/responses/400',
+				},
+				401: {
+					$ref: '#/components/responses/401',
+				},
+				500: {
+					$ref: '#/components/responses/500',
+				},
+			},
+			security: [
+				{
+					token: [],
+				},
+			],
+		},
 	},
 };

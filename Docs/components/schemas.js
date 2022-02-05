@@ -123,5 +123,11 @@ module.exports = {
 				classId: { type: 'string', example: '61fae6045ef20bf29ba2ea99' },
 			},
 		},
+		deleteExam: {
+			type: 'object',
+			properties: {
+				examId: { type: 'string', example: '61fe8a4ec983293277399828' },
+			},
+		},
 	},
 };

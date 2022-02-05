@@ -89,5 +89,6 @@ module.exports = {
 				classId: '61fae6045ef20bf29ba2ea99',
 			},
 		},
+		deleteExam: { summary: 'classes', value: { examId: '61fe8a4ec983293277399828' } },
 	},
 };
