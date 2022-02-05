@@ -42,7 +42,7 @@ module.exports = (app) => {
 	 } 
 	 */
 
-	app.post('/examlive/result', async (req, res, next) => {
+	app.post('/examlive/result', validateRequestMiddleware(exam_live_schema.examLiveResults, 'body'), async (req, res, next) => {
 		try {
 			const { examinerId, examId, candidateId, candidatePassword, responses } = req.body;
 			const result = await exam_live_controller.getResultsExam({ examinerId, examId, candidateId, candidatePassword, responses });
