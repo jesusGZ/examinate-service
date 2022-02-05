@@ -79,5 +79,15 @@ module.exports = {
 			},
 		},
 		deleteClasses: { summary: 'classes', value: { classId: '61fbe2e9466e9779ee9d0ac5' } },
+		registerExams: {
+			summary: 'exams',
+			value: {
+				examName: 'testExam2',
+				startDateTime: '2022-01-05',
+				endDateTime: '2022-01-06',
+				questionBankId: '61fae5b65ef20bf29ba2e9e9',
+				classId: '61fae6045ef20bf29ba2ea99',
+			},
+		},
 	},
 };

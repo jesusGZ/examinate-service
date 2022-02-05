@@ -113,5 +113,15 @@ module.exports = {
 				classId: { type: 'string', example: '61fbe2e9466e9779ee9d0ac5' },
 			},
 		},
+		registerExams: {
+			type: 'object',
+			properties: {
+				examName: { type: 'string', example: 'testExam2' },
+				startDateTime: { type: 'date', example: '2022-01-05' },
+				endDateTime: { type: 'date', example: '2022-01-06' },
+				questionBankId: { type: 'string', example: '61fae5b65ef20bf29ba2e9e9' },
+				classId: { type: 'string', example: '61fae6045ef20bf29ba2ea99' },
+			},
+		},
 	},
 };
