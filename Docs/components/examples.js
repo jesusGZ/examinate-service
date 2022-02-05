@@ -89,6 +89,15 @@ module.exports = {
 				classId: '61fae6045ef20bf29ba2ea99',
 			},
 		},
-		deleteExam: { summary: 'classes', value: { examId: '61fe8a4ec983293277399828' } },
+		deleteExam: { summary: 'exams', value: { examId: '61fe8a4ec983293277399828' } },
+		getExamLive: {
+			summary: 'examlive',
+			value: {
+				examinerId: '61fae59d4864d9e8fcd134ac',
+				examId: '61fe8a16c9832932773997d6',
+				candidateId: '61fe8a16c9832932773997d7',
+				candidatePassword: 'dqdvp9cs',
+			},
+		},
 	},
 };

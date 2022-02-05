@@ -129,5 +129,14 @@ module.exports = {
 				examId: { type: 'string', example: '61fe8a4ec983293277399828' },
 			},
 		},
+		getExamLive: {
+			type: 'object',
+			properties: {
+				examinerId: { type: 'string', example: '61fae59d4864d9e8fcd134ac' },
+				examId: { type: 'string', example: '61fe8a16c9832932773997d6' },
+				candidateId: { type: 'string', example: '61fe8a16c9832932773997d7' },
+				candidatePassword: { type: 'string', example: 'dqdvp9cs' },
+			},
+		},
 	},
 };
