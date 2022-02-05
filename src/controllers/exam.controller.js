@@ -11,7 +11,7 @@ module.exports = class ExamProcess {
 			try {
 				const exam_service = new EXAM_SERVICE();
 
-				const found_element = await exam_service.getFoundElement(data.username, data.classId);
+				const found_element = await exam_service.getFoundElement(data.user, data.classId);
 				if (!found_element) return reject('No se encontro informacion');
 
 				// checking if the exam with the same name already exists
@@ -56,20 +56,16 @@ module.exports = class ExamProcess {
 					candidates: compiled_candidates,
 				};
 
-				await exam_service.updateExam(data.username, compiled_object_exam);
+				await exam_service.updateExam(data.user, compiled_object_exam);
 
-				const found_elements = await exam_service.getFoundElements(data.username);
+				const found_elements = await exam_service.getFoundElements(data.user);
 
 				if (found_elements === null) {
 					return reject('No existe ningún usuario para la clase.');
 				} else {
-					//Sending emails to all the compiled candidates
-
 					const candidate_list = JSON.parse(JSON.stringify(found_elements.classes[class_indx].candidates));
 
 					await this.sendEmails(compiled_object_exam, found_elements, candidate_list);
-
-					//----end of sending mail ----
 
 					resolve({ status: 'success', data: found_elements.exams, message: 'Petición realizada exitosamente.' });
 				}
@@ -81,26 +77,10 @@ module.exports = class ExamProcess {
 	}
 
 	sendEmails(compiled_object_exam, found_elements, candidate_list) {
-		// console.log(compiled_object_exam);
-		// console.log(foundElement);
-		// console.log(candidate_list);
-
-		// compiled_object_exam.candidates.map((candidate) => {
-		//     console.log(
-		//         candidate_list.find((c) => c.candidateId === candidate.candidateId)
-		//     );
-
-		//     console.log();
-		// });
-
 		const request = mailjet.post('send', { version: 'v3.1' }).request({
 			Messages: compiled_object_exam.candidates.map((candidate) => {
 				return {
-					From: {
-						Email: `	
-                    ejemplo@gmail.com`,
-						Name: `prueba`,
-					},
+					From: { Email: `ejemplo@gmail.com`, Name: `prueba` },
 					To: [
 						{
 							Email: `${candidate_list.find((c) => c.candidateId === candidate.candidateId).candidateEmail}`,
@@ -141,12 +121,12 @@ module.exports = class ExamProcess {
 			});
 	}
 
-	async getInfo(username) {
+	async getInfo(user) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const exam_service = new EXAM_SERVICE();
 
-				const found_element = await exam_service.getFoundElements(username);
+				const found_element = await exam_service.getFoundElements(user);
 				if (!found_element) return reject('No se encontro informacion');
 
 				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
@@ -157,15 +137,15 @@ module.exports = class ExamProcess {
 		});
 	}
 
-	async getExams(username) {
+	async getExams(user) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const exam_service = new EXAM_SERVICE();
 
-				const found_element = await exam_service.getFoundElements(username);
-				if (!found_element) return reject('No se encontro informacion');
+				const exams = await exam_service.getExams(user);
+				if (!exams) return reject('No se encontro informacion');
 
-				resolve({ status: 'success', data: found_element.exams, message: 'Petición realizada exitosamente.' });
+				resolve({ status: 'success', data: exams, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor.');
@@ -178,12 +158,15 @@ module.exports = class ExamProcess {
 			try {
 				const exam_service = new EXAM_SERVICE();
 
-				await exam_service.deleteExam(data.username, data.examId);
+				const exam_data = await exam_service.getExamById(data.user, data.examId);
+				if (!exam_data) return reject('No se encontro informacion');
 
-				const found_element = await exam_service.getFoundElements(data.username);
-				if (!found_element) return reject('No se encontro informacion');
+				await exam_service.deleteExam(data.user, data.examId);
 
-				resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
+				const exams = await exam_service.getExams(data.user);
+				if (!exams) return reject('No se encontro informacion');
+
+				resolve({ status: 'success', data: exams, message: 'Petición realizada exitosamente.' });
 			} catch (error) {
 				logger.error(`${error.status} - ${error.message}`);
 				reject('Error internodel servidor.');

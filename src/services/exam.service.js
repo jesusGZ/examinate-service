@@ -13,7 +13,17 @@ module.exports = class ExamService {
 	}
 
 	async getFoundElements(user) {
-		const data = await examinaterModel.findOne({ user: user });
+		const data = await examinaterModel.findOne({ user: user }, { password: 0 });
+		return data;
+	}
+
+	async getExams(user) {
+		const data = await examinaterModel.findOne({ user: user }, { exams: 1 });
+		return data;
+	}
+
+	async getExamById(user, examId) {
+		const data = await examinaterModel.findOne({ user: user, 'exams._id': examId }, { exams: 1 });
 		return data;
 	}
 

@@ -6,15 +6,6 @@ const authJWT = require('../utils/auth');
 const class_controller = new CLASS_CONTROLLER();
 
 module.exports = (app) => {
-	/* 
-	 --------- CREATE ----------
-	 request format to add a class in the list of all classes:
-	 req = {
-	      class: {
-	          className: String,
-	      }
-	 } 
-	 */
 	app.post('/class', authJWT, validateRequestMiddleware(class_schema.classes, 'body'), async (req, res, next) => {
 		try {
 			const class_name = req.body.className;
@@ -27,12 +18,6 @@ module.exports = (app) => {
 		}
 	});
 
-	/* 
-	 --------- READ ----------
-	 request format to get list of all classes:
-	 only valid jwt 
-	 */
-
 	app.get('/class', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
@@ -44,24 +29,6 @@ module.exports = (app) => {
 		}
 	});
 
-	/*
-	 --------- UPDATE ----------
-	 request format to update a class details:
-	 req = {
-	      updatedClass: {
-	          _id: String
-	          className: String,
-	          candidates: [
-	              {
-	                  _id: String,
-	                  candidateId: String,
-	                  candidateName: String,
-	                  candidateEmail: String,
-	              },
-	          ]
-	      }
-	 } 
-	 */
 	app.put('/class', authJWT, validateRequestMiddleware(class_schema.classes_up, 'body'), async (req, res, next) => {
 		try {
 			const { id, className, candidates } = req.body;
@@ -73,14 +40,6 @@ module.exports = (app) => {
 			next(error);
 		}
 	});
-
-	/* 
-	 --------- DELETE ----------
-	 request format to delete a class:
-	 req = {
-	      classId: Object ID (_Id)
-	 } 
-	 */
 
 	app.delete('/class', authJWT, validateRequestMiddleware(class_schema.classes_del, 'body'), async (req, res, next) => {
 		try {
