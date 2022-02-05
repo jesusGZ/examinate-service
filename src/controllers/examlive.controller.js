@@ -12,29 +12,27 @@ module.exports = class ExamLiveProcess {
 				if (!found_examiner) return reject('No se encontro informacion del usuario.');
 
 				let found_exam_status = false;
-
-				for (const i in found_examiner) {
-					const found_exam = found_examiner.exams[i];
-
-					if (String(found_exam._id) === data.examId) {
+				const found_exam = found_examiner.exams;
+				for (const i in found_exam) {
+					if (String(found_exam[i]._id) === data.examId) {
 						found_exam_status = true;
 
-						const found_candidate = found_exam.candidates.find((candidate) => {
-							return candidate.candidateId === data.candidateId && candidate.candidatePassword === data.candidatePassword;
+						const found_candidate = found_exam[i].candidates.find((candidate) => {
+							return candidate._id.toString() === data.candidateId && candidate.candidatePassword === data.candidatePassword;
 						});
-
-						if (found_candidate.hasAppeared) return reject('El candidato ya ha aparecido para el examen.');
 
 						if (found_candidate === undefined) return reject('Credenciales no válidas para acceder al examen.');
 
-						const question_bank = found_examiner.questionBanks.find((queBank) => String(queBank._id) === found_exam.questionBankId);
+						if (found_candidate.hasAppeared) return reject('El candidato ya ha aparecido para el examen.');
 
-						if (moment().isBetween(found_exam.startDateTime, found_exam.endDateTime)) {
+						const question_bank = found_examiner.questionBanks.find((queBank) => String(queBank._id) === found_exam[i].questionBankId);
+
+						if (moment().isBetween(found_exam[i].startDateTime, found_exam[i].endDateTime)) {
 							if (question_bank === undefined) return reject('Banco de preguntas indefinido.');
 
-							return resolve({ status: 'success', data: { questionBank: question_bank, startDateTime: found_exam.startDateTime, endDateTime: found_exam.endDateTime }, message: 'Petición realizada exitosamente.' });
+							return resolve({ status: 'success', data: { questionBank: question_bank, startDateTime: found_exam[i].startDateTime, endDateTime: found_exam[i].endDateTime }, message: 'Petición realizada exitosamente.' });
 						} else {
-							return reject(`El examen aún no ha comenzado, inténtelo de nuevo entre ${moment(found_exam.startDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} & ${moment(found_exam.endDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')}`);
+							return reject(`El examen aún no ha comenzado, inténtelo de nuevo entre ${moment(found_exam[i].startDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')} & ${moment(found_exam[i].endDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')}`);
 						}
 					}
 				}
