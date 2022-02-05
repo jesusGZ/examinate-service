@@ -303,7 +303,7 @@ module.exports = {
 			],
 		},
 	},
-	'/exam': {
+	'/exams': {
 		get: {
 			tags: ['exams'],
 			summary: 'Listar los examenes',

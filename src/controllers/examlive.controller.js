@@ -16,11 +16,11 @@ module.exports = class ExamLiveProcess {
 				for (const i in found_examiner) {
 					const found_exam = found_examiner.exams[i];
 
-					if (String(found_exam._id) === req.body.examId) {
+					if (String(found_exam._id) === data.examId) {
 						found_exam_status = true;
 
 						const found_candidate = found_exam.candidates.find((candidate) => {
-							return candidate.candidateId === req.body.candidateId && candidate.candidatePassword === req.body.candidatePassword;
+							return candidate.candidateId === data.candidateId && candidate.candidatePassword === data.candidatePassword;
 						});
 
 						if (found_candidate.hasAppeared) return reject('El candidato ya ha aparecido para el examen.');
@@ -89,7 +89,7 @@ module.exports = class ExamLiveProcess {
 						examiner.exams[exam_index].candidates[candidate_index].Marks = marks_count;
 
 						examiner.save();
-						//Results response
+
 						return resolve({
 							status: 'success',
 							data: {

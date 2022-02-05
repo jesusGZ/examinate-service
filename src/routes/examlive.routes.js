@@ -1,4 +1,4 @@
-const exam_schema = require('../core/validators/schemas/examlive.schema');
+const exam_live_schema = require('../core/validators/schemas/examlive.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
 const EXAM_LIVE_CONTROLLER = require('../controllers/examlive.controller');
 const authJWT = require('../utils/auth');
@@ -16,7 +16,7 @@ module.exports = (app) => {
 	 } 
 	 */
 
-	app.get('/examlive', async (req, res, next) => {
+	app.get('/examlive', validateRequestMiddleware(exam_live_schema.examLive, 'body'), async (req, res, next) => {
 		try {
 			const { examinerId, examId, candidateId, candidatePassword } = req.body;
 			const result = await exam_live_controller.getExamLive({ examinerId, examId, candidateId, candidatePassword });

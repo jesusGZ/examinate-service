@@ -18,12 +18,6 @@ module.exports = (app) => {
 		}
 	});
 
-	/* 
-	--------- READ ----------
-	request format to get list of all exams:
-	only a valid jwt
-	for exams since we need all the user details to create an exam therefore this endpoint 
-	*/
 	app.get('/info', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
@@ -35,12 +29,6 @@ module.exports = (app) => {
 		}
 	});
 
-	/* 
-	--------- READ ----------
-	request format to get list of all exams:
-	only a valid jwt
-	for exams since we need all the user details to create an exam therefore this endpoint 
-	*/
 	app.get('/exams', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
