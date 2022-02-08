@@ -3,9 +3,9 @@ const morgan = require('morgan');
 const compression = require('compression');
 const swaggerUi = require('swagger-ui-express');
 
-const swaggerDoc = require('./Docs/swagger');
+const swagger_doc = require('./Docs/swagger');
 const error = require('./src/core/middlewares/error');
-const verbos_http = require('./src/core/middlewares/verbos_http');
+const methods_http = require('./src/core/middlewares/methodsHttp');
 const { SERVICE } = require('./src/core/config/index');
 const DB = require('./src/core/db/connection');
 
@@ -17,13 +17,13 @@ DB.getConnection().catch((err) => {
 	console.error('[Error db]: ' + err);
 });
 
-app.use(verbos_http);
+app.use(methods_http);
 app.disable('x-powered-by');
 app.use(morgan('dev'));
 app.use(compression());
 app.use(express.json({ limit: '500kb', extended: true }));
 app.use(express.urlencoded({ limit: '500kb', extended: true }));
-app.use('/document-apis', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use('/document-apis', swaggerUi.serve, swaggerUi.setup(swagger_doc));
 
 require('./src/routes/index.routes')(app);
 require('./src/routes/default')(app);

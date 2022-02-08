@@ -3,10 +3,10 @@ const chalk = require('chalk');
 
 const { MONGO_DB } = require('../config');
 
-const connected = chalk.bold.cyan;
-const error = chalk.bold.yellow;
-const disconnected = chalk.bold.red;
-const termination = chalk.bold.magenta;
+const connected = chalk.bold.cyan,
+	error = chalk.bold.yellow,
+	disconnected = chalk.bold.red,
+	termination = chalk.bold.magenta;
 
 const getConnection = function () {
 	return new Promise(async function (resolve, reject) {

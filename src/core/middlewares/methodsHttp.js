@@ -1,6 +1,6 @@
-const VERBOS = ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'];
+const METHODS = ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'];
 
-module.exports = function verbosHttp(req, res, next) {
+module.exports = function methodsHttp(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Headers', `Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method`);
 	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -10,13 +10,10 @@ module.exports = function verbosHttp(req, res, next) {
 
 	if (req.method) {
 		let valid_method = undefined;
-		valid_method = VERBOS.find((method) => method == req.method);
+		valid_method = METHODS.find((method) => method == req.method);
 
 		if (valid_method == undefined) {
-			const error = {
-				response: { status: 'error', data: 'Metodo de peticion no valido' },
-				status: 405,
-			};
+			const error = { response: { status: 'error', data: 'Metodo de peticion no valido' }, status: 405 };
 			res.send(error);
 		} else {
 			next();
