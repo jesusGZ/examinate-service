@@ -43,39 +43,13 @@ module.exports = {
 						{
 							marks: '1',
 							value: 'example of a question 1',
-							options: [
-								{
-									value: 'option 1',
-								},
-								{
-									value: 'option 2',
-								},
-								{
-									value: 'option 3',
-								},
-								{
-									value: 'option 4',
-								},
-							],
+							options: [{ value: 'option 1' }, { value: 'option 2' }, { value: 'option 3' }, { value: 'option 4' }],
 							correctOptionValue: 'option 3',
 						},
 						{
 							marks: '2',
 							value: 'example of a question 2',
-							options: [
-								{
-									value: 'option 1',
-								},
-								{
-									value: 'option 2',
-								},
-								{
-									value: 'option 3',
-								},
-								{
-									value: 'option 4',
-								},
-							],
+							options: [{ value: 'option 1' }, { value: 'option 2' }, { value: 'option 3' }, { value: 'option 4' }],
 							correctOptionValue: 'option 4',
 						},
 					],
@@ -84,15 +58,11 @@ module.exports = {
 		},
 		deleteQuestionBank: {
 			type: 'object',
-			properties: {
-				questionBankId: { type: 'string', example: '61f9a4a571920887e8693b20' },
-			},
+			properties: { questionBankId: { type: 'string', example: '61f9a4a571920887e8693b20' } },
 		},
 		registerClass: {
 			type: 'object',
-			properties: {
-				className: { type: 'string', example: 'TestClass4' },
-			},
+			properties: { className: { type: 'string', example: 'TestClass4' } },
 		},
 		updateClass: {
 			type: 'object',
@@ -109,9 +79,7 @@ module.exports = {
 		},
 		deleteClasses: {
 			type: 'object',
-			properties: {
-				classId: { type: 'string', example: '61fbe2e9466e9779ee9d0ac5' },
-			},
+			properties: { classId: { type: 'string', example: '61fbe2e9466e9779ee9d0ac5' } },
 		},
 		registerExams: {
 			type: 'object',
@@ -125,9 +93,7 @@ module.exports = {
 		},
 		deleteExam: {
 			type: 'object',
-			properties: {
-				examId: { type: 'string', example: '61fe8a4ec983293277399828' },
-			},
+			properties: { examId: { type: 'string', example: '61fe8a4ec983293277399828' } },
 		},
 		getExamLive: {
 			type: 'object',

@@ -1,21 +1,9 @@
 module.exports = {
 	examples: {
-		registerUser: {
-			summary: 'User',
-			value: { name: 'Jesus Antonio Garcia Zurita', email: 'example@gmail.com', user: 'exampleUser', password: 'secret' },
-		},
-		updateUser: {
-			summary: 'User',
-			value: { name: 'Jesus Antonio Garcia Zurita', email: 'example@gmail.com', user: 'exampleUser', password: 'secret', active: 'true' },
-		},
-		loginUser: {
-			summary: 'User',
-			value: { user: 'exampleUser', password: 'secret' },
-		},
-		registerQuestionBank: {
-			summary: 'questionBank',
-			value: { questionBankName: 'Test3' },
-		},
+		registerUser: { summary: 'User', value: { name: 'Jesus Antonio Garcia Zurita', email: 'example@gmail.com', user: 'exampleUser', password: 'secret' } },
+		updateUser: { summary: 'User', value: { name: 'Jesus Antonio Garcia Zurita', email: 'example@gmail.com', user: 'exampleUser', password: 'secret', active: 'true' } },
+		loginUser: { summary: 'User', value: { user: 'exampleUser', password: 'secret' } },
+		registerQuestionBank: { summary: 'questionBank', value: { questionBankName: 'Test3' } },
 		updateQuestionBank: {
 			summary: 'questionBank',
 			value: {
@@ -25,39 +13,13 @@ module.exports = {
 					{
 						marks: '1',
 						value: 'example of a question 1',
-						options: [
-							{
-								value: 'option 1',
-							},
-							{
-								value: 'option 2',
-							},
-							{
-								value: 'option 3',
-							},
-							{
-								value: 'option 4',
-							},
-						],
+						options: [{ value: 'option 1' }, { value: 'option 2' }, { value: 'option 3' }, { value: 'option 4' }],
 						correctOptionValue: 'option 3',
 					},
 					{
 						marks: '2',
 						value: 'example of a question 2',
-						options: [
-							{
-								value: 'option 1',
-							},
-							{
-								value: 'option 2',
-							},
-							{
-								value: 'option 3',
-							},
-							{
-								value: 'option 4',
-							},
-						],
+						options: [{ value: 'option 1' }, { value: 'option 2' }, { value: 'option 3' }, { value: 'option 4' }],
 						correctOptionValue: 'option 4',
 					},
 				],
