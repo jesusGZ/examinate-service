@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const compression = require('compression');
-const swaggerUi = require('swagger-ui-express');
+const swagger_ui = require('swagger-ui-express');
 
 const swagger_doc = require('./Docs/swagger');
 const error = require('./src/core/middlewares/error');
@@ -23,10 +23,10 @@ app.use(morgan('dev'));
 app.use(compression());
 app.use(express.json({ limit: '500kb', extended: true }));
 app.use(express.urlencoded({ limit: '500kb', extended: true }));
-app.use('/document-apis', swaggerUi.serve, swaggerUi.setup(swagger_doc));
+app.use('/document-apis', swagger_ui.serve, swagger_ui.setup(swagger_doc));
 
 require('./src/routes/index.routes')(app);
-require('./src/routes/default')(app);
+require('./src/routes/default/index.routes')(app);
 app.use(error);
 
 http.createServer(/* options, */ app).listen(SERVICE.LOCAL_PORT, () => {

@@ -2,11 +2,11 @@
 	"name": "examinate-service",
 	"version": "1.0.0",
 	"description": "Servicio de node.js para la implementacion de examenes en linea",
-	"main": "index.js",
+	"main": "app.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon index.js",
-		"start": "node index.js"
+		"dev": "nodemon app.js",
+		"start": "node app.js"
 	},
 	"keywords": [
 		"node",

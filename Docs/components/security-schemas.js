@@ -1,9 +1,1 @@
-module.exports = {
-	securitySchemes: {
-		token: {
-			type: 'apiKey',
-			name: 'token',
-			in: 'header',
-		},
-	},
-};
+module.exports = { securitySchemes: { token: { type: 'apiKey', name: 'token', in: 'header' } } };

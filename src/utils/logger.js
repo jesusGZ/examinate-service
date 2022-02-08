@@ -1,8 +1,8 @@
 const { createLogger, format, transports } = require('winston');
 
-const date = new Date();
-const month = date.getMonth() + 1;
-const name = `${date.getFullYear()}-${month}-${date.getDay()}`;
+const date = new Date(),
+	month = date.getMonth() + 1,
+	name = `${date.getFullYear()}-${month}-${date.getDay()}`;
 
 module.exports = createLogger({
 	transports: new transports.File({

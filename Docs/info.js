@@ -3,9 +3,7 @@ module.exports = {
 	info: {
 		title: 'Examinate service',
 		description: "Documentación correspondiente a las API's del servicio de examenes.",
-		contact: {
-			email: '',
-		},
+		contact: { email: '' },
 		version: '1.0.0',
 	},
 };

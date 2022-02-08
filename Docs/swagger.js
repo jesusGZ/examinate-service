@@ -1,24 +1,17 @@
-const info = require('./info');
-const servers = require('./servers');
-const components = require('./components');
-const tags = require('./tags');
-
-const user = require('./paths/user');
-const classes = require('./paths/classes');
-const examlive = require('./paths/examlive');
-const exams = require('./paths/exams');
-const questionBanks = require('./paths/questionBanks');
+const info = require('./info'),
+	servers = require('./servers'),
+	components = require('./components'),
+	tags = require('./tags'),
+	user = require('./paths/user'),
+	classes = require('./paths/classes'),
+	examlive = require('./paths/examlive'),
+	exams = require('./paths/exams'),
+	questionBanks = require('./paths/questionBanks');
 
 module.exports = {
 	...info,
 	...servers,
 	...tags,
-	paths: {
-		...user,
-		...classes,
-		...examlive,
-		...exams,
-		...questionBanks,
-	},
+	paths: { ...user, ...classes, ...examlive, ...exams, ...questionBanks },
 	...components,
 };
