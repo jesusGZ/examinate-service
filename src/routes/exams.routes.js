@@ -1,9 +1,7 @@
 const exam_schema = require('../core/validators/schemas/exam.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const EXAM_CONTROLLER = require('../controllers/exam.controller');
+const { deleteExam, getExams, getInfo, sendEmails, createExam } = require('../controllers/exam.controller');
 const authJWT = require('../utils/auth');
-
-const exam_controller = new EXAM_CONTROLLER();
 
 module.exports = (app) => {
 	app.post('/exam', authJWT, validateRequestMiddleware(exam_schema.exam, 'body'), async (req, res, next) => {
@@ -11,7 +9,7 @@ module.exports = (app) => {
 			const { examName, startDateTime, endDateTime, questionBankId, classId } = req.body;
 			const user = req.payload.user;
 
-			const result = await exam_controller.createExam({ user, examName, startDateTime, endDateTime, questionBankId, classId });
+			const result = await createExam({ user, examName, startDateTime, endDateTime, questionBankId, classId });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -22,7 +20,7 @@ module.exports = (app) => {
 		try {
 			const user = req.payload.user;
 
-			const result = await exam_controller.getInfo(user);
+			const result = await getInfo(user);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -33,7 +31,7 @@ module.exports = (app) => {
 		try {
 			const user = req.payload.user;
 
-			const result = await exam_controller.getExams(user);
+			const result = await getExams(user);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -45,7 +43,7 @@ module.exports = (app) => {
 			const user = req.payload.user;
 			const examId = req.body.examId;
 
-			const result = await exam_controller.deleteExam({ user, examId });
+			const result = await deleteExam({ user, examId });
 			res.send(result);
 		} catch (error) {
 			next(error);
