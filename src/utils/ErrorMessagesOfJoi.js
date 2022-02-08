@@ -1,4 +1,4 @@
-module.exports = function getErrorMessages(element) {
+module.exports = function getErrorMessagesOfJoi(element) {
 	const error = element[0]['type'];
 	const context = element[0].context;
 	const parameter = element[0].context.label;

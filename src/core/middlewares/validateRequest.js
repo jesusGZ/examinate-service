@@ -1,6 +1,6 @@
-const getValidationErrorMessage = require('../../utils/responsesJoy');
+const getErrorMessagesOfJoi = require('../../utils/ErrorMessagesOfJoi');
 
-const setValidateRequestMiddleware = (schema, property) => {
+module.exports = function setValidateRequestMiddleware(schema, property) {
 	return (req, res, next) => {
 		const { error, value } = schema.validate(req[property], {
 			allowUnknown: property === 'headers' ? true : false,
@@ -9,7 +9,7 @@ const setValidateRequestMiddleware = (schema, property) => {
 
 		if (error) {
 			const { details } = error;
-			const message = getValidationErrorMessage(details);
+			const message = getErrorMessagesOfJoi(details);
 			return next(message);
 		}
 
@@ -17,5 +17,3 @@ const setValidateRequestMiddleware = (schema, property) => {
 		next();
 	};
 };
-
-module.exports = setValidateRequestMiddleware;
