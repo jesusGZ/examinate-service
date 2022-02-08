@@ -1,7 +1,4 @@
-const invalid_chars_regex = /{|}|\(|\)|<|>|\[|\]|\^|"|\?|=|:|\*|&|#/;
-const SQL_keywords_regex = /\b(?:OR|FROM|WHERE|DELETE|DROP|SELECT|UPDATE|INSERT|GRANT|REVOKE|UNION)\b/i;
-const JWT_regex = /^([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_\-\+\/=]*)/;
-const only_numbers_regex = /[^0-9!?]/;
+const { invalid_chars_regex, SQL_keywords_regex, JWT_regex, only_numbers_regex } = require('../config/regex');
 
 const string = (joi) => ({
 	type: 'string',

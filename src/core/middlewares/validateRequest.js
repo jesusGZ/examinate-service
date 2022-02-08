@@ -2,10 +2,7 @@ const getErrorMessagesOfJoi = require('../../utils/ErrorMessagesOfJoi');
 
 module.exports = function setValidateRequestMiddleware(schema, property) {
 	return (req, res, next) => {
-		const { error, value } = schema.validate(req[property], {
-			allowUnknown: property === 'headers' ? true : false,
-			convert: true,
-		});
+		const { error, value } = schema.validate(req[property], { allowUnknown: property === 'headers' ? true : false, convert: true });
 
 		if (error) {
 			const { details } = error;
