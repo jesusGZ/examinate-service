@@ -1,4 +1,4 @@
-const EXAM_LIVE_SERVICE = require('../services/examlive.service');
+const exam_live_service = require('../services/examlive.service');
 const logger = require('../utils/logger');
 
 const moment = require('moment');
@@ -6,8 +6,6 @@ const moment = require('moment');
 function getExamLive(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const exam_live_service = new EXAM_LIVE_SERVICE();
-
 			const found_examiner = await exam_live_service.getExaminer(data.examinerId);
 			if (!found_examiner) return reject('No se encontro informacion del usuario.');
 
@@ -48,8 +46,6 @@ function getExamLive(data) {
 function getResultsExam(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const exam_live_service = new EXAM_LIVE_SERVICE();
-
 			const examiner = await exam_live_service.getExaminer(data.examinerId);
 			if (!examiner) return reject('No se encontro informacion del usuario.');
 

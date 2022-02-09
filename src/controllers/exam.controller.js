@@ -1,5 +1,5 @@
 const { EMAIL } = require('../core/config');
-const EXAM_SERVICE = require('../services/exam.service');
+const exam_service = require('../services/exam.service');
 const logger = require('../utils/logger');
 
 const moment = require('moment');
@@ -8,8 +8,6 @@ const mailjet = require('node-mailjet').connect(EMAIL.MAILJET_API_KEY, EMAIL.MAI
 function createExam(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const exam_service = new EXAM_SERVICE();
-
 			const found_element = await exam_service.getFoundElement(data.user, data.classId);
 			if (!found_element) return reject('No se encontro informacion');
 
@@ -123,8 +121,6 @@ function sendEmails(compiled_object_exam, found_elements, candidate_list) {
 async function getInfo(user) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const exam_service = new EXAM_SERVICE();
-
 			const found_element = await exam_service.getFoundElements(user);
 			if (!found_element) return reject('No se encontro informacion');
 
@@ -139,8 +135,6 @@ async function getInfo(user) {
 async function getExams(user) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const exam_service = new EXAM_SERVICE();
-
 			const exams = await exam_service.getExams(user);
 			if (!exams) return reject('No se encontro informacion');
 
@@ -155,8 +149,6 @@ async function getExams(user) {
 async function deleteExam(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const exam_service = new EXAM_SERVICE();
-
 			const exam_data = await exam_service.getExamById(data.user, data.examId);
 			if (!exam_data) return reject('No se encontro informacion');
 

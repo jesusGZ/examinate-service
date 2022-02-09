@@ -1,6 +1,6 @@
 const class_schema = require('../core/validators/schemas/class.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const { deleteClass, updateClass, getClass, createClass } = require('../controllers/class.controller');
+const class_controller = require('../controllers/class.controller');
 const authJWT = require('../utils/auth');
 
 module.exports = (app) => {
@@ -9,7 +9,7 @@ module.exports = (app) => {
 			const class_name = req.body.className;
 			const user = req.payload.user;
 
-			const result = await createClass({ user, class_name });
+			const result = await class_controller.createClass({ user, class_name });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -20,7 +20,7 @@ module.exports = (app) => {
 		try {
 			const user = req.payload.user;
 
-			const result = await getClass(user);
+			const result = await class_controller.getClass(user);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -32,7 +32,7 @@ module.exports = (app) => {
 			const { id, className, candidates } = req.body;
 			const user = req.payload.user;
 
-			const result = await updateClass({ user, id, className, candidates });
+			const result = await class_controller.updateClass({ user, id, className, candidates });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -44,7 +44,7 @@ module.exports = (app) => {
 			const classId = req.body.classId;
 			const user = req.payload.user;
 
-			const result = await deleteClass({ user, classId });
+			const result = await class_controller.deleteClass({ user, classId });
 			res.send(result);
 		} catch (error) {
 			next(error);
