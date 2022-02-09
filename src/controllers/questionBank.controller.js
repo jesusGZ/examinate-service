@@ -1,11 +1,9 @@
-const QUESTION_BANK_SERVICE = require('../services/questionBank.service');
+const question_bank_service = require('../services/questionBank.service');
 const logger = require('../utils/logger');
 
 function createQuestionBank(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const question_bank_service = new QUESTION_BANK_SERVICE();
-
 			let question_bank_data = await question_bank_service.getQuestionBankNameByUser(data.user, data.questionBankName);
 			if (question_bank_data) return reject('El banco de preguntas ya se encuentra registrado.');
 
@@ -25,8 +23,6 @@ function createQuestionBank(data) {
 function getQuestionBank(user) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const question_bank_service = new QUESTION_BANK_SERVICE();
-
 			const found_element = await question_bank_service.getFoundElements(user);
 			if (!found_element) return reject('No se encontro informacion');
 
@@ -41,8 +37,6 @@ function getQuestionBank(user) {
 function updateQuestionBank(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const question_bank_service = new QUESTION_BANK_SERVICE();
-
 			let verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(data.user, data.id);
 			if (!verify_question_bank) return reject('No se encontro informacion.');
 
@@ -63,8 +57,6 @@ function updateQuestionBank(data) {
 function deleteQuestionBank(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const question_bank_service = new QUESTION_BANK_SERVICE();
-
 			const verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(data.user, data.questionBankId);
 			if (!verify_question_bank) return reject('No se encontro informacion');
 

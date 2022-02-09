@@ -1,6 +1,6 @@
 const question_bank_schema = require('../core/validators/schemas/questionBank.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const { deleteQuestionBank, updateQuestionBank, getQuestionBank, createQuestionBank } = require('../controllers/questionBank.controller');
+const question_bank_controller = require('../controllers/questionBank.controller');
 const authJWT = require('../utils/auth');
 
 module.exports = (app) => {
@@ -9,7 +9,7 @@ module.exports = (app) => {
 			const questionBankName = req.body.questionBankName;
 			const user = req.payload.user;
 
-			const result = await createQuestionBank({ user, questionBankName });
+			const result = await question_bank_controller.createQuestionBank({ user, questionBankName });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -20,7 +20,7 @@ module.exports = (app) => {
 		try {
 			const user = req.payload.user;
 
-			const result = await getQuestionBank(user);
+			const result = await question_bank_controller.getQuestionBank(user);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -32,7 +32,7 @@ module.exports = (app) => {
 			const { id, questionBankName, questions } = req.body;
 			const user = req.payload.user;
 
-			const result = await updateQuestionBank({ user, id, questionBankName, questions });
+			const result = await question_bank_controller.updateQuestionBank({ user, id, questionBankName, questions });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -44,7 +44,7 @@ module.exports = (app) => {
 			const questionBankId = req.body.questionBankId;
 			const user = req.payload.user;
 
-			const result = await deleteQuestionBank({ user, questionBankId });
+			const result = await question_bank_controller.deleteQuestionBank({ user, questionBankId });
 			res.send(result);
 		} catch (error) {
 			next(error);

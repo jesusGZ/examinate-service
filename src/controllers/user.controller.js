@@ -2,14 +2,12 @@ const jwt = require('jsonwebtoken');
 
 const { SECURITY } = require('../core/config');
 const bcrypt = require('../utils/bcrypt');
-const USER_SERVICE = require('../services/user.service');
+const user_service = require('../services/user.service');
 const logger = require('../utils/logger');
 
 function createUser(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const user_service = new USER_SERVICE();
-
 			const data_user = await user_service.getUser(data.user);
 			if (data_user) return reject('El usuario ya esta registrado');
 
@@ -39,8 +37,6 @@ function createUser(data) {
 function getUser(id) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const user_service = new USER_SERVICE();
-
 			const data_user = await user_service.getUserById(id);
 			if (!data_user) return reject('No se encontraron datos de usuario');
 
@@ -57,7 +53,6 @@ function getUser(id) {
 function getUsers() {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const user_service = new USER_SERVICE();
 			const data_users = await user_service.getAllUsers();
 
 			const users = data_users.map((item) => {
@@ -82,8 +77,6 @@ function getUsers() {
 function updateUser(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const user_service = new USER_SERVICE();
-
 			const verify_user = await user_service.getUserById(data.id);
 			if (!verify_user) return reject('No se encontraron datos de usuario');
 
@@ -116,8 +109,6 @@ function resetPassword(data) {
 		try {
 			if (data.secret !== SECURITY.SECRET_KEY) return reject('No esta autorizado para realizar esta acción');
 
-			const user_service = new USER_SERVICE();
-
 			const data_user = await user_service.getUser(data.user);
 			if (!data_user) return reject('No se encontraron datos de usuario');
 
@@ -137,8 +128,6 @@ function resetPassword(data) {
 function login(data) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const user_service = new USER_SERVICE();
-
 			const user_password = await user_service.getPasswordByUser(data.user);
 			if (!user_password) return reject('Credenciales Incorrectas');
 
