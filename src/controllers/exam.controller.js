@@ -64,7 +64,7 @@ function createExam(data) {
 			} else {
 				const candidate_list = JSON.parse(JSON.stringify(found_elements.classes[class_indx].candidates));
 
-				await this.sendEmails(compiled_object_exam, found_elements, candidate_list);
+				await sendEmails(compiled_object_exam, found_elements, candidate_list);
 
 				resolve({ status: 'success', data: found_elements.exams, message: 'Petición realizada exitosamente.' });
 			}
@@ -173,4 +173,4 @@ async function deleteExam(data) {
 	});
 }
 
-module.exports = { deleteExam, getExams, getInfo, sendEmails, createExam };
+module.exports = { deleteExam, getExams, getInfo, createExam };
