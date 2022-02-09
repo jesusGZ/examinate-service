@@ -1,15 +1,13 @@
 const user_schema = require('../core/validators/schemas/user.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const USER_CONTROLLER = require('../controllers/user.controller');
+const { createUser, getUser, getUsers, updateUser, resetPassword, login } = require('../controllers/user.controller');
 const authJWT = require('../utils/auth');
-
-const user_controller = new USER_CONTROLLER();
 
 module.exports = (app) => {
 	app.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
 		try {
 			const { name, email, user, password, active } = req.body;
-			const result = await user_controller.createUser({ name, email, user, password, active });
+			const result = await createUser({ name, email, user, password, active });
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -19,7 +17,7 @@ module.exports = (app) => {
 	app.get('/user', authJWT, validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
 		try {
 			const { id } = req.headers;
-			const result = await user_controller.getUser(id);
+			const result = await getUser(id);
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -28,7 +26,7 @@ module.exports = (app) => {
 
 	app.get('/users', authJWT, async (req, res, next) => {
 		try {
-			const result = await user_controller.getUsers();
+			const result = await getUsers();
 			res.send(result);
 		} catch (error) {
 			next(error);
@@ -39,7 +37,7 @@ module.exports = (app) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 			const { id } = req.headers;
-			const result = await user_controller.updateUser({ id, name, email, user, password, active });
+			const result = await updateUser({ id, name, email, user, password, active });
 			res.send(result);
 		} catch (err) {
 			next(err);
@@ -49,7 +47,7 @@ module.exports = (app) => {
 	app.put('/user/resetPassword', validateRequestMiddleware(user_schema.reset_password, 'body'), async (req, res, next) => {
 		try {
 			const { user, password, secret } = req.body;
-			const result = await user_controller.resetPassword({ user, password, secret });
+			const result = await resetPassword({ user, password, secret });
 			res.send(result);
 		} catch (err) {
 			next(err);
@@ -59,7 +57,7 @@ module.exports = (app) => {
 	app.post('/user/login', validateRequestMiddleware(user_schema.login, 'body'), async function (req, res, next) {
 		try {
 			const { user, password } = req.body;
-			const result = await user_controller.login({ user, password });
+			const result = await login({ user, password });
 			res.send(result);
 		} catch (err) {
 			next(err);
