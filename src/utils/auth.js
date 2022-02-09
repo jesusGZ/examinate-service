@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 const { SECURITY } = require('../core/config');
-const USER_SERVICE = require('../services/user.service');
+const user_service = require('../services/user.service');
 
 module.exports = async function authenticateJWToken(req, res, next) {
-	const user_service = new USER_SERVICE();
 	const token = req.headers.token;
 	/* const access_header = req.headers.token;
 	const token = access_header && access_header.split(' ')[1]; */

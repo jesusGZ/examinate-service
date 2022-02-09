@@ -1,5 +1,4 @@
 const validaciones = require('../validations');
-
 const { Joi } = validaciones;
 
 const examLive = Joi.object().keys({
@@ -15,12 +14,7 @@ const examLiveResults = Joi.object().keys({
 	examinerId: validaciones.id.required(),
 	examId: validaciones.id.required(),
 	responses: Joi.array()
-		.items(
-			Joi.object().keys({
-				questionId: validaciones.id.required(),
-				optionId: validaciones.id.required(),
-			})
-		)
+		.items(Joi.object().keys({ questionId: validaciones.id.required(), optionId: validaciones.id.required() }))
 		.min(1)
 		.required(),
 });
