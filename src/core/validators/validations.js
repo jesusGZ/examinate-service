@@ -2,10 +2,10 @@ const baseJoi = require('joi');
 const JoiDate = require('@hapi/joi-date');
 baseJoi.objectId = require('joi-objectid')(baseJoi);
 
-const customValidationsSanitizers = require('./custom');
+const customValidations = require('./custom');
 const { uri_regex } = require('../config/regex');
 
-const Joi = baseJoi.extend(JoiDate).extend(customValidationsSanitizers.string);
+const Joi = baseJoi.extend(JoiDate).extend(customValidations.string);
 
 const candidateEmail = Joi.string().trim().removeSpaces().max(36).hasSQLWords().hasInvalidChars().email();
 const password = Joi.string().trim().removeSpaces().min(5).max(16).hasSQLWords().hasInvalidChars();

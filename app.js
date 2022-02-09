@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const compression = require('compression');
 const swagger_ui = require('swagger-ui-express');
 
-const swagger_doc = require('./Docs/swagger');
+const swagger_doc = require('./Docs');
 const error = require('./src/core/middlewares/error');
 const methods_http = require('./src/core/middlewares/methodsHttp');
 const { SERVICE } = require('./src/core/config/index');
