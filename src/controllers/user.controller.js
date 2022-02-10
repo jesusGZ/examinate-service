@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { SECURITY } = require('../core/config');
 const bcrypt = require('../utils/bcrypt');
 const user_service = require('../services/user.service');
-const logger = require('../utils/logger');
+const { errorLogger } = require('../utils/logger');
 
 function createUser(data) {
 	return new Promise(async (resolve, reject) => {
@@ -144,11 +144,14 @@ function login(data) {
 			const access_token = await jwt.sign(payload, private_key, options);
 
 			delete data_user.password;
+
+			errorLogger('User Module', data_user);
 			data_user.access_token = access_token;
 
 			resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			console.log(error);
+			//	logger.error(`${error.status} - ${error.message}`);
 			reject('Error interno del servidor');
 		}
 	});
