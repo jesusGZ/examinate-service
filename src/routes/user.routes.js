@@ -7,6 +7,7 @@ module.exports = (app) => {
 	app.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
 		try {
 			const { name, email, user, password, active } = req.body;
+
 			const result = await user_controller.createUser({ name, email, user, password, active });
 			res.send(result);
 		} catch (error) {
@@ -17,6 +18,7 @@ module.exports = (app) => {
 	app.get('/user', authJWT, validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
 		try {
 			const { id } = req.headers;
+
 			const result = await user_controller.getUser(id);
 			res.send(result);
 		} catch (error) {
@@ -37,6 +39,7 @@ module.exports = (app) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 			const { id } = req.headers;
+
 			const result = await user_controller.updateUser({ id, name, email, user, password, active });
 			res.send(result);
 		} catch (err) {
@@ -47,6 +50,7 @@ module.exports = (app) => {
 	app.put('/user/resetPassword', validateRequestMiddleware(user_schema.reset_password, 'body'), async (req, res, next) => {
 		try {
 			const { user, password, secret } = req.body;
+
 			const result = await user_controller.resetPassword({ user, password, secret });
 			res.send(result);
 		} catch (err) {
@@ -57,6 +61,7 @@ module.exports = (app) => {
 	app.post('/user/login', validateRequestMiddleware(user_schema.login, 'body'), async function (req, res, next) {
 		try {
 			const { user, password } = req.body;
+
 			const result = await user_controller.login({ user, password });
 			res.send(result);
 		} catch (err) {

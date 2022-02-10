@@ -2,7 +2,7 @@ const { createLogger, format, transports } = require('winston');
 
 const date = new Date(),
 	month = date.getMonth() + 1,
-	name = `${date.getFullYear()}-${month}-${date.getDay()}`;
+	name = `${date.getFullYear()}-${month}-${date.getDate()}`;
 
 module.exports = createLogger({
 	transports: new transports.File({
