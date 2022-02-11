@@ -7,41 +7,41 @@ const { uri_regex } = require('../config/regex');
 
 const Joi = baseJoi.extend(JoiDate).extend(customValidations.string);
 
-const candidateEmail = Joi.string().trim().removeSpaces().max(36).hasSQLWords().hasInvalidChars().email();
+const candidate_email = Joi.string().trim().removeSpaces().max(36).hasSQLWords().hasInvalidChars().email();
 const password = Joi.string().trim().removeSpaces().min(5).max(16).hasSQLWords().hasInvalidChars();
 const email = Joi.string().trim().removeSpaces().max(36).hasSQLWords().hasInvalidChars().email();
-const username = Joi.string().trim().removeSpaces().max(16).hasSQLWords().hasInvalidChars();
+const user_name = Joi.string().trim().removeSpaces().max(16).hasSQLWords().hasInvalidChars();
 const secret = Joi.string().trim().removeSpaces().max(16).hasSQLWords().hasInvalidChars();
-const correctOptionValue = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const correct_option_value = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 const jwt = Joi.string().trim().removeSpaces().hasSQLWords().hasInvalidChars().jwt();
-const questionBankName = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
-const candidateName = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
-const candidateExam = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
-const examname = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const question_bank_name = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const candidate_name = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const candidate_exam = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
+const exam_name = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 const classes = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 const value = Joi.string().trim().max(100).hasSQLWords().hasInvalidChars();
 const marks = Joi.string().trim().max(24).hasSQLWords().hasInvalidChars();
 const name = Joi.string().trim().max(30).hasSQLWords().hasInvalidChars();
 const link = Joi.string().trim().removeSpaces().uri().regex(uri_regex);
-const fecha = Joi.date().format('YYYY-MM-DD');
+const date = Joi.date().format('YYYY-MM-DD');
 const active = Joi.boolean();
 const id = Joi.objectId();
 
 module.exports = {
-	correctOptionValue,
-	questionBankName,
-	candidateEmail,
-	candidateName,
-	candidateExam,
-	username,
-	examname,
+	correct_option_value,
+	question_bank_name,
+	candidate_email,
+	candidate_name,
+	candidate_exam,
+	user_name,
+	exam_name,
 	password,
 	classes,
 	secret,
 	active,
 	marks,
 	value,
-	fecha,
+	date,
 	email,
 	name,
 	link,

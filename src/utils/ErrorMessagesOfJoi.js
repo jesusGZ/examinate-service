@@ -15,7 +15,7 @@ module.exports = function getErrorMessagesOfJoi(element) {
 	if (error == 'string.length') return (message = `La longitud del campo ${parameter} debe ser de ${context.limit} caracteres`);
 	if (error == 'string.empty' || error == 'string.trim') return (message = `El campo ${parameter} no puede estar vació`);
 	if (error == 'object.unknown' || error == 'any.unknown') return (message = `El campo ${parameter} no esta permitido`);
-	if (error == 'string.caracteresInvalidos') return (message = `El campo ${parameter} contiene caracteres no válidos`);
+	if (error == 'string.invalidCharacters') return (message = `El campo ${parameter} contiene caracteres no válidos`);
 	if (error == 'date.format') return (message = `El campo ${parameter} debe tener el formato ${context.format}`);
 	if (error == 'string.email') return (message = `El campo ${parameter} debe ser un correo electronico valido`);
 	if (error == 'number.integer') return (message = `El campo ${parameter} debe ser un numero entero`);

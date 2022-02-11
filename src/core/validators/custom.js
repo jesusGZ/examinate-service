@@ -25,14 +25,14 @@ const capitalize = {
 
 const hasInvalidChars = {
 	validate(value, helpers) {
-		if (invalid_chars_regex.test(value)) return helpers.error('string.caracteresInvalidos');
+		if (invalid_chars_regex.test(value)) return helpers.error('string.invalidCharacters');
 		return value;
 	},
 };
 
 const hasSQLWords = {
 	validate(value, helpers) {
-		if (SQL_keywords_regex.test(value)) return helpers.error('string.caracteresInvalidos');
+		if (SQL_keywords_regex.test(value)) return helpers.error('string.invalidCharacters');
 		return value;
 	},
 };

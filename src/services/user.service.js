@@ -1,4 +1,4 @@
-const examinerModel = require('../models/examinater.model');
+const examinerModel = require('../models/examiner.model');
 
 async function insertUser(data) {
 	const new_user = await new examinerModel(data);

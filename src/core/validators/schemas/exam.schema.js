@@ -1,15 +1,15 @@
-const validaciones = require('../validations');
-const { Joi } = validaciones;
+const validations = require('../validations');
+const { Joi } = validations;
 
-const examId = Joi.object().keys({ examId: validaciones.id.required() });
-const id = Joi.object().keys({ id: validaciones.id.required() });
+const examId = Joi.object().keys({ examId: validations.id.required() });
+const id = Joi.object().keys({ id: validations.id.required() });
 
 const exam = Joi.object().keys({
-	startDateTime: validaciones.fecha.required(),
-	examName: validaciones.examname.required(),
-	endDateTime: validaciones.fecha.required(),
-	questionBankId: validaciones.id.required(),
-	classId: validaciones.id.required(),
+	startDateTime: validations.date.required(),
+	examName: validations.exam_name.required(),
+	endDateTime: validations.date.required(),
+	questionBankId: validations.id.required(),
+	classId: validations.id.required(),
 });
 
 module.exports = { exam, id, examId };

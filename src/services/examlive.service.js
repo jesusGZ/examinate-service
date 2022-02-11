@@ -1,7 +1,7 @@
-const examinaterModel = require('../models/examinater.model');
+const examinerModel = require('../models/examiner.model');
 
 async function getExaminer(examinerId) {
-	const data = await examinaterModel.findOne({ _id: examinerId });
+	const data = await examinerModel.findOne({ _id: examinerId });
 	return data;
 }
 
