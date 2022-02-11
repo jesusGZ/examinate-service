@@ -29,7 +29,7 @@ function createUser(data) {
 			resolve({ status: 'success', data: item, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
 			logger.errorLogger('User Module', error.message);
-			reject('Error internodel servidor.');
+			reject('Error interno del servidor.');
 		}
 	});
 }

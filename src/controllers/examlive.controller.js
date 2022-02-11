@@ -38,7 +38,7 @@ function getExamLive(data) {
 			if (!found_exam_status) return reject('ExamId inválido');
 		} catch (error) {
 			logger.errorLogger('Exam Live Module', error.message);
-			reject('Error internodel servidor.');
+			reject('Error interno del servidor.');
 		}
 	});
 }
@@ -103,7 +103,7 @@ function getResultsExam(data) {
 			}
 		} catch (error) {
 			logger.errorLogger('Exam Live Module', error.message);
-			reject('Error internodel servidor.');
+			reject('Error interno del servidor.');
 		}
 	});
 }
