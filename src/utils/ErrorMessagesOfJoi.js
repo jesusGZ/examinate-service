@@ -11,7 +11,7 @@ module.exports = function getErrorMessagesOfJoi(element) {
 	if (error == 'number.min') return (message = `El numero mínimo que puedes incluir en el campo ${parameter} es ${context.limit}`);
 	if (error == 'number.max') return (message = `El numero máximo que puedes incluir en el campo ${parameter} es ${context.limit}`);
 	if (error == 'string.guid' || error == 'string.pattern.name') return (message = `El campo ${parameter} debe ser un UUID valido`);
-	if (error == 'number.base' || error == 'string.numeros') return (message = `El campo ${parameter} debe contener solo números`);
+	if (error == 'number.base' || error == 'string.numbers') return (message = `El campo ${parameter} debe contener solo números`);
 	if (error == 'string.length') return (message = `La longitud del campo ${parameter} debe ser de ${context.limit} caracteres`);
 	if (error == 'string.empty' || error == 'string.trim') return (message = `El campo ${parameter} no puede estar vació`);
 	if (error == 'object.unknown' || error == 'any.unknown') return (message = `El campo ${parameter} no esta permitido`);

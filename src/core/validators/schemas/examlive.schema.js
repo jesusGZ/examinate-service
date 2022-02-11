@@ -1,20 +1,20 @@
-const validaciones = require('../validations');
-const { Joi } = validaciones;
+const validations = require('../validations');
+const { Joi } = validations;
 
 const examLive = Joi.object().keys({
-	candidatePassword: validaciones.password.required(),
-	candidateId: validaciones.id.required(),
-	examinerId: validaciones.id.required(),
-	examId: validaciones.id.required(),
+	candidatePassword: validations.password.required(),
+	candidateId: validations.id.required(),
+	examinerId: validations.id.required(),
+	examId: validations.id.required(),
 });
 
 const examLiveResults = Joi.object().keys({
-	candidatePassword: validaciones.password.required(),
-	candidateId: validaciones.id.required(),
-	examinerId: validaciones.id.required(),
-	examId: validaciones.id.required(),
+	candidatePassword: validations.password.required(),
+	candidateId: validations.id.required(),
+	examinerId: validations.id.required(),
+	examId: validations.id.required(),
 	responses: Joi.array()
-		.items(Joi.object().keys({ questionId: validaciones.id.required(), optionId: validaciones.id.required() }))
+		.items(Joi.object().keys({ questionId: validations.id.required(), optionId: validations.id.required() }))
 		.min(1)
 		.required(),
 });
