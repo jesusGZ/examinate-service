@@ -14,7 +14,7 @@ function createQuestionBank(data) {
 
 			resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Question Bank Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -28,7 +28,7 @@ function getQuestionBank(user) {
 
 			resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Question Bank Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -47,8 +47,7 @@ function updateQuestionBank(data) {
 
 			resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			console.log(error);
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Question Bank Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -66,7 +65,7 @@ function deleteQuestionBank(data) {
 
 			resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Question Bank Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});

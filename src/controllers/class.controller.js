@@ -13,7 +13,7 @@ function createClass(data) {
 
 			resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Class Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -27,7 +27,7 @@ function getClass(user) {
 
 			resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Class Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -54,7 +54,7 @@ function updateClass(data) {
 
 			resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Class Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -73,7 +73,7 @@ function deleteClass(data) {
 
 			resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Class Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});

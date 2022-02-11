@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { SECURITY } = require('../core/config');
 const bcrypt = require('../utils/bcrypt');
 const user_service = require('../services/user.service');
-const { errorLogger } = require('../utils/logger');
+const logger = require('../utils/logger');
 
 function createUser(data) {
 	return new Promise(async (resolve, reject) => {
@@ -28,7 +28,7 @@ function createUser(data) {
 
 			resolve({ status: 'success', data: item, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('User Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -44,7 +44,7 @@ function getUser(id) {
 
 			resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
 		}
 	});
@@ -68,7 +68,7 @@ function getUsers() {
 
 			resolve({ status: 'success', data: users, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
 		}
 	});
@@ -98,7 +98,7 @@ function updateUser(data) {
 
 			resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
 		}
 	});
@@ -115,11 +115,11 @@ function resetPassword(data) {
 			const new_password = await bcrypt.hash(data.password);
 
 			await user_service.updateUserPassword(data_user, new_password);
-			logger.info(`${data_user._id} reset password`);
+			logger.infoLogger('User Module', `${data_user._id} reset password`);
 
 			resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
 		}
 	});
@@ -144,14 +144,12 @@ function login(data) {
 			const access_token = await jwt.sign(payload, private_key, options);
 
 			delete data_user.password;
-
-			errorLogger('User Module', data_user);
+			logger.infoLogger('User Module', data_user);
 			data_user.access_token = access_token;
 
 			resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			console.log(error);
-			//	logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
 		}
 	});

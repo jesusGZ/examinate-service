@@ -24,22 +24,31 @@ const loggerConfig = {
 		new transports.MongoDB({
 			db: url,
 			options: { useUnifiedTopology: true },
-			collection: 'examinete_service_logs',
+			collection: MONGO_DB.MONGO_COLLECTION_LOGS,
 			metaKey: 'meta',
 			format: format.combine(format.timestamp(), format.json()),
 		}),
 	],
 };
 
-async function errorLogger(message, dataLog) {
+function errorLogger(message, dataLog) {
 	try {
-		await createLogger(loggerConfig).error(message, { meta: dataLog });
+		console.log(dataLog);
+		createLogger(loggerConfig).error(message, { meta: dataLog });
 		console.log('Log generado');
 	} catch (error) {
-		console.log('Log ddd');
+		console.log('Log error');
 	}
 }
 
-module.exports = {
-	errorLogger,
-};
+function infoLogger(message, dataLog) {
+	try {
+		console.log(dataLog);
+		createLogger(loggerConfig).info(message, { meta: dataLog });
+		console.log('Log generado');
+	} catch (error) {
+		console.log('Log error');
+	}
+}
+
+module.exports = { errorLogger, infoLogger };

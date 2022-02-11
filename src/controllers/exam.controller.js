@@ -67,7 +67,7 @@ function createExam(data) {
 				resolve({ status: 'success', data: found_elements.exams, message: 'Petición realizada exitosamente.' });
 			}
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Exam Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -126,7 +126,7 @@ async function getInfo(user) {
 
 			resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Exam Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -140,7 +140,7 @@ async function getExams(user) {
 
 			resolve({ status: 'success', data: exams, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Exam Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
@@ -159,7 +159,7 @@ async function deleteExam(data) {
 
 			resolve({ status: 'success', data: exams, message: 'Petición realizada exitosamente.' });
 		} catch (error) {
-			logger.error(`${error.status} - ${error.message}`);
+			logger.errorLogger('Exam Module', error.message);
 			reject('Error internodel servidor.');
 		}
 	});
