@@ -80,10 +80,10 @@ function updateUser(data) {
 			const verify_user = await user_service.getUserById(data.id);
 			if (!verify_user) return reject('No se encontraron datos de usuario');
 
-			const data_user = await user_service.getUserDistincId(data.user, data.id);
+			const data_user = await user_service.getUserDistinctId(data.user, data.id);
 			if (data_user) return reject('El nombre de usuario ya esta registrado');
 
-			const data_email = await user_service.getEmailDistincId(data.email, data.id);
+			const data_email = await user_service.getEmailDistinctId(data.email, data.id);
 			if (data_email) return reject('El email ya esta registrado');
 
 			if (data.password == undefined) {

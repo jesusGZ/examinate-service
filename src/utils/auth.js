@@ -11,14 +11,14 @@ module.exports = async function authenticateJWToken(req, res, next) {
 	if (token === null || token === undefined) return res.json({ status: 'error', message: 'Token de acceso indefinido.' });
 
 	const decoded = await jwt.decode(token, { complete: false });
-	if (!decoded) return res.json({ status: 'error', message: 'Invalid token.' });
+	if (!decoded) return res.json({ status: 'error', message: 'Token invalido.' });
 
 	const data_key = await user_service.getPasswordById(decoded.id);
-	if (!data_key) return res.json({ status: 'error', message: 'Invalid token.' });
+	if (!data_key) return res.json({ status: 'error', message: 'Token invalido.' });
 
 	jwt.verify(token, SECURITY.JWT_KEY + data_key.password, (err, payload) => {
 		if (err) {
-			res.json({ status: 'error', message: 'Invalid token' });
+			res.json({ status: 'error', message: 'Token invalido' });
 		} else {
 			req.payload = payload;
 			next();

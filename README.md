@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Servicion enfocado en la gestion y realizacuon de examenes en linea.
+Servicio enfocado en la gestion y realizacion de examenes en linea.
 
 ## Desarrollo
 
