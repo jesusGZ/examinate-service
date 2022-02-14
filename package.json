@@ -8,6 +8,10 @@
 		"dev": "nodemon app.js",
 		"start": "node app.js"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jesusGZ/examinate-service.git"
+	},
 	"keywords": [
 		"node",
 		"javascript",
@@ -16,6 +20,10 @@
 	],
 	"author": "Jesus Antonio Garcia Zurita",
 	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/jesusGZ/examinate-service/issues"
+	},
+	"homepage": "https://github.com/jesusGZ/examinate-service#readme",
 	"dependencies": {
 		"@hapi/joi-date": "^2.0.1",
 		"bcrypt": "^5.0.1",
