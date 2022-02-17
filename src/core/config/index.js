@@ -1,10 +1,9 @@
 require('dotenv').config();
 
 module.exports = {
-	SERVICE: {
-		PORT: process.env.PORT,
-		LOCAL_PORT: process.env.PORT,
-	},
+	EMAIL: { MAILJET_API_KEY: process.env.MAILJET_API_KEY, MAILJET_API_SECRET: process.env.MAILJET_API_SECRET },
+	SWAGGER: { SWAGGER_USER: process.env.SWAGGER_USER, SWAGGER_PASS: process.env.SWAGGER_PASS },
+	SERVICE: { PORT: process.env.PORT, LOCAL_PORT: process.env.PORT },
 	MONGO_DB: {
 		MONGO_HOST: process.env.MONGO_HOST,
 		MONGO_PORT: process.env.MONGO_PORT,
@@ -18,9 +17,5 @@ module.exports = {
 		SECRET_KEY: process.env.SECRET_KEY,
 		JWT_KEY: process.env.JWT_KEY,
 		JWT_EXPIRATION_USER: process.env.JWT_EXPIRATION_USER,
-	},
-	EMAIL: {
-		MAILJET_API_KEY: process.env.MAILJET_API_KEY,
-		MAILJET_API_SECRET: process.env.MAILJET_API_SECRET,
 	},
 };
