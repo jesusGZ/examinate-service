@@ -61,7 +61,7 @@ module.exports = (app) => {
 	app.post('/user/login', validateRequestMiddleware(user_schema.login, 'body'), async function (req, res, next) {
 		try {
 			const { user, password } = req.body;
-
+			console.log(user, password);
 			const result = await user_controller.login({ user, password });
 			res.send(result);
 		} catch (err) {
