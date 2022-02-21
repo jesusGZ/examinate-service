@@ -3,10 +3,10 @@ const morgan = require('morgan');
 const swagger_ui = require('swagger-ui-express');
 const compression = require('compression');
 
-const methods_http = require('./src/core/middlewares/methodsHttp');
-const { SERVICE, SWAGGER } = require('./src/core/config/index');
-const error = require('./src/core/middlewares/error');
-const DB = require('./src/core/db/connection');
+const methods_http = require('./app/v1/src/core/middlewares/methodsHttp');
+const { SERVICE, SWAGGER } = require('./app/v1/src/core/config/index');
+const error = require('./app/v1/src/core/middlewares/error');
+const DB = require('./app/v1/src/core/db/connection');
 const swagger_doc = require('./Docs');
 
 const https = require('https');
@@ -26,19 +26,6 @@ app.use(express.urlencoded({ limit: '500kb', extended: true }));
 
 const basicAuth = require('express-basic-auth');
 
-/* app.use(
-	'/document-apis',
-	basicAuth({
-		users: { SWAGGER.SWAGGER_USER: SWAGGER.SWAGGER_PASS },
-		challenge: true,
-		realm: 'Imb4T3st4pp',
-	}),
-	swagger_ui.serve,
-	swagger_ui.setup(swagger_doc)
-);
-
-app.use('/document-apis', swagger_ui.serve, swagger_ui.setup(swagger_doc)); */
-
 app.use('/document-apis', basicAuth({ authorizer: swaggerAuthorizer, challenge: true }), swagger_ui.serve, swagger_ui.setup(swagger_doc));
 
 function swaggerAuthorizer(username, password) {
@@ -47,8 +34,8 @@ function swaggerAuthorizer(username, password) {
 	return user_matches & password_matches;
 }
 
-require('./src/routes/index.routes')(app);
-require('./src/routes/default/index.routes')(app);
+require('./app/v1/src/routes/index.routes')(app);
+require('./app/v1/src/routes/default/index.routes')(app);
 app.use(error);
 
 http.createServer(/* options, */ app).listen(SERVICE.LOCAL_PORT, () => {
