@@ -4,10 +4,11 @@ const swagger_ui = require('swagger-ui-express');
 const compression = require('compression');
 
 const methods_http = require('./app/v1/src/core/middlewares/methodsHttp');
-const { SERVICE, SWAGGER } = require('./app/v1/src/core/config/index');
-const error = require('./app/v1/src/core/middlewares/error');
-const DB = require('./app/v1/src/core/db/connection');
+const { SERVICE, SWAGGER } = require('./configs/index');
+const error = require('./helpers/middleware/error');
+const DB = require('./configs/db/connection');
 const swagger_doc = require('./Docs');
+const routesV1 = require('./app/v1/routes');
 
 const https = require('https');
 const http = require('http');

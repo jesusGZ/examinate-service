@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 
-const { MONGO_DB } = require('../config');
+const { MONGO_DB } = require('..');
 
 const connected = chalk.bold.cyan,
 	error = chalk.bold.yellow,
