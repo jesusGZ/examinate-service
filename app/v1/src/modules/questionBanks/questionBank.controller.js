@@ -1,4 +1,4 @@
-const question_bank_service = require('../services/questionBank.service');
+const question_bank_service = require('./questionBank.service');
 const logger = require('../utils/logger');
 
 function createQuestionBank(data) {

@@ -1,6 +1,6 @@
 const user_schema = require('../core/validators/schemas/user.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const user_controller = require('../controllers/user.controller');
+const user_controller = require('./user.controller');
 const authJWT = require('../utils/auth');
 
 module.exports = (app) => {

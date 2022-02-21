@@ -1,4 +1,4 @@
-const class_service = require('../services/class.service');
+const class_service = require('./class.service');
 const logger = require('../utils/logger');
 
 function createClass(data) {

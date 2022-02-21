@@ -1,5 +1,5 @@
 const { EMAIL } = require('../core/config');
-const exam_service = require('../services/exam.service');
+const exam_service = require('./exam.service');
 const logger = require('../utils/logger');
 
 const moment = require('moment');

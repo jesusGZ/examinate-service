@@ -1,6 +1,6 @@
 const exam_schema = require('../core/validators/schemas/exam.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const exam_controller = require('../controllers/exam.controller');
+const exam_controller = require('./exam.controller');
 const authJWT = require('../utils/auth');
 
 module.exports = (app) => {

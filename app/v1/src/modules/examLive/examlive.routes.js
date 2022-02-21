@@ -1,6 +1,6 @@
 const exam_live_schema = require('../core/validators/schemas/examlive.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const exam_live_controller = require('../controllers/examlive.controller');
+const exam_live_controller = require('./examlive.controller');
 
 module.exports = (app) => {
 	app.get('/examlive', validateRequestMiddleware(exam_live_schema.examLive, 'body'), async (req, res, next) => {

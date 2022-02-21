@@ -1,6 +1,6 @@
 const question_bank_schema = require('../core/validators/schemas/questionBank.schema');
 const validateRequestMiddleware = require('../core/middlewares/validateRequest');
-const question_bank_controller = require('../controllers/questionBank.controller');
+const question_bank_controller = require('./questionBank.controller');
 const authJWT = require('../utils/auth');
 
 module.exports = (app) => {

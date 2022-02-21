@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const { SECURITY } = require('../core/config');
 const bcrypt = require('../utils/bcrypt');
-const user_service = require('../services/user.service');
+const user_service = require('./user.service');
 const logger = require('../utils/logger');
 
 function createUser(data) {

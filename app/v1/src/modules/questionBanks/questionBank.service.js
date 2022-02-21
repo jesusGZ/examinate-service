@@ -1,4 +1,4 @@
-const examinerModel = require('../models/examiner.model');
+const examinerModel = require('../../models/examiner.model');
 
 async function getFoundElements(user) {
 	const data = await examinerModel.findOne({ user: user }, { exams: 0, classes: 0, password: 0 });

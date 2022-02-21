@@ -1,4 +1,4 @@
-const exam_live_service = require('../services/examlive.service');
+const exam_live_service = require('./examlive.service');
 const logger = require('../utils/logger');
 
 const moment = require('moment');
