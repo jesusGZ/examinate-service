@@ -3,7 +3,7 @@ const JoiDate = require('@hapi/joi-date');
 baseJoi.objectId = require('joi-objectid')(baseJoi);
 
 const customValidations = require('./custom');
-const { uri_regex } = require('../config/regex');
+const { uri_regex } = require('../configs/regex');
 
 const Joi = baseJoi.extend(JoiDate).extend(customValidations.string);
 

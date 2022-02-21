@@ -1,6 +1,6 @@
 const { EMAIL } = require('../core/config');
 const exam_service = require('./exam.service');
-const logger = require('../utils/logger');
+const logger = require('../../../../../utils/logger');
 
 const moment = require('moment');
 const mailjet = require('node-mailjet').connect(EMAIL.MAILJET_API_KEY, EMAIL.MAILJET_API_SECRET);

@@ -1,5 +1,5 @@
 const class_service = require('./class.service');
-const logger = require('../utils/logger');
+const logger = require('../../../../../utils/logger');
 
 function createClass(data) {
 	return new Promise(async (resolve, reject) => {

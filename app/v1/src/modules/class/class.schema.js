@@ -1,4 +1,4 @@
-const validations = require('../validations');
+const validations = require('../../../../../validators/validations');
 const { Joi } = validations;
 
 const classes = Joi.object().keys({ className: validations.classes.required() });

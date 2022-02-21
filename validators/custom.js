@@ -1,5 +1,4 @@
-const { spaces_regex } = require('../config/regex');
-const { invalid_chars_regex, SQL_keywords_regex, JWT_regex, only_numbers_regex } = require('../config/regex');
+const { spaces_regex, invalid_chars_regex, SQL_keywords_regex, JWT_regex, only_numbers_regex } = require('../configs/regex');
 
 const remove_spaces = {
 	validate(value) {

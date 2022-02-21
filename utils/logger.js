@@ -1,7 +1,7 @@
 const { createLogger, format, transports } = require('winston');
 require('winston-mongodb');
 
-const { MONGO_DB } = require('../core/config');
+const { MONGO_DB } = require('../configs');
 
 const url = `mongodb://${MONGO_DB.MONGO_USER}:${MONGO_DB.MONGO_PASS}@${MONGO_DB.MONGO_HOST}:${MONGO_DB.MONGO_PORT}/${MONGO_DB.MONGO_DB_LOGS}?authSource=admin`;
 
