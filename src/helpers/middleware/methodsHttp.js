@@ -1,3 +1,5 @@
+const response = require('../serviceResponse');
+
 const METHODS = ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'];
 
 module.exports = function methodsHttp(req, res, next) {
@@ -13,8 +15,9 @@ module.exports = function methodsHttp(req, res, next) {
 		valid_method = METHODS.find((method) => method == req.method);
 
 		if (valid_method == undefined) {
-			const object = { response: { status: 'error', data: 'Metodo de peticion no valido' }, status: 405 };
-			res.send(object);
+			const object = response(false, 'Metodo de peticion no valido', null);
+
+			res.status(405).json(object);
 		} else {
 			next();
 		}

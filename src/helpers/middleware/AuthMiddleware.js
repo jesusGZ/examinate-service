@@ -1,7 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const response = require('../WebResponse');
+const response = require('../serviceResponse');
 const { JWT } = require('../../configs');
 
 async function AuthMiddleware(req, reply, done) {
@@ -9,7 +9,7 @@ async function AuthMiddleware(req, reply, done) {
 
 	if (token) {
 		jwt.verify(token, JWT.JWT_KEY, (err, decoded) => {
-			if (err) return reply.code(401).send(response(401, 'Token is not valid !', null));
+			if (err) return reply.code(401).send(response(401, false, 'Token is not valid !', null));
 
 			return true;
 		});
