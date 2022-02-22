@@ -1,5 +1,5 @@
 const question_bank_service = require('./questionBank.service');
-const logger = require('../../../../../utils/logger');
+const logger = require('../../../../utils/logger');
 
 function createQuestionBank(data) {
 	return new Promise(async (resolve, reject) => {

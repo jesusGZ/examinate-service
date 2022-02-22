@@ -1,7 +1,7 @@
 const exam_schema = require('./exam.schema');
-const validateRequestMiddleware = require('../../../../../helpers/middleware/validateRequest');
+const validateRequestMiddleware = require('../../../../helpers/middleware/validateRequest');
 const exam_controller = require('./exam.controller');
-const authJWT = require('../../../../../utils/auth');
+const authJWT = require('../../../../utils/auth');
 
 module.exports = (router) => {
 	router.post('/exam', authJWT, validateRequestMiddleware(exam_schema.exam, 'body'), async (req, res, next) => {

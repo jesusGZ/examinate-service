@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const { SECURITY } = require('../../../../../configs');
-const bcrypt = require('../../../../../utils/bcrypt');
+const { SECURITY } = require('../../../../configs');
+const bcrypt = require('../../../../utils/bcrypt');
 const user_service = require('./user.service');
-const logger = require('../../../../../utils/logger');
+const logger = require('../../../../utils/logger');
 
 function createUser(data) {
 	return new Promise(async (resolve, reject) => {

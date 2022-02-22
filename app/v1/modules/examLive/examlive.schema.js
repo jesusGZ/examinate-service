@@ -1,4 +1,4 @@
-const validations = require('../../../../../validators/validations');
+const validations = require('../../../../validators/validations');
 const { Joi } = validations;
 
 const examLive = Joi.object().keys({

@@ -1,7 +1,7 @@
 const class_schema = require('./class.schema');
-const validateRequestMiddleware = require('../../../../../helpers/middleware/validateRequest');
+const validateRequestMiddleware = require('../../../../helpers/middleware/validateRequest');
 const class_controller = require('./class.controller');
-const authJWT = require('../../../../../utils/auth');
+const authJWT = require('../../../../utils/auth');
 
 module.exports = (router) => {
 	router.post('/class', authJWT, validateRequestMiddleware(class_schema.classes, 'body'), async (req, res, next) => {

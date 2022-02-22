@@ -1,7 +1,7 @@
 const question_bank_schema = require('./questionBank.schema');
-const validateRequestMiddleware = require('../../../../../helpers/middleware/validateRequest');
+const validateRequestMiddleware = require('../../../../helpers/middleware/validateRequest');
 const question_bank_controller = require('./questionBank.controller');
-const authJWT = require('../../../../../utils/auth');
+const authJWT = require('../../../../utils/auth');
 
 module.exports = (router) => {
 	router.post('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank, 'body'), async (req, res, next) => {

@@ -1,4 +1,4 @@
-const validations = require('../../../../../validators/validations');
+const validations = require('../../../../validators/validations');
 const { Joi } = validations;
 
 const questionBank = Joi.object().keys({ questionBankName: validations.question_bank_name.required() });

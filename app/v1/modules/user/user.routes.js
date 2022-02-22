@@ -1,7 +1,7 @@
 const user_schema = require('./user.schema');
-const validateRequestMiddleware = require('../../../../../helpers/middleware/validateRequest');
+const validateRequestMiddleware = require('../../../../helpers/middleware/validateRequest');
 const user_controller = require('./user.controller');
-const authJWT = require('../../../../../utils/auth');
+const authJWT = require('../../../../utils/auth');
 
 module.exports = (router) => {
 	router.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
