@@ -1,5 +1,5 @@
-const exam_live_schema = require('../core/validators/schemas/examlive.schema');
-const validateRequestMiddleware = require('../core/middlewares/validateRequest');
+const exam_live_schema = require('./examlive.schema');
+const validateRequestMiddleware = require('../../../../../helpers/middleware/validateRequest');
 const exam_live_controller = require('./examlive.controller');
 
 module.exports = (app) => {

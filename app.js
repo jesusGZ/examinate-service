@@ -13,6 +13,7 @@ const routesV1 = require('./app/v1/src/routes/index.routes');
 const https = require('https');
 const http = require('http');
 const app = express();
+const router = express.Router();
 
 DB.getConnection().catch((err) => {
 	console.error('[Error db]: ' + err);
@@ -36,7 +37,9 @@ function swaggerAuthorizer(username, password) {
 }
 
 //require('./app/v1/src/routes/index.routes')(app);
-app.use(routesV1, { prefix: '/api/v1' });
+
+require('./app/v1/src/routes/index.routes')(app, '/api/v1');
+
 app.use(error);
 
 http.createServer(/* options, */ app).listen(SERVICE.LOCAL_PORT, () => {

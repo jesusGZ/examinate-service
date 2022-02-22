@@ -1,4 +1,4 @@
-const { EMAIL } = require('../core/config');
+const { EMAIL } = require('../../../../../configs');
 const exam_service = require('./exam.service');
 const logger = require('../../../../../utils/logger');
 
