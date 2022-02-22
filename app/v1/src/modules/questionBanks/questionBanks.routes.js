@@ -3,8 +3,8 @@ const validateRequestMiddleware = require('../../../../../helpers/middleware/val
 const question_bank_controller = require('./questionBank.controller');
 const authJWT = require('../../../../../utils/auth');
 
-module.exports = (app) => {
-	app.post('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank, 'body'), async (req, res, next) => {
+module.exports = (router) => {
+	router.post('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank, 'body'), async (req, res, next) => {
 		try {
 			const questionBankName = req.body.questionBankName;
 			const user = req.payload.user;
@@ -16,7 +16,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('/questionBank', authJWT, async (req, res, next) => {
+	router.get('/questionBank', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
 
@@ -27,7 +27,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.put('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank_up, 'body'), async (req, res, next) => {
+	router.put('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank_up, 'body'), async (req, res, next) => {
 		try {
 			const { id, questionBankName, questions } = req.body;
 			const user = req.payload.user;
@@ -39,7 +39,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.delete('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank_del, 'body'), async (req, res, next) => {
+	router.delete('/questionBank', authJWT, validateRequestMiddleware(question_bank_schema.questionBank_del, 'body'), async (req, res, next) => {
 		try {
 			const questionBankId = req.body.questionBankId;
 			const user = req.payload.user;

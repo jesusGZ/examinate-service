@@ -3,8 +3,8 @@ const validateRequestMiddleware = require('../../../../../helpers/middleware/val
 const exam_controller = require('./exam.controller');
 const authJWT = require('../../../../../utils/auth');
 
-module.exports = (app) => {
-	app.post('/exam', authJWT, validateRequestMiddleware(exam_schema.exam, 'body'), async (req, res, next) => {
+module.exports = (router) => {
+	router.post('/exam', authJWT, validateRequestMiddleware(exam_schema.exam, 'body'), async (req, res, next) => {
 		try {
 			const { examName, startDateTime, endDateTime, questionBankId, classId } = req.body;
 			const user = req.payload.user;
@@ -16,7 +16,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('/info', authJWT, async (req, res, next) => {
+	router.get('/info', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
 
@@ -27,7 +27,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('/exams', authJWT, async (req, res, next) => {
+	router.get('/exams', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
 
@@ -38,7 +38,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.delete('/exam', authJWT, validateRequestMiddleware(exam_schema.examId, 'body'), async (req, res, next) => {
+	router.delete('/exam', authJWT, validateRequestMiddleware(exam_schema.examId, 'body'), async (req, res, next) => {
 		try {
 			const user = req.payload.user;
 			const examId = req.body.examId;

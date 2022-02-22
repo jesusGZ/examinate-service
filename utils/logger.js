@@ -43,7 +43,7 @@ function errorLogger(message, dataLog) {
 function infoLogger(message, dataLog) {
 	try {
 		createLogger(loggerConfig).info(message, { meta: dataLog });
-		console.log('Log generado', result);
+		console.log('Log generado');
 	} catch (error) {
 		console.log('Log error', error);
 	}

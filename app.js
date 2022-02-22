@@ -4,11 +4,12 @@ const swagger_ui = require('swagger-ui-express');
 const compression = require('compression');
 
 const methods_http = require('./helpers/middleware/methodsHttp');
+const { RouteV1, RouteV2 } = require('./routes/index.routes');
+const RouteDefault = require('./routes/default/index.routes');
 const { SERVICE, SWAGGER } = require('./configs/index');
 const error = require('./helpers/middleware/error');
 const DB = require('./configs/db/connection');
 const swagger_doc = require('./app/v1/Docs');
-const routesV1 = require('./app/v1/src/routes/index.routes');
 
 const https = require('https');
 const http = require('http');
@@ -36,10 +37,9 @@ function swaggerAuthorizer(username, password) {
 	return user_matches & password_matches;
 }
 
-//require('./app/v1/src/routes/index.routes')(app);
-
-require('./app/v1/src/routes/index.routes')(app, '/api/v1');
-
+RouteV1(app, router, '/api/v1');
+RouteV2(app, router, '/api/v2');
+RouteDefault(app);
 app.use(error);
 
 http.createServer(/* options, */ app).listen(SERVICE.LOCAL_PORT, () => {

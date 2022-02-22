@@ -3,8 +3,8 @@ const validateRequestMiddleware = require('../../../../../helpers/middleware/val
 const user_controller = require('./user.controller');
 const authJWT = require('../../../../../utils/auth');
 
-module.exports = (app) => {
-	app.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
+module.exports = (router) => {
+	router.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 
@@ -15,7 +15,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('/user', authJWT, validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
+	router.get('/user', authJWT, validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
 		try {
 			const { id } = req.headers;
 
@@ -26,7 +26,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('/users', authJWT, async (req, res, next) => {
+	router.get('/users', authJWT, async (req, res, next) => {
 		try {
 			const result = await user_controller.getUsers();
 			res.send(result);
@@ -35,7 +35,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.put('/user', authJWT, validateRequestMiddleware(user_schema.user_up, 'body'), validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
+	router.put('/user', authJWT, validateRequestMiddleware(user_schema.user_up, 'body'), validateRequestMiddleware(user_schema.id, 'headers'), async (req, res, next) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 			const { id } = req.headers;
@@ -47,7 +47,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.put('/user/resetPassword', validateRequestMiddleware(user_schema.reset_password, 'body'), async (req, res, next) => {
+	router.put('/user/resetPassword', validateRequestMiddleware(user_schema.reset_password, 'body'), async (req, res, next) => {
 		try {
 			const { user, password, secret } = req.body;
 
@@ -58,7 +58,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.post('/user/login', validateRequestMiddleware(user_schema.login, 'body'), async function (req, res, next) {
+	router.post('/user/login', validateRequestMiddleware(user_schema.login, 'body'), async function (req, res, next) {
 		try {
 			const { user, password } = req.body;
 			console.log(user, password);

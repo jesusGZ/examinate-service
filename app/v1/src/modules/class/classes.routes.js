@@ -3,8 +3,8 @@ const validateRequestMiddleware = require('../../../../../helpers/middleware/val
 const class_controller = require('./class.controller');
 const authJWT = require('../../../../../utils/auth');
 
-module.exports = (app) => {
-	app.post('/class', authJWT, validateRequestMiddleware(class_schema.classes, 'body'), async (req, res, next) => {
+module.exports = (router) => {
+	router.post('/class', authJWT, validateRequestMiddleware(class_schema.classes, 'body'), async (req, res, next) => {
 		try {
 			const class_name = req.body.className;
 			const user = req.payload.user;
@@ -16,7 +16,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('/class', authJWT, async (req, res, next) => {
+	router.get('/class', authJWT, async (req, res, next) => {
 		try {
 			const user = req.payload.user;
 
@@ -27,7 +27,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.put('/class', authJWT, validateRequestMiddleware(class_schema.classes_up, 'body'), async (req, res, next) => {
+	router.put('/class', authJWT, validateRequestMiddleware(class_schema.classes_up, 'body'), async (req, res, next) => {
 		try {
 			const { id, className, candidates } = req.body;
 			const user = req.payload.user;
@@ -39,7 +39,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.delete('/class', authJWT, validateRequestMiddleware(class_schema.classes_del, 'body'), async (req, res, next) => {
+	router.delete('/class', authJWT, validateRequestMiddleware(class_schema.classes_del, 'body'), async (req, res, next) => {
 		try {
 			const classId = req.body.classId;
 			const user = req.payload.user;
