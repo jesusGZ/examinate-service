@@ -3,13 +3,13 @@ const morgan = require('morgan');
 const swagger_ui = require('swagger-ui-express');
 const compression = require('compression');
 
-const methods_http = require('./helpers/middleware/methodsHttp');
-const { RouteV1, RouteV2 } = require('./routes/index.routes');
-const RouteDefault = require('./routes/default/index.routes');
-const { SERVICE, SWAGGER } = require('./configs/index');
-const error = require('./helpers/middleware/error');
-const DB = require('./configs/db/connection');
-const swagger_doc = require('./app/v1/Docs');
+const methods_http = require('./src/helpers/middleware/methodsHttp');
+const { RouteV1, RouteV2 } = require('./src/routes/index.routes');
+const RouteDefault = require('./src/routes/default/index.routes');
+const { SERVICE, SWAGGER } = require('./src/configs/index');
+const error = require('./src/helpers/middleware/error');
+const DB = require('./src/configs/db/connection');
+const swagger_doc = require('./src/app/v1/Docs');
 
 const https = require('https');
 const http = require('http');

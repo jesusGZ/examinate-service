@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { SECURITY } = require('../configs');
-const user_service = require('../app/v1/modules/user/user.service');
+const user_service = require('../../src/app/v1/modules/user/user.service');
 
 module.exports = async function authenticateJWToken(req, res, next) {
 	const token = req.headers.token;
