@@ -2,7 +2,6 @@ const user_schema = require('./user.schema');
 const validateRequestMiddleware = require('../../../../helpers/middleware/validateRequest');
 const user_controller = require('./user.controller');
 const authJWT = require('../../../../utils/auth');
-const response = require('../../../../helpers/serviceResponse');
 
 module.exports = (router) => {
 	router.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), user_controller.createUser);

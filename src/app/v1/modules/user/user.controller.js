@@ -8,7 +8,7 @@ const response = require('../../../../helpers/serviceResponse');
 
 async function createUser(req, res, next) {
 	try {
-		const { name, email, user, password, active } = req.body;
+		let { name, email, user, password, active } = req.body;
 
 		const data_user = await user_service.getUser(user);
 		if (data_user) return response.error(res, 'El usuario ya esta registrado');
@@ -75,7 +75,7 @@ async function getUsers(req, res, next) {
 
 async function updateUser(req, res, next) {
 	try {
-		const { name, email, user, password, active } = req.body;
+		let { name, email, user, password, active } = req.body;
 		const { id } = req.headers;
 
 		const verify_user = await user_service.getUserById(id);
