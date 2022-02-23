@@ -1,7 +1,7 @@
 'use strict';
 
-function ok(res, message, result) {
-	return res.status(200).json({ success: true, message: message, result: result || null });
+function ok(res, result) {
+	return res.status(200).json({ success: true, message: 'Petición realizada exitosamente.', result: result || null });
 }
 
 function error(res, message, result) {
@@ -16,4 +16,8 @@ function methodError(res, result) {
 	return res.status(405).json({ success: false, message: 'Metodo de peticion no valido', result: result || null });
 }
 
-module.exports = { ok, error, serverError, methodError };
+function tokenError(res, message) {
+	return res.status(401).json({ success: false, message: message || 'Token invalido', result: null });
+}
+
+module.exports = { ok, error, serverError, methodError, tokenError };

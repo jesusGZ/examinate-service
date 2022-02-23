@@ -1,4 +1,5 @@
 const getErrorMessagesOfJoi = require('../../utils/ErrorMessagesOfJoi');
+const response = require('../serviceResponse');
 
 module.exports = function setValidateRequestMiddleware(schema, property) {
 	return (req, res, next) => {
@@ -7,7 +8,7 @@ module.exports = function setValidateRequestMiddleware(schema, property) {
 		if (error) {
 			const { details } = error;
 			const message = getErrorMessagesOfJoi(details);
-			return next(message);
+			return response.error(res, message);
 		}
 
 		req[property] = value;
