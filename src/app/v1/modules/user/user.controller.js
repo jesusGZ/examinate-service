@@ -26,7 +26,7 @@ function createUser(data) {
 			delete item.classes;
 			delete item.questionBanks;
 
-			resolve({ status: 'success', data: item, message: 'Petición realizada exitosamente.' });
+			resolve({ message: 'Petición realizada exitosamente.', result: item });
 		} catch (error) {
 			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor.');
@@ -42,7 +42,7 @@ function getUser(id) {
 
 			delete data_user.password;
 
-			resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
+			resolve({ message: 'Petición realizada exitosamente.', result: data_user });
 		} catch (error) {
 			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
@@ -66,7 +66,7 @@ function getUsers() {
 				return item;
 			});
 
-			resolve({ status: 'success', data: users, message: 'Petición realizada exitosamente.' });
+			resolve({ message: 'Petición realizada exitosamente.', result: users });
 		} catch (error) {
 			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
@@ -96,7 +96,7 @@ function updateUser(data) {
 
 			await user_service.updateUser(data);
 
-			resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
+			resolve({ message: 'Petición realizada exitosamente.' });
 		} catch (error) {
 			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
@@ -117,7 +117,7 @@ function resetPassword(data) {
 			await user_service.updateUserPassword(data_user, new_password);
 			logger.infoLogger('User Module', `${data_user._id} reset password`);
 
-			resolve({ status: 'success', data: '', message: 'Petición realizada exitosamente.' });
+			resolve({ message: 'Petición realizada exitosamente.' });
 		} catch (error) {
 			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');
@@ -147,7 +147,7 @@ function login(data) {
 			logger.infoLogger('User Module', data_user);
 			data_user.access_token = access_token;
 
-			resolve({ status: 'success', data: data_user, message: 'Petición realizada exitosamente.' });
+			resolve({ message: 'Petición realizada exitosamente.', result: data_user });
 		} catch (error) {
 			logger.errorLogger('User Module', error.message);
 			reject('Error interno del servidor');

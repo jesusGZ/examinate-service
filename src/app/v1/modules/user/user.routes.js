@@ -2,14 +2,15 @@ const user_schema = require('./user.schema');
 const validateRequestMiddleware = require('../../../../helpers/middleware/validateRequest');
 const user_controller = require('./user.controller');
 const authJWT = require('../../../../utils/auth');
+const response = require('../../../../helpers/serviceResponse');
 
 module.exports = (router) => {
 	router.post('/user', authJWT, validateRequestMiddleware(user_schema.user, 'body'), async (req, res, next) => {
 		try {
 			const { name, email, user, password, active } = req.body;
 
-			const result = await user_controller.createUser({ name, email, user, password, active });
-			res.send(result);
+			const { message, result } = await user_controller.createUser({ name, email, user, password, active });
+			response.ok(res, message, result);
 		} catch (error) {
 			next(error);
 		}
@@ -19,8 +20,8 @@ module.exports = (router) => {
 		try {
 			const { id } = req.headers;
 
-			const result = await user_controller.getUser(id);
-			res.send(result);
+			const { message, result } = await user_controller.getUser(id);
+			response.ok(res, message, result);
 		} catch (error) {
 			next(error);
 		}
@@ -28,8 +29,8 @@ module.exports = (router) => {
 
 	router.get('/users', authJWT, async (req, res, next) => {
 		try {
-			const result = await user_controller.getUsers();
-			res.send(result);
+			const { message, result } = await user_controller.getUsers();
+			response.ok(res, message, result);
 		} catch (error) {
 			next(error);
 		}
@@ -40,8 +41,8 @@ module.exports = (router) => {
 			const { name, email, user, password, active } = req.body;
 			const { id } = req.headers;
 
-			const result = await user_controller.updateUser({ id, name, email, user, password, active });
-			res.send(result);
+			const { message, result } = await user_controller.updateUser({ id, name, email, user, password, active });
+			response.ok(res, message, result);
 		} catch (err) {
 			next(err);
 		}
@@ -51,8 +52,8 @@ module.exports = (router) => {
 		try {
 			const { user, password, secret } = req.body;
 
-			const result = await user_controller.resetPassword({ user, password, secret });
-			res.send(result);
+			const { message } = await user_controller.resetPassword({ user, password, secret });
+			response.ok(res, message);
 		} catch (err) {
 			next(err);
 		}
@@ -61,9 +62,10 @@ module.exports = (router) => {
 	router.post('/user/login', validateRequestMiddleware(user_schema.login, 'body'), async function (req, res, next) {
 		try {
 			const { user, password } = req.body;
-			console.log(user, password);
-			const result = await user_controller.login({ user, password });
-			res.send(result);
+
+			const { message, result } = await user_controller.login({ user, password });
+			console.log(message, result);
+			response.ok(res, message, result);
 		} catch (err) {
 			next(err);
 		}

@@ -15,9 +15,7 @@ module.exports = function methodsHttp(req, res, next) {
 		valid_method = METHODS.find((method) => method == req.method);
 
 		if (valid_method == undefined) {
-			const object = response(false, 'Metodo de peticion no valido', null);
-
-			res.status(405).json(object);
+			response.methodError(res);
 		} else {
 			next();
 		}
