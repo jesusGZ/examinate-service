@@ -4,155 +4,154 @@ const { SECURITY } = require('../../../../configs');
 const bcrypt = require('../../../../utils/bcrypt');
 const user_service = require('./user.service');
 const logger = require('../../../../utils/logger');
+const response = require('../../../../helpers/serviceResponse');
 
-function createUser(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const data_user = await user_service.getUser(data.user);
-			if (data_user) return reject('El usuario ya esta registrado');
+async function createUser(req, res, next) {
+	try {
+		const { name, email, user, password, active } = req.body;
 
-			const data_email = await user_service.getEmail(data.email);
-			if (data_email) return reject('El email ya esta registrado');
+		const data_user = await user_service.getUser(user);
+		if (data_user) return response.error(res, 'El usuario ya esta registrado');
 
-			const encrypted_password = await bcrypt.hash(data.password);
-			data.password = encrypted_password;
+		const data_email = await user_service.getEmail(email);
+		if (data_email) return response.error(res, 'El email ya esta registrado');
 
-			const result = await user_service.insertUser(data);
+		const encrypted_password = await bcrypt.hash(password);
+		password = encrypted_password;
 
-			const item = result.toObject();
+		const result = await user_service.insertUser({ name, email, user, password, active });
+
+		const item = result.toObject();
+		delete item.password;
+		delete item.__v;
+		delete item.exams;
+		delete item.classes;
+		delete item.questionBanks;
+
+		response.ok(res, item);
+	} catch (error) {
+		logger.errorLogger('User Module', error.message);
+		response.serverError(res, error);
+	}
+}
+
+async function getUser(req, res, next) {
+	try {
+		const { id } = req.headers;
+
+		const data_user = await user_service.getUserById(id);
+		if (!data_user) return response.error(res, 'No se encontraron datos de usuario');
+
+		delete data_user.password;
+
+		response.ok(res, data_user);
+	} catch (error) {
+		logger.errorLogger('User Module', error.message);
+		response.serverError(res, error);
+	}
+}
+
+async function getUsers(req, res, next) {
+	try {
+		const data_users = await user_service.getAllUsers();
+
+		const users = data_users.map((item) => {
+			item = item.toObject();
 			delete item.password;
 			delete item.__v;
+			delete item.active;
 			delete item.exams;
 			delete item.classes;
 			delete item.questionBanks;
+			return item;
+		});
 
-			resolve({ message: 'Petición realizada exitosamente.', result: item });
-		} catch (error) {
-			logger.errorLogger('User Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		response.ok(res, users);
+	} catch (error) {
+		logger.errorLogger('User Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
-function getUser(id) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const data_user = await user_service.getUserById(id);
-			if (!data_user) return reject('No se encontraron datos de usuario');
+async function updateUser(req, res, next) {
+	try {
+		const { name, email, user, password, active } = req.body;
+		const { id } = req.headers;
 
-			delete data_user.password;
+		const verify_user = await user_service.getUserById(id);
+		if (!verify_user) return response.error(res, 'No se encontraron datos de usuario');
 
-			resolve({ message: 'Petición realizada exitosamente.', result: data_user });
-		} catch (error) {
-			logger.errorLogger('User Module', error.message);
-			reject('Error interno del servidor');
+		const data_user = await user_service.getUserDistinctId(user, id);
+		if (data_user) return response.error(res, 'El nombre ya esta registrado');
+
+		const data_email = await user_service.getEmailDistinctId(email, id);
+		if (data_email) return response.error(res, 'El email ya esta registrado');
+
+		if (password == undefined) {
+			const data_password = await user_service.getPasswordById(id);
+			password = data_password.password;
+		} else {
+			const encrypted_password = await bcrypt.hash(password);
+			password = encrypted_password;
 		}
-	});
+
+		await user_service.updateUser({ name, email, user, password, active, id });
+
+		response.ok(res);
+	} catch (error) {
+		logger.errorLogger('User Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
-function getUsers() {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const data_users = await user_service.getAllUsers();
+async function resetPassword(req, res, next) {
+	try {
+		const { user, password, secret } = req.body;
+		if (secret !== SECURITY.SECRET_KEY) return response.error(res, 'No esta autorizado para realizar esta acción');
 
-			const users = data_users.map((item) => {
-				item = item.toObject();
-				delete item.password;
-				delete item.__v;
-				delete item.active;
-				delete item.exams;
-				delete item.classes;
-				delete item.questionBanks;
-				return item;
-			});
+		const data_user = await user_service.getUser(user);
+		if (!data_user) return response.error(res, 'No se encontraron datos de usuario');
 
-			resolve({ message: 'Petición realizada exitosamente.', result: users });
-		} catch (error) {
-			logger.errorLogger('User Module', error.message);
-			reject('Error interno del servidor');
-		}
-	});
+		const new_password = await bcrypt.hash(password);
+
+		await user_service.updateUserPassword(data_user, new_password);
+		logger.infoLogger('User Module', `${data_user._id} reset password`);
+
+		response.ok(res);
+	} catch (error) {
+		logger.errorLogger('User Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
-function updateUser(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const verify_user = await user_service.getUserById(data.id);
-			if (!verify_user) return reject('No se encontraron datos de usuario');
+async function login(req, res, next) {
+	try {
+		const { user, password } = req.body;
 
-			const data_user = await user_service.getUserDistinctId(data.user, data.id);
-			if (data_user) return reject('El nombre de usuario ya esta registrado');
+		const user_password = await user_service.getPasswordByUser(user);
+		if (!user_password) return response.error(res, 'Credenciales Incorrectas');
 
-			const data_email = await user_service.getEmailDistinctId(data.email, data.id);
-			if (data_email) return reject('El email ya esta registrado');
+		const password_result = await bcrypt.compare(password, user_password.password);
+		if (!password_result) return response.error(res, 'Credenciales Incorrectas');
 
-			if (data.password == undefined) {
-				const data_password = await user_service.getPasswordById(data.id);
-				data.password = data_password.password;
-			} else {
-				const encrypted_password = await bcrypt.hash(data.password);
-				data.password = encrypted_password;
-			}
+		const data_user = await user_service.getUserById(user_password._id);
+		if (!data_user) return response.error(res, 'Credenciales Incorrectas');
 
-			await user_service.updateUser(data);
+		//const payload = { payload: data_user._id.toString() };
+		const payload = { id: data_user._id.toString(), user: data_user.user };
+		const options = { expiresIn: SECURITY.JWT_EXPIRATION_USER };
+		const private_key = SECURITY.JWT_KEY + data_user.password;
+		const access_token = await jwt.sign(payload, private_key, options);
 
-			resolve({ message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('User Module', error.message);
-			reject('Error interno del servidor');
-		}
-	});
-}
+		delete data_user.password;
+		logger.infoLogger('User Module', data_user);
+		data_user.access_token = access_token;
 
-function resetPassword(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			if (data.secret !== SECURITY.SECRET_KEY) return reject('No esta autorizado para realizar esta acción');
-
-			const data_user = await user_service.getUser(data.user);
-			if (!data_user) return reject('No se encontraron datos de usuario');
-
-			const new_password = await bcrypt.hash(data.password);
-
-			await user_service.updateUserPassword(data_user, new_password);
-			logger.infoLogger('User Module', `${data_user._id} reset password`);
-
-			resolve({ message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('User Module', error.message);
-			reject('Error interno del servidor');
-		}
-	});
-}
-
-function login(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const user_password = await user_service.getPasswordByUser(data.user);
-			if (!user_password) return reject('Credenciales Incorrectas');
-
-			const password = await bcrypt.compare(data.password, user_password.password);
-			if (!password) return reject('Credenciales Incorrectas');
-
-			const data_user = await user_service.getUserById(user_password._id);
-			if (!data_user) return reject('Credenciales Incorrectas');
-
-			//const payload = { payload: data_user._id.toString() };
-			const payload = { id: data_user._id.toString(), user: data_user.user };
-			const options = { expiresIn: SECURITY.JWT_EXPIRATION_USER };
-			const private_key = SECURITY.JWT_KEY + data_user.password;
-			const access_token = await jwt.sign(payload, private_key, options);
-
-			delete data_user.password;
-			logger.infoLogger('User Module', data_user);
-			data_user.access_token = access_token;
-
-			resolve({ message: 'Petición realizada exitosamente.', result: data_user });
-		} catch (error) {
-			logger.errorLogger('User Module', error.message);
-			reject('Error interno del servidor');
-		}
-	});
+		response.ok(res, data_user);
+	} catch (error) {
+		logger.errorLogger('User Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
 module.exports = { createUser, getUser, getUsers, updateUser, resetPassword, login };
