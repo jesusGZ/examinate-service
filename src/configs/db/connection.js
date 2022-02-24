@@ -13,7 +13,7 @@ const getConnection = function () {
 		try {
 			mongoose.Promise = global.Promise;
 
-			await mongoose.connect(`mongodb://${MONGO_DB.MONGO_HOST}:${MONGO_DB.MONGO_PORT}/${MONGO_DB.MONGO_DB_NAME}?authSource=admin`, {
+			await mongoose.connect(`mongodb://${MONGO_DB.MONGO_HOST}:${MONGO_DB.MONGO_PORT}/?authSource=admin`, {
 				user: `${MONGO_DB.MONGO_USER}`,
 				pass: `${MONGO_DB.MONGO_PASS}`,
 				useNewUrlParser: true,

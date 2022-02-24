@@ -63,4 +63,5 @@ const examiner_schema = new Schema({
 	],
 });
 
-module.exports = mongoose.model('Examiner', examiner_schema);
+const conexion = mongoose.connection.useDb('examinate', { useCache: true });
+module.exports = conexion.model('Examiner', examiner_schema);
