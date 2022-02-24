@@ -1,111 +1,103 @@
+const moment = require('moment');
+
+const response = require('../../../../helpers/serviceResponse');
 const exam_live_service = require('./examlive.service');
 const logger = require('../../../../utils/logger');
 
-const moment = require('moment');
+async function getExamLive(req, res, next) {
+	try {
+		const { examinerId, examId, candidateId, candidatePassword } = req.body;
 
-function getExamLive(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const found_examiner = await exam_live_service.getExaminer(data.examinerId);
-			if (!found_examiner) return reject('No se encontro informacion del usuario.');
+		const found_examiner = await exam_live_service.getExaminer(examinerId);
+		if (!found_examiner) return response.error(res, 'No se encontro informacion del usuario.');
 
-			let found_exam_status = false;
-			const found_exam = found_examiner.exams;
-			for (const i in found_exam) {
-				if (String(found_exam[i]._id) === data.examId) {
-					found_exam_status = true;
+		let found_exam_status = false;
+		const found_exam = found_examiner.exams;
+		for (const i in found_exam) {
+			if (String(found_exam[i]._id) === examId) {
+				found_exam_status = true;
 
-					const found_candidate = found_exam[i].candidates.find((candidate) => {
-						return candidate._id.toString() === data.candidateId && candidate.candidatePassword === data.candidatePassword;
-					});
+				const found_candidate = found_exam[i].candidates.find((candidate) => {
+					return candidate._id.toString() === candidateId && candidate.candidatePassword === candidatePassword;
+				});
 
-					if (found_candidate === undefined) return reject('Credenciales no válidas para acceder al examen.');
+				if (found_candidate === undefined) return response.error(res, 'Credenciales no válidas para acceder al examen.');
 
-					if (found_candidate.hasAppeared) return reject('El candidato ya ha aparecido para el examen.');
+				if (found_candidate.hasAppeared) return response.error(res, 'El candidato ya ha aparecido para el examen.');
 
-					const question_bank = found_examiner.questionBanks.find((queBank) => String(queBank._id) === found_exam[i].questionBankId);
+				const question_bank = found_examiner.questionBanks.find((queBank) => String(queBank._id) === found_exam[i].questionBankId);
 
-					if (moment().isBetween(found_exam[i].startDateTime, found_exam[i].endDateTime)) {
-						if (question_bank === undefined) return reject('Banco de preguntas indefinido.');
-
-						return resolve({ status: 'success', data: { questionBank: question_bank, startDateTime: found_exam[i].startDateTime, endDateTime: found_exam[i].endDateTime }, message: 'Petición realizada exitosamente.' });
-					} else {
-						return reject(`El examen aún no ha comenzado, inténtelo de nuevo entre ${moment(found_exam[i].startDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')} & ${moment(found_exam[i].endDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')}`);
-					}
+				if (moment().isBetween(found_exam[i].startDateTime, found_exam[i].endDateTime)) {
+					if (question_bank === undefined) return response.error(res, 'Banco de preguntas indefinido.');
+					return response.ok(res, { questionBank: question_bank, startDateTime: found_exam[i].startDateTime, endDateTime: found_exam[i].endDateTime });
+				} else {
+					return response.error(res, `El examen aún no ha comenzado, inténtelo de nuevo entre ${moment(found_exam[i].startDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')} & ${moment(found_exam[i].endDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')}`);
 				}
 			}
-
-			if (!found_exam_status) return reject('ExamId inválido');
-		} catch (error) {
-			logger.errorLogger('Exam Live Module', error.message);
-			reject('Error interno del servidor.');
 		}
-	});
+
+		if (!found_exam_status) return response.error('ExamId inválido');
+	} catch (error) {
+		logger.errorLogger('Exam Live Module', error.message);
+		response.serverError(res, 'Error interno del servidor.');
+	}
 }
 
-function getResultsExam(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const examiner = await exam_live_service.getExaminer(data.examinerId);
-			if (!examiner) return reject('No se encontro informacion del usuario.');
+async function getResultsExam(req, res, next) {
+	try {
+		const { examinerId, examId, candidateId, candidatePassword, responses } = req.body;
 
-			const exam_index = examiner.exams.findIndex((exam) => String(exam._id) === data.examId);
+		const examiner = await exam_live_service.getExaminer(examinerId);
+		if (!examiner) return response.error(res, 'No se encontro informacion del usuario.');
 
-			// here also verifying credentials
-			const candidate_index = examiner.exams[exam_index].candidates.findIndex((candidate) => {
-				return candidate.candidateId === data.candidateId && candidate.candidatePassword === data.candidatePassword;
-			});
+		const exam_index = examiner.exams.findIndex((exam) => String(exam._id) === examId);
 
-			if (candidate_index < 0) return reject('Credenciales no válidas para acceder al examen.');
+		const candidate_index = examiner.exams[exam_index].candidates.findIndex((candidate) => {
+			return candidate.candidateId === candidateId && candidate.candidatePassword === candidatePassword;
+		});
 
-			if (moment().isBetween(examiner.exams[exam_index].startDateTime, examiner.exams[exam_index].endDateTime)) {
-				// verify if user has taken the exam
-				if (!examiner.exams[exam_index].candidates[candidate_index].hasAppeared) {
-					// set reposes
-					examiner.exams[exam_index].candidates[candidate_index].hasAppeared = true;
-					examiner.exams[exam_index].candidates[candidate_index].responses = data.responses;
+		if (candidate_index < 0) return response.error(res, 'Credenciales no válidas para acceder al examen.');
 
-					// and calculate the marks
-					const found_question_bank = examiner.questionBanks.find((questionBank) => String(questionBank._id) === examiner.exams[exam_index].questionBankId);
+		if (moment().isBetween(examiner.exams[exam_index].startDateTime, examiner.exams[exam_index].endDateTime)) {
+			if (!examiner.exams[exam_index].candidates[candidate_index].hasAppeared) {
+				examiner.exams[exam_index].candidates[candidate_index].hasAppeared = true;
+				examiner.exams[exam_index].candidates[candidate_index].responses = responses;
 
-					var marks_count = 0;
+				const found_question_bank = examiner.questionBanks.find((questionBank) => String(questionBank._id) === examiner.exams[exam_index].questionBankId);
 
-					found_question_bank.questions.forEach((question) => {
-						const foundResponse = data.responses.find((response) => response.questionId === String(question._id));
+				var marks_count = 0;
 
-						if (foundResponse !== undefined) {
-							const response_option = question.options.find((option) => foundResponse.optionId === String(option._id));
+				found_question_bank.questions.forEach((question) => {
+					const foundResponse = responses.find((response) => response.questionId === String(question._id));
 
-							if (response_option && response_option.value === question.correctOptionValue) marks_count += 1;
-						}
-					});
+					if (foundResponse !== undefined) {
+						const response_option = question.options.find((option) => foundResponse.optionId === String(option._id));
 
-					examiner.exams[exam_index].candidates[candidate_index].Marks = marks_count;
+						if (response_option && response_option.value === question.correctOptionValue) marks_count += 1;
+					}
+				});
 
-					examiner.save();
+				examiner.exams[exam_index].candidates[candidate_index].Marks = marks_count;
 
-					return resolve({
-						status: 'success',
-						data: {
-							candidateName: examiner.exams[exam_index].candidates[candidate_index].candidateName,
-							Marks: marks_count,
-							examName: examiner.exams[exam_index].examName,
-							examinerName: examiner.username,
-							examinerEmail: examiner.email,
-						},
-						message: 'Petición realizada exitosamente.',
-					});
-				} else {
-					return reject('El candidato ya ha aparecido para el examen.');
-				}
+				examiner.save();
+
+				return response.ok(res, {
+					candidateName: examiner.exams[exam_index].candidates[candidate_index].candidateName,
+					Marks: marks_count,
+					examName: examiner.exams[exam_index].examName,
+					examinerName: examiner.username,
+					examinerEmail: examiner.email,
+				});
 			} else {
-				return reject('Su envío está fuera del tiempo de examen.');
+				return response.error(res, 'El candidato ya ha aparecido para el examen.');
 			}
-		} catch (error) {
-			logger.errorLogger('Exam Live Module', error.message);
-			reject('Error interno del servidor.');
+		} else {
+			return response.error(res, 'Su envío está fuera del tiempo de examen.');
 		}
-	});
+	} catch (error) {
+		logger.errorLogger('Exam Live Module', error.message);
+		response.serverError(res, 'Error interno del servidor.');
+	}
 }
 
 module.exports = { getExamLive, getResultsExam };
