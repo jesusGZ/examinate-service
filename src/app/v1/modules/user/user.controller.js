@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
+const response = require('../../../../helpers/serviceResponse');
 const { SECURITY } = require('../../../../configs');
+const logger = require('../../../../utils/logger');
 const bcrypt = require('../../../../utils/bcrypt');
 const user_service = require('./user.service');
-const logger = require('../../../../utils/logger');
-const response = require('../../../../helpers/serviceResponse');
 
 async function createUser(req, res, next) {
 	try {

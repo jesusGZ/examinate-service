@@ -1,74 +1,78 @@
 const question_bank_service = require('./questionBank.service');
+const response = require('../../../../helpers/serviceResponse');
 const logger = require('../../../../utils/logger');
 
-function createQuestionBank(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			let question_bank_data = await question_bank_service.getQuestionBankNameByUser(data.user, data.questionBankName);
-			if (question_bank_data) return reject('El banco de preguntas ya se encuentra registrado.');
+async function createQuestionBank(req, res, next) {
+	try {
+		const questionBankName = req.body.questionBankName;
+		const user = req.payload.user;
 
-			await question_bank_service.insertQuestionBank(data.user, data.questionBankName);
+		let question_bank_data = await question_bank_service.getQuestionBankNameByUser(user, questionBankName);
+		if (question_bank_data) return response.error(res, 'El banco de preguntas ya se encuentra registrado.');
 
-			const found_element = await question_bank_service.getFoundElements(data.user);
-			if (!found_element) return reject('No se encontro informacion');
+		await question_bank_service.insertQuestionBank(user, questionBankName);
 
-			resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Question Bank Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		const found_element = await question_bank_service.getFoundElements(user);
+		if (!found_element) return response.error(res, 'No se encontro informacion');
+
+		response.ok(res, found_element.questionBanks);
+	} catch (error) {
+		logger.errorLogger('Question Bank Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
-function getQuestionBank(user) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const found_element = await question_bank_service.getFoundElements(user);
-			if (!found_element) return reject('No se encontro informacion');
+async function getQuestionBank(req, res, next) {
+	try {
+		const user = req.payload.user;
 
-			resolve({ status: 'success', data: found_element.questionBanks, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Question Bank Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		const found_element = await question_bank_service.getFoundElements(user);
+		if (!found_element) return response.error(res, 'No se encontro informacion');
+
+		response.ok(res, found_element.questionBanks);
+	} catch (error) {
+		logger.errorLogger('Question Bank Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
-function updateQuestionBank(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			let verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(data.user, data.id);
-			if (!verify_question_bank) return reject('No se encontro informacion.');
+async function updateQuestionBank(req, res, next) {
+	try {
+		const { id, questionBankName, questions } = req.body;
+		const user = req.payload.user;
 
-			await question_bank_service.updateQuestionBank(data.user, data.id, data.questionBankName, data.questions);
+		let verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(user, id);
+		if (!verify_question_bank) return response.error(res, 'No se encontro informacion');
 
-			const found_element = await question_bank_service.getFoundElements(data.user);
-			if (!found_element) return reject('No se encontro informacion.');
+		await question_bank_service.updateQuestionBank(user, id, questionBankName, questions);
 
-			resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Question Bank Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		const found_element = await question_bank_service.getFoundElements(user);
+		if (!found_element) return response.error(res, 'No se encontro informacion');
+
+		response.ok(res, found_element);
+	} catch (error) {
+		logger.errorLogger('Question Bank Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
-function deleteQuestionBank(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(data.user, data.questionBankId);
-			if (!verify_question_bank) return reject('No se encontro informacion');
+async function deleteQuestionBank(req, res, next) {
+	try {
+		const questionBankId = req.body.questionBankId;
+		const user = req.payload.user;
 
-			await question_bank_service.deleteQuestionBank(data.user, data.questionBankId);
+		const verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(user, questionBankId);
+		if (!verify_question_bank) return response.error(res, 'No se encontro informacion');
 
-			const found_element = await question_bank_service.getFoundElements(data.user);
+		await question_bank_service.deleteQuestionBank(user, questionBankId);
 
-			resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Question Bank Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		const found_element = await question_bank_service.getFoundElements(user);
+
+		response.ok(res, found_element);
+	} catch (error) {
+		logger.errorLogger('Question Bank Module', error.message);
+		response.serverError(res, error);
+	}
 }
 
 module.exports = { deleteQuestionBank, updateQuestionBank, getQuestionBank, createQuestionBank };
