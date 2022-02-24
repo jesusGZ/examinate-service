@@ -1,10 +1,11 @@
 module.exports = function getErrorMessagesOfJoi(element) {
-	const error = element[0]['type'];
-	const context = element[0].context;
 	const parameter = element[0].context.label;
+	const context = element[0].context;
+	const error = element[0]['type'];
 	let message;
 
 	console.log(error);
+
 	if (error == 'string.dataUri' || error == 'string.uri' || error == 'string.pattern.base') return (message = `El campo ${parameter} debe ser una uri valida`);
 	if (error == 'string.min') return (message = `El mínimo de caracteres que puedes incluir en el campo ${parameter} es ${context.limit}`);
 	if (error == 'string.max') return (message = `El máximo de caracteres que puedes incluir en el campo ${parameter} es ${context.limit}`);

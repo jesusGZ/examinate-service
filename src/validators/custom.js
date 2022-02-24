@@ -1,19 +1,5 @@
 const { spaces_regex, invalid_chars_regex, SQL_keywords_regex, JWT_regex, only_numbers_regex } = require('../configs/regex');
 
-const remove_spaces = {
-	validate(value) {
-		return value.replace(spaces_regex, '');
-	},
-};
-
-const remove_spaces_in_between = {
-	validate(value) {
-		const words = value.split(' ');
-		const words_without_spaces = words.filter((word) => word.trim() !== '');
-		return words_without_spaces.join(' ').toString();
-	},
-};
-
 const capitalize = {
 	validate(value) {
 		const words = value.split(' ');
@@ -43,6 +29,14 @@ const is_not_number = {
 	},
 };
 
+const remove_spaces_in_between = {
+	validate(value) {
+		const words = value.split(' ');
+		const words_without_spaces = words.filter((word) => word.trim() !== '');
+		return words_without_spaces.join(' ').toString();
+	},
+};
+
 const jwt = {
 	validate(value, helpers) {
 		if (!JWT_regex.test(value)) return helpers.error('string.jwt');
@@ -50,16 +44,22 @@ const jwt = {
 	},
 };
 
+const remove_spaces = {
+	validate(value) {
+		return value.replace(spaces_regex, '');
+	},
+};
+
 const string = (joi) => ({
 	type: 'string',
 	base: joi.string(),
 	rules: {
-		removeSpaces: remove_spaces,
 		removeSpacesInBetween: remove_spaces_in_between,
-		capitalize: capitalize,
 		hasInvalidChars: has_invalid_chars,
-		hasSQLWords: has_SQL_words,
+		removeSpaces: remove_spaces,
 		isNotNumber: is_not_number,
+		hasSQLWords: has_SQL_words,
+		capitalize: capitalize,
 		jwt: jwt,
 	},
 });
