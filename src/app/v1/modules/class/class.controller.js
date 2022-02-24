@@ -1,82 +1,86 @@
+const response = require('../../../../helpers/serviceResponse');
 const class_service = require('./class.service');
 const logger = require('../../../../utils/logger');
 
-function createClass(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const class_data = await class_service.getClasses(data.user, data.class_name);
-			if (class_data) return reject('La clase ya se encuentra registrada');
+async function createClass(req, res, next) {
+	try {
+		const class_name = req.body.className;
+		const user = req.payload.user;
 
-			await class_service.insertClass(data.user, data.class_name);
+		const class_data = await class_service.getClasses(user, class_name);
+		if (class_data) return response.error(res, 'La clase ya se encuentra registrada');
 
-			const found_element = await class_service.getFoundElements(data.user);
+		await class_service.insertClass(user, class_name);
 
-			resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Class Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		const found_element = await class_service.getFoundElements(user);
+
+		response.ok(res, found_element.classes);
+	} catch (error) {
+		logger.errorLogger('Class Module', error.message);
+		response.serverError(res);
+	}
 }
 
-function getClass(user) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const found_element = await class_service.getFoundElements(user);
-			if (!found_element) return reject('No se encontro informacion');
+async function getClass(req, res, next) {
+	try {
+		const user = req.payload.user;
 
-			resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Class Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		const found_element = await class_service.getFoundElements(user);
+		if (!found_element) return response.error(res, 'No se encontro informacion');
+
+		response.ok(res, found_element.classes);
+	} catch (error) {
+		logger.errorLogger('Class Module', error.message);
+		response.serverError(res);
+	}
 }
 
-function updateClass(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const class_data = await class_service.getClassById(data.user, data.id);
-			if (!class_data) return reject('No se encontro informacion');
+async function updateClass(req, res, next) {
+	try {
+		const { id, className, candidates } = req.body;
+		const user = req.payload.user;
 
-			const verify_class_name = await class_service.getClasses(data.user, data.className);
-			if (verify_class_name) {
-				verify_class_name.classes.map((item) => {
-					if (item.className == data.className && item._id != data.id) return reject('El nombre de la clase ya se encuentra registrado.');
-					return item;
-				});
-			}
+		const class_data = await class_service.getClassById(user, id);
+		if (!class_data) return response.error(res, 'No se encontro informacion');
 
-			await class_service.updateClass(data.user, data.id, data.className, data.candidates);
-
-			const found_element = await class_service.getFoundElements(data.user);
-			if (!found_element) return reject('No se encontro informacion');
-
-			resolve({ status: 'success', data: found_element, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Class Module', error.message);
-			reject('Error interno del servidor.');
+		const verify_class_name = await class_service.getClasses(user, className);
+		if (verify_class_name) {
+			verify_class_name.classes.map((item) => {
+				if (item.className == className && item._id != id) return response.error(res, 'El nombre de la clase ya se encuentra registrado.');
+				return item;
+			});
 		}
-	});
+
+		await class_service.updateClass(user, id, className, candidates);
+
+		const found_element = await class_service.getFoundElements(user);
+		if (!found_element) return response.error(res, 'No se encontro informacion');
+
+		response.ok(res, found_element);
+	} catch (error) {
+		logger.errorLogger('Class Module', error.message);
+		response.serverError(res);
+	}
 }
 
-function deleteClass(data) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const class_data = await class_service.getClassById(data.user, data.classId);
-			if (!class_data) return reject('No se encontro informacion');
+async function deleteClass(req, res, next) {
+	try {
+		const classId = req.body.classId;
+		const user = req.payload.user;
 
-			await class_service.deleteClass(data.user, data.classId);
+		const class_data = await class_service.getClassById(user, classId);
+		if (!class_data) return reject('No se encontro informacion');
 
-			const found_element = await class_service.getFoundElements(data.user);
-			if (!found_element) return reject('No se encontro informacion');
+		await class_service.deleteClass(user, classId);
 
-			resolve({ status: 'success', data: found_element.classes, message: 'Petición realizada exitosamente.' });
-		} catch (error) {
-			logger.errorLogger('Class Module', error.message);
-			reject('Error interno del servidor.');
-		}
-	});
+		const found_element = await class_service.getFoundElements(user);
+		if (!found_element) return reject('No se encontro informacion');
+
+		response.ok(res, found_element.classes);
+	} catch (error) {
+		logger.errorLogger('Class Module', error.message);
+		response.serverError(res);
+	}
 }
 
 module.exports = { deleteClass, updateClass, getClass, createClass };
