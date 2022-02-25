@@ -25,8 +25,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										examName: 'testExam',
 										startDateTime: '2022-01-05T06:00:00.000Z',
@@ -108,8 +108,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									exams: [
 										{
@@ -165,8 +165,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									name: 'Antonio Romero Zurita',
 									email: 'tony@gmail.com',
@@ -315,8 +315,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									exams: [
 										{

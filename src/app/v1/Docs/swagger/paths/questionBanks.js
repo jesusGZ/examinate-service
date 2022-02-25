@@ -25,8 +25,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										questionBankName: 'Test',
 										_id: '61f944ac21ad261a6c616146',
@@ -70,8 +70,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										questionBankName: 'Test',
 										_id: '61f944ac21ad261a6c616146',
@@ -188,8 +188,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									_id: '61f854214c90e061b2d3c927',
 									name: 'Antonio Romero Zurita',
 									email: 'tony@gmail.com',
@@ -313,8 +313,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										questionBankName: 'Test',
 										_id: '61f944ac21ad261a6c616146',

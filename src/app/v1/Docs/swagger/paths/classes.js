@@ -25,8 +25,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										className: 'TestClass',
 										_id: '61fae6045ef20bf29ba2ea99',
@@ -80,8 +80,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										className: 'TestClass',
 										_id: '61fae6045ef20bf29ba2ea99',
@@ -149,8 +149,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									classes: [
 										{
@@ -222,8 +222,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										className: 'TestClass',
 										candidates: [

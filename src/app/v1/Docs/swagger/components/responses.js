@@ -4,7 +4,7 @@ module.exports = {
 			description: 'Error de usuario, este se define según sera el caso',
 			content: {
 				'application/json': {
-					schema: { example: { status: 'error', data: 'S/R', message: 'Parámetros incorrectos' } },
+					schema: { example: { status: 'error', result: 'S/R', message: 'Parámetros incorrectos' } },
 				},
 			},
 		},
@@ -12,7 +12,7 @@ module.exports = {
 			description: 'Error de autenticación',
 			content: {
 				'application/json': {
-					schema: { example: { status: 'error', data: 'No Autorizado', message: 'Este usuario no esta autorizado' } },
+					schema: { example: { status: 'error', result: 'No Autorizado', message: 'Este usuario no esta autorizado' } },
 				},
 			},
 		},
@@ -20,7 +20,7 @@ module.exports = {
 			description: 'Error de servidor',
 			content: {
 				'application/json': {
-					schema: { example: { status: 'error', data: 'S/R', message: 'Error interno del servidor' } },
+					schema: { example: { status: 'error', result: 'S/R', message: 'Error interno del servidor' } },
 				},
 			},
 		},

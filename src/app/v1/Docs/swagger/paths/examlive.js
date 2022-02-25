@@ -25,8 +25,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									questionBank: {
 										questionBankName: 'Test',
 										questions: [

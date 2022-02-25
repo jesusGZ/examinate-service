@@ -18,4 +18,12 @@ function badRequest(res, message, result) {
 	return res.status(400).json({ success: false, message: message, result: result || null });
 }
 
-module.exports = { ok, badRequest, internalServerError, methodNotAllowed, unauthorized };
+function noContent(res, message) {
+	return res.status(204).json({ success: false, message: message || 'Sin contenido', result: null });
+}
+
+function notFound(res, message) {
+	return res.status(404).json({ success: false, message: message || 'No se encontro informacion.', result: null });
+}
+
+module.exports = { ok, badRequest, internalServerError, methodNotAllowed, unauthorized, noContent, notFound };

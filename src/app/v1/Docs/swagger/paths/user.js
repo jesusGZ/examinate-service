@@ -25,8 +25,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									name: 'Jesus Antonio Garcia Zurita',
 									email: 'example@gmail.com',
 									user: 'example',
@@ -77,8 +77,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									_id: '61f859d9a8d488e17116c4b1',
 									name: 'Armando lopez lopez',
 									email: 'test@gmail.com',
@@ -143,8 +143,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: '',
+								success: true,
+								result: '',
 								message: 'Petición realizada exitosamente.',
 							},
 						},
@@ -180,8 +180,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: [
+								success: true,
+								result: [
 									{
 										_id: '61f854214c90e061b2d3c927',
 										name: 'Antonio Romero Zurita',
@@ -249,8 +249,8 @@ module.exports = {
 					content: {
 						'application/json': {
 							example: {
-								status: 'success',
-								data: {
+								success: true,
+								result: {
 									_id: '61f854214c90e061b2d3c927',
 									name: 'Antonio Romero Zurita',
 									email: 'tony@gmail.com',
