@@ -12,18 +12,18 @@ async function createExam(req, res, next) {
 		const user = req.payload.user;
 
 		const found_element = await exam_service.getFoundElement(user, classId);
-		if (!found_element) return response.error(res, 'No se encontro informacion');
+		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
 
 		// checking if the exam with the same name already exists
 		if (found_element.exams.find((e) => e.examName === examName) !== undefined) {
-			return response.error(res, 'El nombre del examen ya existe.');
+			return response.badRequest(res, 'El nombre del examen ya existe.');
 		}
 
 		const class_indx = found_element.classes.findIndex((e) => {
 			return e._id.toString() === classId;
 		});
 
-		if (class_indx < 0) return response.error(res, 'No se encontro informacion');
+		if (class_indx < 0) return response.badRequest(res, 'No se encontro informacion');
 
 		var compiled_total_marks = 0;
 
@@ -31,7 +31,7 @@ async function createExam(req, res, next) {
 			return e._id.toString() === questionBankId;
 		});
 
-		if (question_bank_indx < 0) return response.error(res, 'No se encontro informacion');
+		if (question_bank_indx < 0) return response.badRequest(res, 'No se encontro informacion');
 
 		found_element.questionBanks[question_bank_indx].questions.forEach((element) => {
 			compiled_total_marks += element.marks;
@@ -65,7 +65,7 @@ async function createExam(req, res, next) {
 		const found_elements = await exam_service.getFoundElements(user);
 
 		if (found_elements === null) {
-			return response.error(res, 'No existe ningún usuario para la clase.');
+			return response.badRequest(res, 'No existe ningún usuario para la clase.');
 		} else {
 			const candidate_list = JSON.parse(JSON.stringify(found_elements.classes[class_indx].candidates));
 
@@ -130,7 +130,7 @@ async function getInfo(req, res, next) {
 		const user = req.payload.user;
 
 		const found_element = await exam_service.getFoundElements(user);
-		if (!found_element) return response.error(res, 'No se encontro informacion');
+		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
 
 		response.ok(res, found_element);
 	} catch (error) {
@@ -144,7 +144,7 @@ async function getExams(req, res, next) {
 		const user = req.payload.user;
 
 		const exams = await exam_service.getExams(user);
-		if (!exams) return response.error(res, 'No se encontro informacion');
+		if (!exams) return response.badRequest(res, 'No se encontro informacion');
 
 		response.ok(res, exams);
 	} catch (error) {
@@ -159,12 +159,12 @@ async function deleteExam(req, res, next) {
 		const examId = req.body.examId;
 
 		const exam_data = await exam_service.getExamById(user, examId);
-		if (!exam_data) return response.error(res, 'No se encontro informacion');
+		if (!exam_data) return response.badRequest(res, 'No se encontro informacion');
 
 		await exam_service.deleteExam(user, examId);
 
 		const exams = await exam_service.getExams(user);
-		if (!exams) return response.error(res, 'No se encontro informacion');
+		if (!exams) return response.badRequest(res, 'No se encontro informacion');
 
 		response.ok(res, exams);
 	} catch (error) {

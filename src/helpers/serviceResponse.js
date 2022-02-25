@@ -14,8 +14,8 @@ function tokenError(res, message) {
 	return res.status(401).json({ success: false, message: message || 'Token invalido', result: null });
 }
 
-function error(res, message, result) {
+function badRequest(res, message, result) {
 	return res.status(400).json({ success: false, message: message, result: result || null });
 }
 
-module.exports = { ok, error, serverError, methodError, tokenError };
+module.exports = { ok, badRequest, serverError, methodError, tokenError };

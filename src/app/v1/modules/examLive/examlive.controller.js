@@ -9,7 +9,7 @@ async function getExamLive(req, res, next) {
 		const { examinerId, examId, candidateId, candidatePassword } = req.body;
 
 		const found_examiner = await exam_live_service.getExaminer(examinerId);
-		if (!found_examiner) return response.error(res, 'No se encontro informacion del usuario.');
+		if (!found_examiner) return response.badRequest(res, 'No se encontro informacion del usuario.');
 
 		let found_exam_status = false;
 		const found_exam = found_examiner.exams;
@@ -21,22 +21,22 @@ async function getExamLive(req, res, next) {
 					return candidate._id.toString() === candidateId && candidate.candidatePassword === candidatePassword;
 				});
 
-				if (found_candidate === undefined) return response.error(res, 'Credenciales no válidas para acceder al examen.');
+				if (found_candidate === undefined) return response.badRequest(res, 'Credenciales no válidas para acceder al examen.');
 
-				if (found_candidate.hasAppeared) return response.error(res, 'El candidato ya ha aparecido para el examen.');
+				if (found_candidate.hasAppeared) return response.badRequest(res, 'El candidato ya ha aparecido para el examen.');
 
 				const question_bank = found_examiner.questionBanks.find((queBank) => String(queBank._id) === found_exam[i].questionBankId);
 
 				if (moment().isBetween(found_exam[i].startDateTime, found_exam[i].endDateTime)) {
-					if (question_bank === undefined) return response.error(res, 'Banco de preguntas indefinido.');
+					if (question_bank === undefined) return response.badRequest(res, 'Banco de preguntas indefinido.');
 					return response.ok(res, { questionBank: question_bank, startDateTime: found_exam[i].startDateTime, endDateTime: found_exam[i].endDateTime });
 				} else {
-					return response.error(res, `El examen aún no ha comenzado, inténtelo de nuevo entre ${moment(found_exam[i].startDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')} & ${moment(found_exam[i].endDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')}`);
+					return response.badRequest(res, `El examen aún no ha comenzado, inténtelo de nuevo entre ${moment(found_exam[i].startDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')} & ${moment(found_exam[i].endDateTime).utc().format('DD-MM-YYYY, h:mm:ss a')}`);
 				}
 			}
 		}
 
-		if (!found_exam_status) return response.error('ExamId inválido');
+		if (!found_exam_status) return response.badRequest('ExamId inválido');
 	} catch (error) {
 		logger.errorLogger('Exam Live Module', error.message);
 		response.serverError(res);
@@ -48,7 +48,7 @@ async function getResultsExam(req, res, next) {
 		const { examinerId, examId, candidateId, candidatePassword, responses } = req.body;
 
 		const examiner = await exam_live_service.getExaminer(examinerId);
-		if (!examiner) return response.error(res, 'No se encontro informacion del usuario.');
+		if (!examiner) return response.badRequest(res, 'No se encontro informacion del usuario.');
 
 		const exam_index = examiner.exams.findIndex((exam) => String(exam._id) === examId);
 
@@ -56,7 +56,7 @@ async function getResultsExam(req, res, next) {
 			return candidate.candidateId === candidateId && candidate.candidatePassword === candidatePassword;
 		});
 
-		if (candidate_index < 0) return response.error(res, 'Credenciales no válidas para acceder al examen.');
+		if (candidate_index < 0) return response.badRequest(res, 'Credenciales no válidas para acceder al examen.');
 
 		if (moment().isBetween(examiner.exams[exam_index].startDateTime, examiner.exams[exam_index].endDateTime)) {
 			if (!examiner.exams[exam_index].candidates[candidate_index].hasAppeared) {
@@ -89,10 +89,10 @@ async function getResultsExam(req, res, next) {
 					examinerEmail: examiner.email,
 				});
 			} else {
-				return response.error(res, 'El candidato ya ha aparecido para el examen.');
+				return response.badRequest(res, 'El candidato ya ha aparecido para el examen.');
 			}
 		} else {
-			return response.error(res, 'Su envío está fuera del tiempo de examen.');
+			return response.badRequest(res, 'Su envío está fuera del tiempo de examen.');
 		}
 	} catch (error) {
 		logger.errorLogger('Exam Live Module', error.message);

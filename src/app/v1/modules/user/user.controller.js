@@ -11,10 +11,10 @@ async function createUser(req, res, next) {
 		let { name, email, user, password, active } = req.body;
 
 		const data_user = await user_service.getUser(user);
-		if (data_user) return response.error(res, 'El usuario ya esta registrado');
+		if (data_user) return response.badRequest(res, 'El usuario ya esta registrado');
 
 		const data_email = await user_service.getEmail(email);
-		if (data_email) return response.error(res, 'El email ya esta registrado');
+		if (data_email) return response.badRequest(res, 'El email ya esta registrado');
 
 		const encrypted_password = await bcrypt.hash(password);
 		password = encrypted_password;
@@ -40,7 +40,7 @@ async function getUser(req, res, next) {
 		const { id } = req.headers;
 
 		const data_user = await user_service.getUserById(id);
-		if (!data_user) return response.error(res, 'No se encontraron datos de usuario');
+		if (!data_user) return response.badRequest(res, 'No se encontraron datos de usuario');
 
 		delete data_user.password;
 
@@ -79,13 +79,13 @@ async function updateUser(req, res, next) {
 		const { id } = req.headers;
 
 		const verify_user = await user_service.getUserById(id);
-		if (!verify_user) return response.error(res, 'No se encontraron datos de usuario');
+		if (!verify_user) return response.badRequest(res, 'No se encontraron datos de usuario');
 
 		const data_user = await user_service.getUserDistinctId(user, id);
-		if (data_user) return response.error(res, 'El nombre ya esta registrado');
+		if (data_user) return response.badRequest(res, 'El nombre ya esta registrado');
 
 		const data_email = await user_service.getEmailDistinctId(email, id);
-		if (data_email) return response.error(res, 'El email ya esta registrado');
+		if (data_email) return response.badRequest(res, 'El email ya esta registrado');
 
 		if (password == undefined) {
 			const data_password = await user_service.getPasswordById(id);
@@ -107,10 +107,10 @@ async function updateUser(req, res, next) {
 async function resetPassword(req, res, next) {
 	try {
 		const { user, password, secret } = req.body;
-		if (secret !== SECURITY.SECRET_KEY) return response.error(res, 'No esta autorizado para realizar esta acción');
+		if (secret !== SECURITY.SECRET_KEY) return response.badRequest(res, 'No esta autorizado para realizar esta acción');
 
 		const data_user = await user_service.getUser(user);
-		if (!data_user) return response.error(res, 'No se encontraron datos de usuario');
+		if (!data_user) return response.badRequest(res, 'No se encontraron datos de usuario');
 
 		const new_password = await bcrypt.hash(password);
 
@@ -129,13 +129,13 @@ async function login(req, res, next) {
 		const { user, password } = req.body;
 
 		const user_password = await user_service.getPasswordByUser(user);
-		if (!user_password) return response.error(res, 'Credenciales Incorrectas');
+		if (!user_password) return response.badRequest(res, 'Credenciales Incorrectas');
 
 		const password_result = await bcrypt.compare(password, user_password.password);
-		if (!password_result) return response.error(res, 'Credenciales Incorrectas');
+		if (!password_result) return response.badRequest(res, 'Credenciales Incorrectas');
 
 		const data_user = await user_service.getUserById(user_password._id);
-		if (!data_user) return response.error(res, 'Credenciales Incorrectas');
+		if (!data_user) return response.badRequest(res, 'Credenciales Incorrectas');
 
 		//const payload = { payload: data_user._id.toString() };
 		const payload = { id: data_user._id.toString(), user: data_user.user };

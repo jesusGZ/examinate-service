@@ -8,7 +8,7 @@ module.exports = function setValidateRequestMiddleware(schema, property) {
 		if (error) {
 			const { details } = error;
 			const message = getErrorMessagesOfJoi(details);
-			return response.error(res, message);
+			return response.badRequest(res, message);
 		}
 
 		req[property] = value;
