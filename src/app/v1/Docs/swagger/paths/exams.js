@@ -26,6 +26,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										examName: 'testExam',
@@ -62,7 +63,6 @@ module.exports = {
 										_id: '61fe8a4ec983293277399828',
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -109,6 +109,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									exams: [
@@ -131,7 +132,6 @@ module.exports = {
 										},
 									],
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -166,6 +166,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									name: 'Antonio Romero Zurita',
@@ -281,7 +282,6 @@ module.exports = {
 										},
 									],
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -316,6 +316,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									exams: [
@@ -355,7 +356,6 @@ module.exports = {
 										},
 									],
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},

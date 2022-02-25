@@ -26,6 +26,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										className: 'TestClass',
@@ -48,7 +49,6 @@ module.exports = {
 										candidates: [],
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -81,6 +81,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										className: 'TestClass',
@@ -103,7 +104,6 @@ module.exports = {
 										candidates: [],
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -150,6 +150,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									classes: [
@@ -176,7 +177,6 @@ module.exports = {
 										},
 									],
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -223,6 +223,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										className: 'TestClass',
@@ -246,7 +247,6 @@ module.exports = {
 										candidates: [],
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},

@@ -26,6 +26,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										questionBankName: 'Test',
@@ -38,7 +39,6 @@ module.exports = {
 										questions: [],
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -71,6 +71,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										questionBankName: 'Test',
@@ -142,7 +143,6 @@ module.exports = {
 										questions: [],
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -189,6 +189,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									_id: '61f854214c90e061b2d3c927',
 									name: 'Antonio Romero Zurita',
@@ -267,7 +268,6 @@ module.exports = {
 										},
 									],
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -314,6 +314,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										questionBankName: 'Test',
@@ -380,7 +381,6 @@ module.exports = {
 										questions: [],
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},

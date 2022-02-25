@@ -26,6 +26,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									questionBank: {
 										questionBankName: 'Test',
@@ -84,7 +85,6 @@ module.exports = {
 									startDateTime: '2022-02-05T06:00:00.000Z',
 									endDateTime: '2022-02-06T06:00:00.000Z',
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},

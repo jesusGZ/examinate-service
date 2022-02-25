@@ -26,6 +26,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									name: 'Jesus Antonio Garcia Zurita',
 									email: 'example@gmail.com',
@@ -33,7 +34,6 @@ module.exports = {
 									active: true,
 									_id: '61f98dce71eb4e51ca369d6b',
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -78,6 +78,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									_id: '61f859d9a8d488e17116c4b1',
 									name: 'Armando lopez lopez',
@@ -85,7 +86,6 @@ module.exports = {
 									user: 'test',
 									active: true,
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -144,8 +144,8 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
-								result: '',
 								message: 'Petición realizada exitosamente.',
+								result: null,
 							},
 						},
 					},
@@ -181,6 +181,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: [
 									{
 										_id: '61f854214c90e061b2d3c927',
@@ -201,7 +202,6 @@ module.exports = {
 										user: 'exampleUser',
 									},
 								],
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
@@ -250,6 +250,7 @@ module.exports = {
 						'application/json': {
 							example: {
 								success: true,
+								message: 'Petición realizada exitosamente.',
 								result: {
 									_id: '61f854214c90e061b2d3c927',
 									name: 'Antonio Romero Zurita',
@@ -258,7 +259,6 @@ module.exports = {
 									active: true,
 									access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjg1NDIxNGM5MGUwNjFiMmQzYzkyNyIsInVzZXIiOiJ0b255IiwiaWF0IjoxNjQzNzQ5NTIzLCJleHAiOjE2NDM3NTMxMjN9.Ij4pY_kSqBpsfrQ6SxV8UlDKBTGNPnpjA9Fk_yF5TkA',
 								},
-								message: 'Petición realizada exitosamente.',
 							},
 						},
 					},
