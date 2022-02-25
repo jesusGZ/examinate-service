@@ -18,7 +18,7 @@ async function createQuestionBank(req, res, next) {
 		response.ok(res, found_element.questionBanks);
 	} catch (error) {
 		logger.errorLogger('Question Bank Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -32,7 +32,7 @@ async function getQuestionBank(req, res, next) {
 		response.ok(res, found_element.questionBanks);
 	} catch (error) {
 		logger.errorLogger('Question Bank Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -52,7 +52,7 @@ async function updateQuestionBank(req, res, next) {
 		response.ok(res, found_element);
 	} catch (error) {
 		logger.errorLogger('Question Bank Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -71,7 +71,7 @@ async function deleteQuestionBank(req, res, next) {
 		response.ok(res, found_element);
 	} catch (error) {
 		logger.errorLogger('Question Bank Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 

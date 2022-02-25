@@ -17,7 +17,7 @@ async function createClass(req, res, next) {
 		response.ok(res, found_element.classes);
 	} catch (error) {
 		logger.errorLogger('Class Module', error.message);
-		response.serverError(res);
+		response.internalServerError(res);
 	}
 }
 
@@ -31,7 +31,7 @@ async function getClass(req, res, next) {
 		response.ok(res, found_element.classes);
 	} catch (error) {
 		logger.errorLogger('Class Module', error.message);
-		response.serverError(res);
+		response.internalServerError(res);
 	}
 }
 
@@ -59,7 +59,7 @@ async function updateClass(req, res, next) {
 		response.ok(res, found_element);
 	} catch (error) {
 		logger.errorLogger('Class Module', error.message);
-		response.serverError(res);
+		response.internalServerError(res);
 	}
 }
 
@@ -79,7 +79,7 @@ async function deleteClass(req, res, next) {
 		response.ok(res, found_element.classes);
 	} catch (error) {
 		logger.errorLogger('Class Module', error.message);
-		response.serverError(res);
+		response.internalServerError(res);
 	}
 }
 

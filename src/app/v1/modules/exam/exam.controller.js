@@ -76,7 +76,7 @@ async function createExam(req, res, next) {
 	} catch (error) {
 		console.log(error);
 		logger.errorLogger('Exam Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -135,7 +135,7 @@ async function getInfo(req, res, next) {
 		response.ok(res, found_element);
 	} catch (error) {
 		logger.errorLogger('Exam Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -149,7 +149,7 @@ async function getExams(req, res, next) {
 		response.ok(res, exams);
 	} catch (error) {
 		logger.errorLogger('Exam Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -169,7 +169,7 @@ async function deleteExam(req, res, next) {
 		response.ok(res, exams);
 	} catch (error) {
 		logger.errorLogger('Exam Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 

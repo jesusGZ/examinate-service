@@ -39,7 +39,7 @@ async function getExamLive(req, res, next) {
 		if (!found_exam_status) return response.badRequest('ExamId inválido');
 	} catch (error) {
 		logger.errorLogger('Exam Live Module', error.message);
-		response.serverError(res);
+		response.internalServerError(res);
 	}
 }
 
@@ -96,7 +96,7 @@ async function getResultsExam(req, res, next) {
 		}
 	} catch (error) {
 		logger.errorLogger('Exam Live Module', error.message);
-		response.serverError(res);
+		response.internalServerError(res);
 	}
 }
 

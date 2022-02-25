@@ -15,7 +15,7 @@ module.exports = function methodsHttp(req, res, next) {
 		valid_method = METHODS.find((method) => method == req.method);
 
 		if (valid_method == undefined) {
-			response.methodError(res);
+			response.methodNotAllowed(res);
 		} else {
 			next();
 		}

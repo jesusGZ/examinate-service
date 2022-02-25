@@ -31,7 +31,7 @@ async function createUser(req, res, next) {
 		response.ok(res, item);
 	} catch (error) {
 		logger.errorLogger('User Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -47,7 +47,7 @@ async function getUser(req, res, next) {
 		response.ok(res, data_user);
 	} catch (error) {
 		logger.errorLogger('User Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -69,7 +69,7 @@ async function getUsers(req, res, next) {
 		response.ok(res, users);
 	} catch (error) {
 		logger.errorLogger('User Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -100,7 +100,7 @@ async function updateUser(req, res, next) {
 		response.ok(res);
 	} catch (error) {
 		logger.errorLogger('User Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -120,7 +120,7 @@ async function resetPassword(req, res, next) {
 		response.ok(res);
 	} catch (error) {
 		logger.errorLogger('User Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
@@ -150,7 +150,7 @@ async function login(req, res, next) {
 		response.ok(res, data_user);
 	} catch (error) {
 		logger.errorLogger('User Module', error.message);
-		response.serverError(res, error);
+		response.internalServerError(res, error);
 	}
 }
 
