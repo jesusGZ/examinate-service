@@ -7,7 +7,7 @@ const methods_http = require('./app/v1/src/core/middlewares/methodsHttp');
 const { SERVICE, SWAGGER } = require('./app/v1/src/core/config/index');
 const error = require('./app/v1/src/core/middlewares/error');
 const DB = require('./app/v1/src/core/db/connection');
-const swagger_doc = require('./Docs');
+const swagger_doc = require('./app/v1/Docs');
 
 const https = require('https');
 const http = require('http');
