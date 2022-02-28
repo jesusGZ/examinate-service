@@ -2,8 +2,8 @@ module.exports = {
 	'/examlive': {
 		get: {
 			tags: ['examlive'],
-			summary: 'Obtener informacion de examen en vivo',
-			description: 'Se obtiene la informacion del examen a realizar.',
+			summary: 'Get live exam information',
+			description: 'Information about the test to be performed is obtained.',
 			operationId: 'getExamLive',
 			requestBody: {
 				content: {
@@ -21,12 +21,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									questionBank: {
 										questionBankName: 'Test',

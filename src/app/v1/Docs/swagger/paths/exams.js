@@ -2,8 +2,8 @@ module.exports = {
 	'/exam': {
 		post: {
 			tags: ['exams'],
-			summary: 'Registrar examen',
-			description: 'Registrar un nuevo examen para su aplicación.',
+			summary: 'Register exam',
+			description: 'Register a new exam for your application.',
 			operationId: 'registerExams',
 			requestBody: {
 				content: {
@@ -21,12 +21,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										examName: 'testExam',
@@ -85,8 +85,8 @@ module.exports = {
 		},
 		delete: {
 			tags: ['exams'],
-			summary: 'Eliminar un examen',
-			description: 'Permite eliminar un examen perteneciente al usuario logueado',
+			summary: 'Delete an exam',
+			description: 'Allows you to delete an exam belonging to the logged in user',
 			operationId: 'deleteExam',
 			requestBody: {
 				content: {
@@ -104,12 +104,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									exams: [
@@ -156,17 +156,17 @@ module.exports = {
 	'/info': {
 		get: {
 			tags: ['exams'],
-			summary: 'Información general',
-			description: 'Muestra la informacion pertenecientes al usuario logueado de forma general',
+			summary: 'General information',
+			description: 'Shows the information belonging to the logged in user in a general way.',
 			operationId: 'getInfo',
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									name: 'Antonio Romero Zurita',
@@ -306,17 +306,17 @@ module.exports = {
 	'/exams': {
 		get: {
 			tags: ['exams'],
-			summary: 'Listar los examenes',
-			description: 'Muestra un listado de los examenes pertenecientes al usuario logueado',
+			summary: 'List the exams',
+			description: 'Shows a list of exams belonging to the logged in user',
 			operationId: 'getExams',
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									exams: [

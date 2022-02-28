@@ -21,12 +21,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									name: 'Jesus Antonio Garcia Zurita',
 									email: 'example@gmail.com',
@@ -73,12 +73,12 @@ module.exports = {
 			],
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									_id: '61f859d9a8d488e17116c4b1',
 									name: 'Armando lopez lopez',
@@ -139,12 +139,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: null,
 							},
 						},
@@ -176,12 +176,12 @@ module.exports = {
 			operationId: 'getUsers',
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										_id: '61f854214c90e061b2d3c927',
@@ -245,12 +245,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									_id: '61f854214c90e061b2d3c927',
 									name: 'Antonio Romero Zurita',

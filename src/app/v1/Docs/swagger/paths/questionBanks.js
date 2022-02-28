@@ -2,8 +2,8 @@ module.exports = {
 	'/questionBank': {
 		post: {
 			tags: ['questionBank'],
-			summary: 'Registrar banco de preguntas',
-			description: 'Registrar el nombre de un banco de preguntas',
+			summary: 'Register Question Bank',
+			description: 'Register the name of a question bank',
 			operationId: 'registerQuestionBank',
 			requestBody: {
 				content: {
@@ -21,12 +21,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										questionBankName: 'Test',
@@ -61,17 +61,17 @@ module.exports = {
 		},
 		get: {
 			tags: ['questionBank'],
-			summary: 'Listar los bancos de preguntas',
-			description: 'Muestra un listado de los bancos de preguntas pertenecientes al usuario logueado',
+			summary: 'List question banks',
+			description: 'Shows a list of question banks belonging to the logged in user',
 			operationId: 'getQuestionBank',
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										questionBankName: 'Test',
@@ -165,8 +165,8 @@ module.exports = {
 		},
 		put: {
 			tags: ['questionBank'],
-			summary: 'Actualizar banco de preguntas',
-			description: 'Actualizar un banco de preguntas mediante su id',
+			summary: 'Update question bank',
+			description: 'Update a question bank using its id',
 			operationId: 'updateQuestionBank',
 			requestBody: {
 				content: {
@@ -184,12 +184,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									_id: '61f854214c90e061b2d3c927',
 									name: 'Antonio Romero Zurita',
@@ -290,8 +290,8 @@ module.exports = {
 		},
 		delete: {
 			tags: ['questionBank'],
-			summary: 'Eliminar un banco de preguntas',
-			description: 'Permite eliminar un banco de preguntas perteneciente al usuario logueado',
+			summary: 'Delete a question bank',
+			description: 'Allows you to delete a bank of questions belonging to the logged in user',
 			operationId: 'deleteQuestionBank',
 			requestBody: {
 				content: {
@@ -309,12 +309,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										questionBankName: 'Test',

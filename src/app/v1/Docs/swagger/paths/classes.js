@@ -2,8 +2,8 @@ module.exports = {
 	'/class': {
 		post: {
 			tags: ['classes'],
-			summary: 'Registrar una nueva clase',
-			description: 'Registrar el nombre de una clase',
+			summary: 'Register a new class',
+			description: 'Register the name of a class',
 			operationId: 'registerClass',
 			requestBody: {
 				content: {
@@ -21,12 +21,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										className: 'TestClass',
@@ -71,17 +71,17 @@ module.exports = {
 		},
 		get: {
 			tags: ['classes'],
-			summary: 'Listar las clases',
-			description: 'Muestra un listado de las clases pertenecientes al usuario logueado',
+			summary: 'list the classes',
+			description: 'Shows a list of the classes belonging to the logged in user',
 			operationId: 'getClass',
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										className: 'TestClass',
@@ -126,8 +126,8 @@ module.exports = {
 		},
 		put: {
 			tags: ['classes'],
-			summary: 'Actualizar clases',
-			description: 'Actualizar una clase mediante su id',
+			summary: 'update classes',
+			description: 'Update a class by its id',
 			operationId: 'updateClass',
 			requestBody: {
 				content: {
@@ -145,12 +145,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: {
 									_id: '61fae59d4864d9e8fcd134ac',
 									classes: [
@@ -199,8 +199,8 @@ module.exports = {
 		},
 		delete: {
 			tags: ['classes'],
-			summary: 'Eliminar una clase',
-			description: 'Permite eliminar una clase perteneciente al usuario logueado',
+			summary: 'Delete a class',
+			description: 'Allows you to remove a class belonging to the logged in user',
 			operationId: 'deleteClasses',
 			requestBody: {
 				content: {
@@ -218,12 +218,12 @@ module.exports = {
 			},
 			responses: {
 				200: {
-					description: 'Petición realizada  exitosamente',
+					description: 'Request made successfully',
 					content: {
 						'application/json': {
 							example: {
 								success: true,
-								message: 'Petición realizada exitosamente.',
+								message: 'Request made successfully.',
 								result: [
 									{
 										className: 'TestClass',
