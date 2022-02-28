@@ -13,14 +13,7 @@ const getConnection = function () {
 		try {
 			mongoose.Promise = global.Promise;
 
-			await mongoose.connect(`mongodb://${MONGO_DB.MONGO_HOST}:${MONGO_DB.MONGO_PORT}/?authSource=admin`, {
-				//serverSelectionTimeoutMS: 5000,
-				user: `${MONGO_DB.MONGO_USER}`,
-				pass: `${MONGO_DB.MONGO_PASS}`,
-				useUnifiedTopology: true,
-				useNewUrlParser: true,
-				autoIndex: true,
-			});
+			await mongoose.connect(`mongodb://${MONGO_DB.MONGO_HOST}:${MONGO_DB.MONGO_PORT}/?authSource=admin`, MONGO_DB.MONGO_CONFIG);
 
 			const db = mongoose.connection;
 			resolve(db);

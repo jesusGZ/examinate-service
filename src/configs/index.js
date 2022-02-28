@@ -12,6 +12,14 @@ module.exports = {
 		MONGO_PORT: process.env.MONGO_PORT,
 		MONGO_USER: process.env.MONGO_USER,
 		MONGO_PASS: process.env.MONGO_PASS,
+		MONGO_CONFIG: {
+			//serverSelectionTimeoutMS: 5000,
+			user: process.env.MONGO_USER,
+			pass: process.env.MONGO_PASS,
+			useUnifiedTopology: true,
+			useNewUrlParser: true,
+			autoIndex: true,
+		},
 	},
 	SECURITY: {
 		JWT_EXPIRATION_USER: process.env.JWT_EXPIRATION_USER,
