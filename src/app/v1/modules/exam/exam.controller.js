@@ -12,18 +12,18 @@ async function createExam(req, res, next) {
 		const user = req.payload.user;
 
 		const found_element = await exam_service.getFoundElement(user, classId);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		// checking if the exam with the same name already exists
 		if (found_element.exams.find((e) => e.examName === examName) !== undefined) {
-			return response.badRequest(res, 'El nombre del examen ya existe.');
+			return response.badRequest(res, 'Exam name already exists.');
 		}
 
 		const class_indx = found_element.classes.findIndex((e) => {
 			return e._id.toString() === classId;
 		});
 
-		if (class_indx < 0) return response.badRequest(res, 'No se encontro informacion');
+		if (class_indx < 0) return response.notFound(res, 'not found information');
 
 		var compiled_total_marks = 0;
 
@@ -31,7 +31,7 @@ async function createExam(req, res, next) {
 			return e._id.toString() === questionBankId;
 		});
 
-		if (question_bank_indx < 0) return response.badRequest(res, 'No se encontro informacion');
+		if (question_bank_indx < 0) return response.notFound(res, 'not found information');
 
 		found_element.questionBanks[question_bank_indx].questions.forEach((element) => {
 			compiled_total_marks += element.marks;
@@ -65,7 +65,7 @@ async function createExam(req, res, next) {
 		const found_elements = await exam_service.getFoundElements(user);
 
 		if (found_elements === null) {
-			return response.badRequest(res, 'No existe ningún usuario para la clase.');
+			return response.notFound(res, 'There is no user for the class.');
 		} else {
 			const candidate_list = JSON.parse(JSON.stringify(found_elements.classes[class_indx].candidates));
 
@@ -84,30 +84,30 @@ function sendEmails(compiled_object_exam, found_elements, candidate_list) {
 	const request = mailjet.post('send', { version: 'v3.1' }).request({
 		Messages: compiled_object_exam.candidates.map((candidate) => {
 			return {
-				From: { Email: `ejemplo@gmail.com`, Name: `prueba` },
+				From: { Email: `ejemplo@gmail.com`, Name: `test` },
 				To: [
 					{
 						Email: `${candidate_list.find((c) => c.candidateId === candidate.candidateId).candidateEmail}`,
 						Name: `${candidate.candidateName}`,
 					},
 				],
-				Subject: 'Credenciales de inicio de sesión para el examen',
-				TextPart: 'Credenciales de inicio de sesión para el examen',
+				Subject: 'Exam login credentials',
+				TextPart: 'Exam login credentials',
 				HTMLPart: `
                     <center>
-                        <h1>Credenciales de inicio de sesión y detalles para el examen</h1>
+                        <h1>Login credentials and exam details</h1>
                         <table>
                             <tbody>
                                 <tr><td>Examen</td><td>${compiled_object_exam.examName}</td></tr>
-                                <tr><td>Hora de inicio</td><td>${moment(compiled_object_exam.startDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
-                                <tr><td>Hora de finalización</td><td>${moment(compiled_object_exam.endDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
+                                <tr><td>start time</td><td>${moment(compiled_object_exam.startDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
+                                <tr><td>End time</td><td>${moment(compiled_object_exam.endDateTime).utc().format('MMMM Do YYYY, h:mm:ss a')} UTC/GMT</td></tr>
                             </tbody>
                         </table>
                         <table>
                             <tbody>
-                                <tr><td>enlace del examen</td><td><a href='https://midominio.com/examlive/${found_elements._id}/${found_elements.exams.find((e) => e.examName === compiled_object_exam.examName)._id}'>Link</a></td></tr>
-                                <tr><td>Tú id: </td><td>${candidate.candidateId}</td></tr>
-                                <tr><td>Tú contraseña: </td><td>${candidate.candidatePassword}</td></tr>
+                                <tr><td>Link to exam</td><td><a href='https://exampledomain.com/examlive/${found_elements._id}/${found_elements.exams.find((e) => e.examName === compiled_object_exam.examName)._id}'>Link</a></td></tr>
+                                <tr><td>Your id: </td><td>${candidate.candidateId}</td></tr>
+                                <tr><td>Your password: </td><td>${candidate.candidatePassword}</td></tr>
                             </tbody>
                         </table>
                     </center>
@@ -130,7 +130,7 @@ async function getInfo(req, res, next) {
 		const user = req.payload.user;
 
 		const found_element = await exam_service.getFoundElements(user);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		response.ok(res, found_element);
 	} catch (error) {
@@ -144,7 +144,7 @@ async function getExams(req, res, next) {
 		const user = req.payload.user;
 
 		const exams = await exam_service.getExams(user);
-		if (!exams) return response.badRequest(res, 'No se encontro informacion');
+		if (!exams) return response.notFound(res, 'not found information');
 
 		response.ok(res, exams);
 	} catch (error) {
@@ -159,12 +159,12 @@ async function deleteExam(req, res, next) {
 		const examId = req.body.examId;
 
 		const exam_data = await exam_service.getExamById(user, examId);
-		if (!exam_data) return response.badRequest(res, 'No se encontro informacion');
+		if (!exam_data) return response.notFound(res, 'not found information');
 
 		await exam_service.deleteExam(user, examId);
 
 		const exams = await exam_service.getExams(user);
-		if (!exams) return response.badRequest(res, 'No se encontro informacion');
+		if (!exams) return response.notFound(res, 'not found information');
 
 		response.ok(res, exams);
 	} catch (error) {

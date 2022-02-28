@@ -8,12 +8,12 @@ async function createQuestionBank(req, res, next) {
 		const user = req.payload.user;
 
 		let question_bank_data = await question_bank_service.getQuestionBankNameByUser(user, questionBankName);
-		if (question_bank_data) return response.badRequest(res, 'El banco de preguntas ya se encuentra registrado.');
+		if (question_bank_data) return response.badRequest(res, 'The question bank is already registered.');
 
 		await question_bank_service.insertQuestionBank(user, questionBankName);
 
 		const found_element = await question_bank_service.getFoundElements(user);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		response.ok(res, found_element.questionBanks);
 	} catch (error) {
@@ -27,7 +27,7 @@ async function getQuestionBank(req, res, next) {
 		const user = req.payload.user;
 
 		const found_element = await question_bank_service.getFoundElements(user);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		response.ok(res, found_element.questionBanks);
 	} catch (error) {
@@ -42,12 +42,12 @@ async function updateQuestionBank(req, res, next) {
 		const user = req.payload.user;
 
 		let verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(user, id);
-		if (!verify_question_bank) return response.badRequest(res, 'No se encontro informacion');
+		if (!verify_question_bank) return response.notFound(res, 'not found information');
 
 		await question_bank_service.updateQuestionBank(user, id, questionBankName, questions);
 
 		const found_element = await question_bank_service.getFoundElements(user);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		response.ok(res, found_element);
 	} catch (error) {
@@ -62,7 +62,7 @@ async function deleteQuestionBank(req, res, next) {
 		const user = req.payload.user;
 
 		const verify_question_bank = await question_bank_service.getQuestionBankByUserAndId(user, questionBankId);
-		if (!verify_question_bank) return response.badRequest(res, 'No se encontro informacion');
+		if (!verify_question_bank) return response.notFound(res, 'not found information');
 
 		await question_bank_service.deleteQuestionBank(user, questionBankId);
 

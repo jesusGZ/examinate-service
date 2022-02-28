@@ -8,7 +8,7 @@ async function createClass(req, res, next) {
 		const user = req.payload.user;
 
 		const class_data = await class_service.getClasses(user, class_name);
-		if (class_data) return response.badRequest(res, 'La clase ya se encuentra registrada');
+		if (class_data) return response.badRequest(res, 'The class is already registered');
 
 		await class_service.insertClass(user, class_name);
 
@@ -26,7 +26,7 @@ async function getClass(req, res, next) {
 		const user = req.payload.user;
 
 		const found_element = await class_service.getFoundElements(user);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		response.ok(res, found_element.classes);
 	} catch (error) {
@@ -41,12 +41,12 @@ async function updateClass(req, res, next) {
 		const user = req.payload.user;
 
 		const class_data = await class_service.getClassById(user, id);
-		if (!class_data) return response.badRequest(res, 'No se encontro informacion');
+		if (!class_data) return response.notFound(res, 'not found information');
 
 		const verify_class_name = await class_service.getClasses(user, className);
 		if (verify_class_name) {
 			verify_class_name.classes.map((item) => {
-				if (item.className == className && item._id != id) return response.badRequest(res, 'El nombre de la clase ya se encuentra registrado.');
+				if (item.className == className && item._id != id) return response.badRequest(res, 'The class name is already registered.');
 				return item;
 			});
 		}
@@ -54,7 +54,7 @@ async function updateClass(req, res, next) {
 		await class_service.updateClass(user, id, className, candidates);
 
 		const found_element = await class_service.getFoundElements(user);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		response.ok(res, found_element);
 	} catch (error) {
@@ -69,12 +69,12 @@ async function deleteClass(req, res, next) {
 		const user = req.payload.user;
 
 		const class_data = await class_service.getClassById(user, classId);
-		if (!class_data) return response.badRequest(res, 'No se encontro informacion');
+		if (!class_data) return response.notFound(res, 'not found information');
 
 		await class_service.deleteClass(user, classId);
 
 		const found_element = await class_service.getFoundElements(user);
-		if (!found_element) return response.badRequest(res, 'No se encontro informacion');
+		if (!found_element) return response.notFound(res, 'not found information');
 
 		response.ok(res, found_element.classes);
 	} catch (error) {

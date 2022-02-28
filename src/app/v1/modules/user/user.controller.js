@@ -11,10 +11,10 @@ async function createUser(req, res, next) {
 		let { name, email, user, password, active } = req.body;
 
 		const data_user = await user_service.getUser(user);
-		if (data_user) return response.badRequest(res, 'El usuario ya esta registrado');
+		if (data_user) return response.badRequest(res, 'The user is already registered');
 
 		const data_email = await user_service.getEmail(email);
-		if (data_email) return response.badRequest(res, 'El email ya esta registrado');
+		if (data_email) return response.badRequest(res, 'The email is already registered');
 
 		const encrypted_password = await bcrypt.hash(password);
 		password = encrypted_password;
@@ -40,7 +40,7 @@ async function getUser(req, res, next) {
 		const { id } = req.headers;
 
 		const data_user = await user_service.getUserById(id);
-		if (!data_user) return response.badRequest(res, 'No se encontraron datos de usuario');
+		if (!data_user) return response.notFound(res, 'No user data found');
 
 		delete data_user.password;
 
@@ -54,6 +54,7 @@ async function getUser(req, res, next) {
 async function getUsers(req, res, next) {
 	try {
 		const data_users = await user_service.getAllUsers();
+		if (!data_users) return response.notFound(res, 'No user data found');
 
 		const users = data_users.map((item) => {
 			item = item.toObject();
@@ -79,13 +80,13 @@ async function updateUser(req, res, next) {
 		const { id } = req.headers;
 
 		const verify_user = await user_service.getUserById(id);
-		if (!verify_user) return response.badRequest(res, 'No se encontraron datos de usuario');
+		if (!verify_user) return response.notFound(res, 'No user data found');
 
 		const data_user = await user_service.getUserDistinctId(user, id);
-		if (data_user) return response.badRequest(res, 'El nombre ya esta registrado');
+		if (data_user) return response.badRequest(res, 'The name is already registered');
 
 		const data_email = await user_service.getEmailDistinctId(email, id);
-		if (data_email) return response.badRequest(res, 'El email ya esta registrado');
+		if (data_email) return response.badRequest(res, 'The email is already registered');
 
 		if (password == undefined) {
 			const data_password = await user_service.getPasswordById(id);
@@ -107,10 +108,10 @@ async function updateUser(req, res, next) {
 async function resetPassword(req, res, next) {
 	try {
 		const { user, password, secret } = req.body;
-		if (secret !== SECURITY.SECRET_KEY) return response.badRequest(res, 'No esta autorizado para realizar esta acción');
+		if (secret !== SECURITY.SECRET_KEY) return response.unauthorized(res, 'You are not authorized to perform this action');
 
 		const data_user = await user_service.getUser(user);
-		if (!data_user) return response.badRequest(res, 'No se encontraron datos de usuario');
+		if (!data_user) return response.notFound(res, 'No user data found');
 
 		const new_password = await bcrypt.hash(password);
 
@@ -129,13 +130,13 @@ async function login(req, res, next) {
 		const { user, password } = req.body;
 
 		const user_password = await user_service.getPasswordByUser(user);
-		if (!user_password) return response.badRequest(res, 'Credenciales Incorrectas');
+		if (!user_password) return response.unauthorized(res, 'Wrong Credentials');
 
 		const password_result = await bcrypt.compare(password, user_password.password);
-		if (!password_result) return response.badRequest(res, 'Credenciales Incorrectas');
+		if (!password_result) return response.unauthorized(res, 'Wrong Credentials');
 
 		const data_user = await user_service.getUserById(user_password._id);
-		if (!data_user) return response.badRequest(res, 'Credenciales Incorrectas');
+		if (!data_user) return response.unauthorized(res, 'Wrong Credentials');
 
 		//const payload = { payload: data_user._id.toString() };
 		const payload = { id: data_user._id.toString(), user: data_user.user };
