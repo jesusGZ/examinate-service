@@ -1,10 +1,10 @@
 # Examinate service
 
-## Descripción
+## Description
 
-Servicio enfocado en la gestion y realizacion de examenes en linea.
+Service focused on managing and conducting online exams.
 
-## Desarrollo
+## Developing
 
 ```
 $ npm install
