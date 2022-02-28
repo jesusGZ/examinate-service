@@ -1,4 +1,3 @@
-const swagger_ui = require('swagger-ui-express');
 const compression = require('compression');
 const express = require('express');
 const morgan = require('morgan');
@@ -8,9 +7,9 @@ const http = require('http');
 const methods_http = require('./src/helpers/middleware/methodsHttp');
 const { RouteV1, RouteV2 } = require('./src/routes/index.routes');
 const RouteDefault = require('./src/routes/default.routes');
-const { SERVICE, SWAGGER } = require('./src/configs/index');
+const { SERVICE } = require('./src/configs/index');
 const DB = require('./src/configs/db/connection');
-const swagger_doc = require('./src/app/v1/Docs');
+const swaggers = require('./src/docs/index');
 
 const router = express.Router();
 const app = express();
@@ -26,15 +25,7 @@ app.use(morgan('dev'));
 app.use(compression());
 app.use(methods_http);
 
-const basicAuth = require('express-basic-auth');
-app.use('/document-apis', basicAuth({ authorizer: swaggerAuthorizer, challenge: true }), swagger_ui.serve, swagger_ui.setup(swagger_doc));
-
-function swaggerAuthorizer(username, password) {
-	const password_matches = basicAuth.safeCompare(password, SWAGGER.SWAGGER_PASS);
-	const user_matches = basicAuth.safeCompare(username, SWAGGER.SWAGGER_USER);
-	return user_matches & password_matches;
-}
-
+swaggers(app);
 RouteV1(app, router, '/api/v1');
 RouteV2(app, router, '/api/v2');
 RouteDefault(app);
