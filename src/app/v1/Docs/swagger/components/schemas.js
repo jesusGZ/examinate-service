@@ -3,27 +3,27 @@ module.exports = {
 		registerUser: {
 			type: 'object',
 			properties: {
-				name: { type: 'string', example: 'Jesus Antonio Garcia Zurita', description: 'El nombre del usuario a registrar' },
-				email: { type: 'string', example: 'example@gmail.com', description: 'El email del usuario a registrar' },
-				password: { type: 'string', example: 'secret', description: 'La contraseña del usuario a registrar' },
-				user: { type: 'string', example: 'exampleUser', description: 'El nick del usuario a registrar' },
+				name: { type: 'string', example: 'Jesus Antonio Garcia Zurita', description: 'The username to register' },
+				email: { type: 'string', example: 'example@gmail.com', description: 'The email of the user to register' },
+				password: { type: 'string', example: 'secret', description: 'The password of the user to register' },
+				user: { type: 'string', example: 'exampleUser', description: 'The nickname of the user to register' },
 			},
 		},
 		updateUser: {
 			type: 'object',
 			properties: {
-				name: { type: 'string', example: 'Jesus Antonio Garcia Zurita', description: 'El nombre del usuario a registrar' },
-				email: { type: 'string', example: 'example@gmail.com', description: 'El email del usuario a registrar' },
-				password: { type: 'string', example: 'secret', description: 'La contraseña del usuario a registrar' },
-				user: { type: 'string', example: 'exampleUser', description: 'El nick del usuario a registrar' },
-				active: { type: 'boolean', example: 'true', description: 'El estado del usuario' },
+				name: { type: 'string', example: 'Jesus Antonio Garcia Zurita', description: 'The username to register' },
+				email: { type: 'string', example: 'example@gmail.com', description: 'The email of the user to register' },
+				password: { type: 'string', example: 'secret', description: 'The password of the user to register' },
+				user: { type: 'string', example: 'exampleUser', description: 'The nickname of the user to register' },
+				active: { type: 'boolean', example: 'true', description: 'The state of the user' },
 			},
 		},
 		loginUser: {
 			type: 'object',
 			properties: {
-				user: { type: 'string', example: 'exampleUser', description: 'El nick del usuario a registrar' },
-				password: { type: 'string', example: 'secret', description: 'La contraseña del usuario a registrar' },
+				user: { type: 'string', example: 'exampleUser', description: 'The nickname of the user to register' },
+				password: { type: 'string', example: 'secret', description: 'The password of the user to register' },
 			},
 		},
 		registerQuestionBank: {

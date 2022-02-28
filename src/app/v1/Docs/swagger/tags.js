@@ -1,9 +1,9 @@
 module.exports = {
 	tags: [
-		{ name: 'questionBank', description: 'Documentación para el uso de las APIs en módulo banco de preguntas' },
-		{ name: 'examlive', description: 'Documentación para el uso de las APIs en módulo de examen en vivo' },
-		{ name: 'classes', description: 'Documentación para el uso de las APIs en módulo de clases' },
-		{ name: 'exams', description: 'Documentación para el uso de las APIs en módulo de examenes' },
-		{ name: 'user', description: 'Documentación para el uso de las APIs en módulo de usuario' },
+		{ name: 'questionBank', description: 'Documentation for the use of the APIs in the question bank module.' },
+		{ name: 'examlive', description: 'Documentation for the use of the APIs in the live exam module.' },
+		{ name: 'exams', description: 'Documentation for the use of the APIs in the exam module.' },
+		{ name: 'user', description: 'Documentation for the use of the APIs in the user module.' },
+		{ name: 'classes', description: 'Documentation for the use of APIs in class modules.' },
 	],
 };
