@@ -32,21 +32,21 @@ const getConnection = function () {
 
 process.on('SIGINT', () => {
 	mongoose.connection.close(() => {
-		console.log(termination('La conexión predeterminada de Mongoose está desconectada debido a la finalización de la aplicación.'));
+		console.log(termination('Mongoose default connection is disconnected due to application termination.'));
 		process.exit(0);
 	});
 });
 
 mongoose.connection.on('error', (err) => {
-	console.log(error('La conexión predeterminada de Mongoose ha pasado ' + err + ' error'));
+	console.log(error('Mongoose default connection has closed ' + err + ' error.'));
 });
 
 mongoose.connection.on('disconnected', () => {
-	console.log(disconnected('La conexión predeterminada de Mongoose está desconectada.'));
+	console.log(disconnected('Mongoose default connection is disconnected.'));
 });
 
 mongoose.connection.on('connected', () => {
-	console.log(connected('La conexión predeterminada de Mongoose está abierta'));
+	console.log(connected('Mongoose default connection is open.'));
 });
 
 module.exports = { getConnection };

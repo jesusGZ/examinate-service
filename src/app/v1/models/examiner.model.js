@@ -63,5 +63,6 @@ const examiner_schema = new Schema({
 	],
 });
 
-const conexion = mongoose.connection.useDb('examinate', { useCache: true });
+// Use the examine database
+const conexion = mongoose.connection.useDb('examine', { useCache: true });
 module.exports = conexion.model('Examiner', examiner_schema);

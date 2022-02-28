@@ -9,7 +9,7 @@ module.exports = async function authenticateJWToken(req, res, next) {
 	/* const access_header = req.headers.token;
 	const token = access_header && access_header.split(' ')[1]; */
 
-	if (token === null || token === undefined) return response.unauthorized(res, 'Token de acceso indefinido.');
+	if (token === null || token === undefined) return response.unauthorized(res, 'undefined Access Token.');
 
 	const decoded = await jwt.decode(token, { complete: false });
 	if (!decoded) return response.unauthorized(res);

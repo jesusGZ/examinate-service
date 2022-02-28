@@ -6,26 +6,26 @@ module.exports = function getErrorMessagesOfJoi(element) {
 
 	console.log(error);
 
-	if (error == 'string.dataUri' || error == 'string.uri' || error == 'string.pattern.base') return (message = `El campo ${parameter} debe ser una uri valida`);
-	if (error == 'string.min') return (message = `El mínimo de caracteres que puedes incluir en el campo ${parameter} es ${context.limit}`);
-	if (error == 'string.max') return (message = `El máximo de caracteres que puedes incluir en el campo ${parameter} es ${context.limit}`);
-	if (error == 'number.min') return (message = `El numero mínimo que puedes incluir en el campo ${parameter} es ${context.limit}`);
-	if (error == 'number.max') return (message = `El numero máximo que puedes incluir en el campo ${parameter} es ${context.limit}`);
-	if (error == 'string.guid' || error == 'string.pattern.name') return (message = `El campo ${parameter} debe ser un UUID valido`);
-	if (error == 'number.base' || error == 'string.numbers') return (message = `El campo ${parameter} debe contener solo números`);
-	if (error == 'string.length') return (message = `La longitud del campo ${parameter} debe ser de ${context.limit} caracteres`);
-	if (error == 'string.empty' || error == 'string.trim') return (message = `El campo ${parameter} no puede estar vació`);
-	if (error == 'object.unknown' || error == 'any.unknown') return (message = `El campo ${parameter} no esta permitido`);
-	if (error == 'string.invalidCharacters') return (message = `El campo ${parameter} contiene caracteres no válidos`);
-	if (error == 'date.format') return (message = `El campo ${parameter} debe tener el formato ${context.format}`);
-	if (error == 'string.email') return (message = `El campo ${parameter} debe ser un correo electronico valido`);
-	if (error == 'number.integer') return (message = `El campo ${parameter} debe ser un numero entero`);
-	if (error == 'string.jwt') return (message = `El campo ${parameter} debe ser un token valido`);
-	if (error == 'boolean.base') return (message = `El campo ${parameter} debe ser un boleano`);
-	if (error == 'string.base') return (message = `El campo ${parameter} debe ser un string`);
-	if (error == 'object.base') return (message = `El campo ${parameter} debe ser un objeto`);
-	if (error == 'array.base') return (message = `El campo ${parameter} debe ser un arreglo`);
-	if (error == 'any.required') return (message = `El campo ${parameter} es requerido`);
+	if (error == 'string.dataUri' || error == 'string.uri' || error == 'string.pattern.base') return (message = `the field ${parameter} must be a valid uri`);
+	if (error == 'string.min') return (message = `The minimum number of characters you can include in the field ${parameter} is ${context.limit}`);
+	if (error == 'string.max') return (message = `The maximum number of characters you can include in the field ${parameter} is ${context.limit}`);
+	if (error == 'number.min') return (message = `The minimum number you can include in the field ${parameter} is ${context.limit}`);
+	if (error == 'number.max') return (message = `The maximum number you can include in the field ${parameter} is ${context.limit}`);
+	if (error == 'string.length') return (message = `La longitud dthe field ${parameter} must be from ${context.limit} characters`);
+	if (error == 'string.guid' || error == 'string.pattern.name') return (message = `the field ${parameter} must be a valid UUID`);
+	if (error == 'number.base' || error == 'string.numbers') return (message = `the field ${parameter} must contain only numbers`);
+	if (error == 'object.unknown' || error == 'any.unknown') return (message = `the field ${parameter} it's not allowed`);
+	if (error == 'string.empty' || error == 'string.trim') return (message = `the field ${parameter} it cant be empty`);
+	if (error == 'string.invalidCharacters') return (message = `the field ${parameter} contains invalid characters`);
+	if (error == 'date.format') return (message = `the field ${parameter} must have the format ${context.format}`);
+	if (error == 'string.email') return (message = `the field ${parameter} must be a valid email`);
+	if (error == 'number.integer') return (message = `the field ${parameter} must be an integer`);
+	if (error == 'string.jwt') return (message = `the field ${parameter} must be a valid token`);
+	if (error == 'boolean.base') return (message = `the field ${parameter} must be a boolean`);
+	if (error == 'object.base') return (message = `the field ${parameter} must be an object`);
+	if (error == 'string.base') return (message = `the field ${parameter} must be a string`);
+	if (error == 'any.required') return (message = `the field ${parameter} it is required`);
+	if (error == 'array.base') return (message = `the field ${parameter} must be a array`);
 
-	return (message = 'Por favor verifique la información, si el error persiste contacte a soporte');
+	return (message = 'Please check the information, if the error persists contact support');
 };

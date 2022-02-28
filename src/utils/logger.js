@@ -34,7 +34,7 @@ const loggerConfig = {
 function errorLogger(message, dataLog) {
 	try {
 		createLogger(loggerConfig).error(message, { meta: dataLog });
-		console.log('Log generado');
+		console.log('log generated');
 	} catch (error) {
 		console.log('Log error');
 	}
@@ -43,7 +43,7 @@ function errorLogger(message, dataLog) {
 function infoLogger(message, dataLog) {
 	try {
 		createLogger(loggerConfig).info(message, { meta: dataLog });
-		console.log('Log generado');
+		console.log('log generated');
 	} catch (error) {
 		console.log('Log error', error);
 	}

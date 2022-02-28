@@ -7,7 +7,7 @@ const http = require('http');
 
 const methods_http = require('./src/helpers/middleware/methodsHttp');
 const { RouteV1, RouteV2 } = require('./src/routes/index.routes');
-const RouteDefault = require('./src/routes/default/index.routes');
+const RouteDefault = require('./src/routes/default.routes');
 const { SERVICE, SWAGGER } = require('./src/configs/index');
 const DB = require('./src/configs/db/connection');
 const swagger_doc = require('./src/app/v1/Docs');
@@ -40,5 +40,5 @@ RouteV2(app, router, '/api/v2');
 RouteDefault(app);
 
 http.createServer(/* options, */ app).listen(SERVICE.LOCAL_PORT, () => {
-	console.log('[HTTP] El servidor esta escuchando en el puerto: ' + SERVICE.LOCAL_PORT + '...');
+	console.log('[HTTP] The server is listening on the port: ' + SERVICE.LOCAL_PORT + '...');
 });
