@@ -2,7 +2,7 @@ const moment = require('moment');
 
 const response = require('../../../../helpers/serviceResponse');
 const exam_live_service = require('./examlive.service');
-const logger = require('../../../../utils/logger');
+const logger = require('../../../../lib/winston');
 
 async function getExamLive(req, res, next) {
 	try {

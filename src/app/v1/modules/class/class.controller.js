@@ -1,6 +1,6 @@
 const response = require('../../../../helpers/serviceResponse');
 const class_service = require('./class.service');
-const logger = require('../../../../utils/logger');
+const logger = require('../../../../lib/winston');
 
 async function createClass(req, res, next) {
 	try {

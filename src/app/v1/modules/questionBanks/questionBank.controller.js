@@ -1,6 +1,6 @@
 const question_bank_service = require('./questionBank.service');
 const response = require('../../../../helpers/serviceResponse');
-const logger = require('../../../../utils/logger');
+const logger = require('../../../../lib/winston');
 
 async function createQuestionBank(req, res, next) {
 	try {
