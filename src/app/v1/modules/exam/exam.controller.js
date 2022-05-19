@@ -1,5 +1,5 @@
 const response = require('../../../../helpers/serviceResponse');
-const logger = require('../../../../utils/logger');
+const logger = require('../../../../lib/winston');
 const { EMAIL } = require('../../../../configs');
 const exam_service = require('./exam.service');
 

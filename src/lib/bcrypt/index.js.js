@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
-const salt_rounds = 10;
+const { SECURITY } = require('../../configs');
 
 const hash = async (plain_text_password) => {
-	const hashed_password = await bcrypt.hash(plain_text_password, salt_rounds);
+	const hashed_password = await bcrypt.hash(plain_text_password, SECURITY.SALT_ROUNDS);
 	return hashed_password;
 };
 

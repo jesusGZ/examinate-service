@@ -1,9 +1,9 @@
 const { createLogger, format, transports } = require('winston');
 require('winston-mongodb');
 
-const { MONGO_DB } = require('../configs');
+const { MONGO_LOGS_DB } = require('../../configs');
 
-const url = `mongodb://${MONGO_DB.MONGO_USER}:${MONGO_DB.MONGO_PASS}@${MONGO_DB.MONGO_HOST}:${MONGO_DB.MONGO_PORT}/${MONGO_DB.MONGO_DB_LOGS}?authSource=admin`;
+const url = `mongodb://${MONGO_LOGS_DB.USER}:${MONGO_LOGS_DB.PASS}@${MONGO_LOGS_DB.HOST}:${MONGO_LOGS_DB.PORT}/${MONGO_LOGS_DB.DB}?authSource=admin`;
 
 const date = new Date(),
 	month = date.getMonth() + 1,
@@ -24,7 +24,7 @@ const loggerConfig = {
 		new transports.MongoDB({
 			db: url,
 			options: { useUnifiedTopology: true },
-			collection: MONGO_DB.MONGO_COLLECTION_LOGS,
+			collection: MONGO_LOGS_DB.COLLECTION,
 			metaKey: 'meta',
 			format: format.combine(format.timestamp(), format.json()),
 		}),

@@ -1,5 +1,6 @@
 const compression = require('compression');
 const express = require('express');
+const helmet = require('helmet');
 const morgan = require('morgan');
 const https = require('https');
 const http = require('http');
@@ -24,6 +25,7 @@ app.disable('x-powered-by');
 app.use(morgan('dev'));
 app.use(compression());
 app.use(methods_http);
+app.use(helmet());
 
 swaggers(app);
 RouteV1(app, router, '/api/v1');
